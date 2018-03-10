@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Git," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="nlper">
+<meta name="description" content="Git 学习笔记">
+<meta name="keywords" content="Git">
 <meta property="og:type" content="article">
-<meta property="og:title" content="another2">
-<meta property="og:url" content="http://yoursite.com/2018/03/09/远程监督/远程监督学习/index.html">
+<meta property="og:title" content="Pro Git Note">
+<meta property="og:url" content="http://yoursite.com/2017/12/17/Pro-Git-Note/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="nlper">
+<meta property="og:description" content="Git 学习笔记">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-09T11:15:30.972Z">
+<meta property="og:updated_time" content="2017-12-17T04:23:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="another2">
-<meta name="twitter:description" content="nlper">
+<meta name="twitter:title" content="Pro Git Note">
+<meta name="twitter:description" content="Git 学习笔记">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/09/远程监督/远程监督学习/"/>
+  <link rel="canonical" href="http://yoursite.com/2017/12/17/Pro-Git-Note/"/>
 
 
 
 
 
-  <title>another2 | JinZeng's Blog</title>
+  <title>Pro Git Note | JinZeng's Blog</title>
   
 
 
@@ -262,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/09/远程监督/远程监督学习/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/Pro-Git-Note/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JinZeng">
@@ -279,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">another2</h1>
+          <h1 class="post-title" itemprop="name headline">Pro Git Note</h1>
         
 
         <div class="post-meta">
@@ -291,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-09T19:15:30+08:00">
-                2018-03-09
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T18:41:05+08:00">
+                2017-12-17
               </time>
             
 
@@ -302,6 +303,28 @@
           </span>
 
           
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Technology/" itemprop="url" rel="index">
+                    <span itemprop="name">Technology</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
 
           
             
@@ -314,6 +337,10 @@
 
           
 
+          
+              <div class="post-description">
+                  Git 学习笔记
+              </div>
           
 
         </div>
@@ -329,7 +356,84 @@
       
 
       
-        
+        <h2 id="Git综述"><a href="#Git综述" class="headerlink" title="Git综述"></a>Git综述</h2><p>Git和其他版本控制系统的区别在于，Git只关心文件数据的<em>整体</em>是否发生变化，而大多数其他系统则只关心文件内容的具体差异。Git并不保存变化的差异数据，Git更像是将变化的文件做快照后，记录在一个微型文件系统中。当再次提交更新时，同样对更新的文件做快照，不变的文件不保存，只是设置一个链接指向先前的文件。<br>总结：其他系统保存△x，Git保存变化后的x’</p>
+<p>Git近乎所有的操作都是本地执行<br>所以即使没有互联网也能够提交更新，只有在提交到远程仓库的时候才需要联网。</p>
+<p>时刻保持数据的完整性：<br>使用SHA-1 算法计算数据的检验和，SHA-1哈希值作为指纹字符串，Git中所有东西都是以哈希值作为索引的，而不是文件名。<br>常用的Git操作仅仅是添加数据到数据库。</p>
+<p>文件的三种状态</p>
+<blockquote>
+<p>committed：文件已经保存在本地数据库中了。<br>modified：修改了文件，但是还没有提交。<br>staged：已经修改的文件放在下次要提交的文件清单中</p>
+</blockquote>
+<p>每个项目中都有一个.git目录。保存元数据和对象数据库。Clone就是clone这个目录。基本的工作流程就是：</p>
+<blockquote>
+<p>1、在工作目录修改文件<br>2、文件快照，并保存在暂存区<br>3、提交更新，快照-&gt;.git目录</p>
+</blockquote>
+<h3 id="初次运行Git前的配置"><a href="#初次运行Git前的配置" class="headerlink" title="初次运行Git前的配置"></a>初次运行Git前的配置</h3><p>Git提供了git config 工具，其实就是git config命令。可以用来配置环境变量。变量的存储位置为：</p>
+<blockquote>
+<p>/etc/gitconfig文件：所有用户都普遍适用的配置。git config –system 就是修改的这个文件<br>~/.gitconfig文件：只适用于本用户，git config –global修改的就是这个文件</p>
+</blockquote>
+<p>当前项目中，还有一个.git目录中的配置文件（.git/config文件），仅仅对于当前项目有效，每个级别的配置都会覆盖上层的相同配置。</p>
+<p>用户信息设置</p>
+<blockquote>
+<p>git config - -global user.name “fengxuegt”<br>git config - -global user.email “<a href="mailto:fengxuegt@163.com" target="_blank" rel="noopener">fengxuegt@163.com</a>“</p>
+</blockquote>
+<p>若是要在特别的项目中使用别的配置，去掉- -global之后重新设置就行了。</p>
+<p>修改文本编辑器</p>
+<blockquote>
+<p>git config - -global core.editor emacs</p>
+</blockquote>
+<p>查看已有的配置信息</p>
+<blockquote>
+<p>git config - -list</p>
+</blockquote>
+<p>获取帮助</p>
+<blockquote>
+<p>git help <verb></verb></p>
+</blockquote>
+<h2 id="Git-基础"><a href="#Git-基础" class="headerlink" title="Git 基础"></a>Git 基础</h2><p>获得项目的Git仓库的两种方式：</p>
+<blockquote>
+<p>在现存的目录下，通过导入所有文件来创建新的git仓库。<br>从已有的git仓库clone</p>
+</blockquote>
+<p>在工作目录中初始化git仓库</p>
+<blockquote>
+<p>执行git init ，在当前目录中就会出现一个.git目录，所有git需要的资源数据都放在里面。若是有几个想被纳入管理，使用git add</p>
+</blockquote>
+<p>克隆新仓库：</p>
+<blockquote>
+<p>执行git clone [url]<br>执行后在当前目录中就会出现一个与你clone的项目同名的目录，其中有一个.git目录。</p>
+</blockquote>
+<p>记录每次更新到仓库：</p>
+<blockquote>
+<p>工作目录下的文件无外乎就两种状态：未被跟踪和已被跟踪<br>刚clone的仓库中，所有文件都是已被跟踪且未修改<br>编辑过某些文件后，Git将其标记为已修改，逐步将其放入暂存区，直到最后一次性提交所有暂存文件。</p>
+</blockquote>
+<p>检查当前文件状态：</p>
+<blockquote>
+<p>git status</p>
+</blockquote>
+<p>跟踪新文件：</p>
+<blockquote>
+<p>git add<br>意思是将文件加入大staged area<br>暂存修改文件：同上</p>
+</blockquote>
+<p>忽略某些文件：</p>
+<blockquote>
+<p>有时候有一些不想纳入到git管理的文件，然后又不想一直在列表里看见，这时候就需要建立一个.gitignore文件<br>例如：<br><strong>.[oa] 忽略以.o或者.a结尾的文件<br>*</strong>~ 忽略以~结尾的文件</p>
+</blockquote>
+<p>格式规范：</p>
+<blockquote>
+<p>空行或者以#开头的行将被忽略<br>标准glob模式匹配<br>匹配模式最后跟反斜杠标示忽略的是目录<br>可使用!取反</p>
+</blockquote>
+<p>查看更新</p>
+<blockquote>
+<p>git diff 比较的是当前文件和暂存区文件的差异（未add的部分）<br>git diff - -cached 暂存文件和上次提交之间的差异。（未commit的部分）</p>
+</blockquote>
+<p>提交更新：</p>
+<blockquote>
+<p>并不会记录还未add的内容<br>提交完成后会告知你在哪个分支提交的。提交的是暂存区，已经修改但是还未暂存的部分仍然保持修改状态。</p>
+</blockquote>
+<p>跳过使用暂存区直接提交</p>
+<blockquote>
+<p>git commit -a 将所有已跟踪文件暂存并一并提交</p>
+</blockquote>
+
       
     </div>
     
@@ -344,6 +448,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/Git/" rel="tag"># Git</a>
+          
+        </div>
+      
 
       
       
@@ -353,18 +463,14 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/09/关系抽取/关系抽取/" rel="next" title="">
-                <i class="fa fa-chevron-left"></i> 
-              </a>
-            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/03/09/try/" rel="prev" title="try">
-                try <i class="fa fa-chevron-right"></i>
+              <a href="/2018/03/09/hello-world/" rel="prev" title="Hello World">
+                Hello World <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -417,8 +523,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -433,14 +548,32 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">2</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
@@ -470,6 +603,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git综述"><span class="nav-number">1.</span> <span class="nav-text">Git综述</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#初次运行Git前的配置"><span class="nav-number">1.1.</span> <span class="nav-text">初次运行Git前的配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-基础"><span class="nav-number">2.</span> <span class="nav-text">Git 基础</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
