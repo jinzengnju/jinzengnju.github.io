@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="LSTM原理推导">
+<meta name="keywords" content="深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="LSTM学习">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/LSTM学习/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="LSTM原理推导">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/39de6487148928e44679cc191dad78bf.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/5a2f1d8c42f67b10f32ea3b63f97c3ca.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/ea24c8c5cb30022fc431d9eea4b316d1.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/7aaee65ad515e3a7e2ddd9d5dcf5f961.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/6bfdac56dc08f79f21f39df19b48ceb6.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/8635da5ff4e3b8f8de34f68ce6b7a8a5.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/290ad74b4cf250b5124d7e530a7991a9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/a73c02b696425f434376b0cad2f65580.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/c1b51f5d04e3cca5c9557ade2d20aea1.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/0ec7b3b1c4dae5f666d0410fbfdc8ded.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/cb4a96fb0fb611d379e1ad91fc597cd0.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/0a353f8467b4f2357621c86568954fb2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/41afeb3fd539111516c794f01f5661da.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/0b659717688d9d8c37995833186a1eb0.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/75f320a0f74c8d4fc835232332845c98.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/b2197dd6bd26bed7cb94b32cadb5141d.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/6d664c01e96951267d3e2d952f2a3cdd.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/fa9da3fcdf82678fe1c3a6b35cf7b9c7.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/bc33052b84b842efbb87a8e02f7453b2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/d2e0f5d4e4cff5c21bc8b8c1f78866ea.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/4423d4a7813dfdf2259f515c5e83801f.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/b052acbd7127a45327e125a46c8dbb07.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/ec70fd35147968fabed2bcd4fae4b23a.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/9ae74f99eb2dda3c7070247da8b44ff1.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/d5183a63670e50f18dc478b258813970.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/11fde0d10daaa0621d0e4e80c8ae25f3.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/1060e033a4504f29a0d2877943a123c7.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/LSTM学习/71fe3ff319a0fc54fabf844793212799.png">
+<meta property="og:updated_time" content="2018-03-10T10:59:56.343Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="LSTM学习">
+<meta name="twitter:description" content="LSTM原理推导">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/10/LSTM学习/39de6487148928e44679cc191dad78bf.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/LSTM学习/"/>
+
+
+
+
+
+  <title>LSTM学习 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/LSTM学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">LSTM学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T18:57:46+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  LSTM原理推导
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <ol>
+<li><strong>LSTM可以处理长距离依赖的问题</strong></li>
+</ol>
+<blockquote>
+<p>  在之前的RNN沿着时间线反向传播中，很容易出现梯度消失与梯度爆炸的问题，无法向前看很多个词语。那么梯度消失会导致什么后果呢？</p>
+</blockquote>
+<blockquote>
+<p>  这里我们针对交叉熵损失函数对权重矩阵W梯度的计算公式讨论：权重数组W最终的梯度是各个时刻的梯度和（前面RNN已经证明）</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/39de6487148928e44679cc191dad78bf.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/5a2f1d8c42f67b10f32ea3b63f97c3ca.png" alt=""></p>
+<blockquote>
+<p>  这里解释一下为什么时间越往前，损失函数对权重数组W的梯度会明显变小</p>
+</blockquote>
+<blockquote>
+<p>  损失函数对权重数组W的梯度=该时刻的误差项*上一时刻循环层的输出st-1，具体细节参见RNN部分。从上图的t-3时刻开始，梯度已经几乎减少到0了。那么，从这个时刻开始再往之前走，得到的梯度（几乎为零）就不会对最终的梯度值有任何贡献，这就相当于无论t-3时刻之前的网络状态h是什么，在训练中都不会对权重数组W的更新产生影响，也就是网络事实上已经忽略了t-3时刻之前的状态。这就是原始RNN无法处理长距离依赖的原因。</p>
+</blockquote>
+<blockquote>
+<p>  既然我们无法通过反向传播实现长距离依赖，假如我们能够记录之前很久的状态，用记录的结果直接影响当前的时刻即可。</p>
+</blockquote>
+<blockquote>
+<p>  其实，长短时记忆网络的思路比较简单。原始RNN的隐藏层只有一个状态，即h，它对于短期的输入非常敏感。那么，假如我们再增加一个状态，即c，让它来保存长期的状态，那么问题不就解决了么？新增加的状态c，称为单元状态(cell<br>  state)。我们把上图按照时间维度展开：</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/ea24c8c5cb30022fc431d9eea4b316d1.png" alt=""></p>
+<blockquote>
+<p>  LSTM的输入有三个量：</p>
+</blockquote>
+<ol>
+<li><p>当前时刻网络的输入xt</p>
+</li>
+<li><p>上一时刻LSTM的输出值ht-1</p>
+</li>
+<li><p>上一时刻的单元状态ct-1</p>
+</li>
+</ol>
+<blockquote>
+<p>  LSTM的输出有两个：</p>
+</blockquote>
+<ol>
+<li><p>当前时刻LSTM输出值ht</p>
+</li>
+<li><p>当前时刻的单元状态ct</p>
+</li>
+</ol>
+<blockquote>
+<p>  注意：x，h，c都是向量</p>
+</blockquote>
+<blockquote>
+<p>  长期状态c（单元状态）的控制：LSTM的思路是使用三个控制开关。第一个开关，负责控制继续保存长期状态c；第二个开关，负责控制把即时状态输入到长期状态c；第三个开关，负责控制是否把长期状态c作为当前的LSTM的输出。</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/7aaee65ad515e3a7e2ddd9d5dcf5f961.png" alt=""></p>
+<ol>
+<li><strong>长短时记忆网络的前向计算</strong></li>
+</ol>
+<p>计算输出h和单元状态c，LSTM采用了门的概念来实现上述开关的作用。门实际上就是一层全连接层，它的输入是一个向量，输出是一个0到1之间的实数向量。假设W是门的权重向量，是偏置项，那么门可以表示为：</p>
+<p><img src="/2018/03/10/LSTM学习/6bfdac56dc08f79f21f39df19b48ceb6.png" alt=""></p>
+<blockquote>
+<p>  换言之，假如当门（用一层神经网络实现）的输出为零向量，用该零向量乘以需要被控制向量得到零向量，相当于需要被控制向量所有成分都不通过该门。假如当门（用一层神经网络实现）的输出为1向量，用该1向量乘以需要被控制向量得到原向量，相当于需要被控制向量所有成分都通过该门。然而，实际上，实现了门的神经网络的输出并不是完全的零向量或者1向量，而是介于(0，1)，所以，所有门的状态都是半开半闭，即相当于以一定比例的成分通过该门。</p>
+</blockquote>
+<ol>
+<li><strong>各个门的分析</strong></li>
+</ol>
+<blockquote>
+<p>  <strong>LSTM用两个门来控制单元状态c的内容：</strong></p>
+</blockquote>
+<blockquote>
+<p>  遗忘门：决定了上一时刻的单元状态ct-1有多少成分保留到当前时刻ct</p>
+</blockquote>
+<blockquote>
+<p>  输入门：它决定了当前时刻网络的输入xt有多少成分保存到单元状态ct</p>
+</blockquote>
+<blockquote>
+<p>  <strong>LSTM用输出门来控制单元状态ct有多少输出到LSTM的当前输出值ht</strong></p>
+</blockquote>
+<ol>
+<li><strong>遗忘门</strong></li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/8635da5ff4e3b8f8de34f68ce6b7a8a5.png" alt=""></p>
+<blockquote>
+<p>  注意：通常单元状态c的维度dc显示与隐藏层的维度dh是相同的，权重矩阵Wf是由Wfh与Wfx两部分组成的。最后我们得到的遗忘门输出向量维度为dc*1的列向量，用于控制长期状态ct-1有多少保留到下一个状态。</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/290ad74b4cf250b5124d7e530a7991a9.png" alt=""></p>
+<ol>
+<li><strong>输入门</strong></li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/a73c02b696425f434376b0cad2f65580.png" alt=""></p>
+<ol>
+<li><strong>接下来，计算用于描述当前输入的单元状态</strong></li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/c1b51f5d04e3cca5c9557ade2d20aea1.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/0ec7b3b1c4dae5f666d0410fbfdc8ded.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/cb4a96fb0fb611d379e1ad91fc597cd0.png" alt=""></p>
+<blockquote>
+<p>  总结：如何计算得到当前时刻的单元状态ct是重点，来源于上一时刻的长期状态ct-1与当前输入的单元状态c’t（由Wc*[ht-1，xt]+bc再作用于tanh激活函数可以得到），这两个都有少部分进入当前时刻的单元状态ct，具体多少由遗忘门ft与输入门it控制。（门的激活函数是sigmoid函数，计算当前输入的单元状态c’t所用的激活函数是tanh函数）。</p>
+</blockquote>
+<ol>
+<li><strong>输出门</strong></li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/0a353f8467b4f2357621c86568954fb2.png" alt=""></p>
+<blockquote>
+<p>  输出门激活函数还是为sigmiod函数，每个维度值域为(0,1) ，只允许少量成分通过。</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/41afeb3fd539111516c794f01f5661da.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/0b659717688d9d8c37995833186a1eb0.png" alt=""></p>
+<ol>
+<li><strong>LSTM的训练</strong></li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/75f320a0f74c8d4fc835232332845c98.png" alt=""></p>
+<blockquote>
+<p>  我们设定门的激活函数为sigmoid函数，输出的激活函数为tanh函数。</p>
+</blockquote>
+<blockquote>
+<p>  LSTM的参数有八组：遗忘门、输入门、输出们的权重与偏置，以及计算单元状态的权重矩阵Wc与bc。</p>
+</blockquote>
+<blockquote>
+<p>  Wfh对应着输入项ht-1部分，维度为dc*dh，Wfx对应着输入项xt部分，维度为dc*dx</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/b2197dd6bd26bed7cb94b32cadb5141d.png" alt=""></p>
+<blockquote>
+<p>  这里请注意，非常重要！！！！！！！！！！！！</p>
+</blockquote>
+<blockquote>
+<p>  LSTM的误差项定义，不同于RNN，LSTM不再是损失函数对加权求和的偏导，而是定义为对输出ht的偏导。</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/6d664c01e96951267d3e2d952f2a3cdd.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/fa9da3fcdf82678fe1c3a6b35cf7b9c7.png" alt=""></p>
+<blockquote>
+<p>  <strong>4.1 沿着时间线反向传递</strong></p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/bc33052b84b842efbb87a8e02f7453b2.png" alt=""></p>
+<blockquote>
+<p>  因为Ot，ft，it等它们都有共同因子[ht-1,xt]</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/d2e0f5d4e4cff5c21bc8b8c1f78866ea.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/4423d4a7813dfdf2259f515c5e83801f.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/b052acbd7127a45327e125a46c8dbb07.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/ec70fd35147968fabed2bcd4fae4b23a.png" alt=""></p>
+<blockquote>
+<p>  一定要非常清楚δt与δf,t，δi,t，δo,t的定义式才能看懂推导</p>
+</blockquote>
+<blockquote>
+<p>  <strong>4.2 沿层数的反向传递</strong></p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/9ae74f99eb2dda3c7070247da8b44ff1.png" alt=""></p>
+<ol>
+<li><strong>权重更新</strong></li>
+</ol>
+<blockquote>
+<p>  有前面RNN的推导，我们知道Wfh，Wih，Wch，Woh的权重梯度为各个时刻的梯度之和，所以需要先求出它们在t时刻的梯度，才能求出最终的梯度。</p>
+</blockquote>
+<p><img src="/2018/03/10/LSTM学习/d5183a63670e50f18dc478b258813970.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/11fde0d10daaa0621d0e4e80c8ae25f3.png" alt=""></p>
+<p><img src="/2018/03/10/LSTM学习/1060e033a4504f29a0d2877943a123c7.png" alt=""></p>
+<ol>
+<li><strong>LSTM的变体GRU</strong></li>
+</ol>
+<blockquote>
+<p>  GRU对LSTM做了两个大改动：</p>
+</blockquote>
+<ol>
+<li><p>将输入门、遗忘门、输出门变为两个门：更新门Zt和重置门rt。</p>
+</li>
+<li><p>将单元状态与输出合并为一个状态：h</p>
+</li>
+</ol>
+<p><img src="/2018/03/10/LSTM学习/71fe3ff319a0fc54fabf844793212799.png" alt=""></p>
+<blockquote>
+<p>  总结：相比于LSTM有三个输入与2个输出，GRU只有两个输入和一个输出</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/10/软件开发/" rel="next" title="软件工程管理">
+                <i class="fa fa-chevron-left"></i> 软件工程管理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="深度学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="RNN数学推导以及实例分析">
+<meta name="keywords" content="深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RNN原理">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/RNN学习/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="RNN数学推导以及实例分析">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/4afd71fdb9bdd54299f85394b8befa4b.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/882acd47a7faac50b322b601b2d86b41.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/92250442ecbc8d35b225d52274734d62.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/5d906d6451e9d82b25808d933597feaf.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/15cb378efcad1330ad4ba6d12d0732c1.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/8ffcfaeda84ec847a4e1888408a43aa0.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/b0cd23ebe79a55bb0cd6533541f33259.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/4121cd1ecfdced302feac6aa19aaaad2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/7428704fd97d22b838f6b5732d239c00.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/c572e50f111560c4844b61ef9c01ea86.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/cff492cbdd16c2e46603ff7e186cc61e.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/6a3c1c442c85f30b9ab26da5925ed7d0.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/5c2027a80d7ea605354e01177428d641.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/aa2a14e323544a74850338f242e8b938.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/04a694708c4fd405feeedfa6767e64f5.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/75892d7c7c9f19667bd20e8e7c6507e9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/c6c96ae5da7a0d1d18a8083d42a2c5a2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/09a590b9891597dfdf0ca2fd29d0108b.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/14fe21960467a6574455ae3e30df8d5f.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/11ce6d934a02976ea01b4e695254fd24.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/ad67957036046b5c13f874143b891db9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/0324b292052c102e55ffb867684cebe6.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/1c8259b55a92a9ef29fc18b7ee3d89f8.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/8b9531c1d56b447aa706fc4410e085df.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/e5efb23c6df1ed0c25176a534e7db0bb.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/37e662c91f5f6910364d99617e70b4a3.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/793d8cd5b5acdba9ef221a71d1f49354.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/3a2c6bf01b7f19902e8901aa19129c6b.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/2f5c271c9798e2afd3df90bd71dd7c97.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/RNN学习/41060f6e45b649dcad5db00929b8be0e.png">
+<meta property="og:updated_time" content="2018-03-10T10:56:08.614Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RNN原理">
+<meta name="twitter:description" content="RNN数学推导以及实例分析">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/10/RNN学习/4afd71fdb9bdd54299f85394b8befa4b.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/RNN学习/"/>
+
+
+
+
+
+  <title>RNN原理 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/RNN学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RNN原理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T16:08:17+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  RNN数学推导以及实例分析
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近准备文本的关系抽取，其中用到了LSTM和CRF，这里先贴出对循环神经网络的总结。</p>
+<p>===========================================================</p>
+<p>说明：本篇总结大部分是借鉴其他人的资料，在别人基础上补充了自己对RNN的理解。其实数学推导的话仔细看是不难的，除了在证明权重W、U的梯度是各个时刻权重梯度的和稍微有点麻烦，其他相信大家都能看懂</p>
+<p>哈哈哈，总结下来感悟还是蛮深的，对RNN的理解又上了一层！！！！！！！！！</p>
+<p>===========================================================</p>
+<ol>
+<li><strong>传统神经网络缺点</strong></li>
+</ol>
+<blockquote>
+<p>  传统神经网络只能处理一个个的输入，前一个输入和后一个输入是完全没有关系的。对于卷积神经网络，虽然可以考虑到上下几个词的信息（这个依赖于你filter的大小）。但是如果想处理序列信息，即前面的输入和后面的输入都是有联系的，这就会用到循环神经网络。理论上，循环神经网络可以往前看任意多个词语。</p>
+</blockquote>
+<ol>
+<li><strong>语言模型</strong></li>
+</ol>
+<blockquote>
+<p>  我昨天上学迟到了，老师批评了____。</p>
+</blockquote>
+<blockquote>
+<p>  我们给电脑展示了这句话前面这些词，然后，让电脑写下接下来的一个词。在这个例子中，接下来的这个词最有可能是『我』，而不太可能是『小明』，甚至是『吃饭』。</p>
+</blockquote>
+<blockquote>
+<p>  语言模型：给定一句话的前面部分，预测接下来最有可能的一个词是什么。</p>
+</blockquote>
+<blockquote>
+<p>  其实，在之前，N-Gram模型也可以作为语言模型。但是如果N非常大，模型的大小与N是成指数级的，会占用海量的存储空间。一般对于我们而言N=3已经是极限情况，N-gram无法向前看更多的词语。</p>
+</blockquote>
+<ol>
+<li><strong>循环神经网络结构</strong></li>
+</ol>
+<p><img src="/2018/03/10/RNN学习/4afd71fdb9bdd54299f85394b8befa4b.png" alt=""></p>
+<blockquote>
+<p>  <strong>这里面没有画出来表示神经元节点的圆圈</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>隐藏层其实是多个节点，节点数与向量s的维度相同</strong></p>
+</blockquote>
+<blockquote>
+<p>  在t时刻接受输入$$x_{t}$$之后，隐藏层的之位$$s_{t}$$，输出值是$$o_{t}$$。$$s_{t}$$的值不仅取决于$$x_{t}$$，还取决于$$s_{t</p>
+<ul>
+<li>1}$$</li>
+</ul>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/882acd47a7faac50b322b601b2d86b41.png" alt=""></p>
+<blockquote>
+<p>  U是输入x的权重矩阵，W是上一次的值$$s_{t -<br>  1}$$作为这一次的输入的<strong>权重矩阵</strong>，f是<strong>激活函数</strong>。</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/92250442ecbc8d35b225d52274734d62.png" alt=""></p>
+<blockquote>
+<p>  所以循环神经网络的输出$$o_{t}$$是受前面历次输入值$$x_{t}$$，$$x_{t -<br>  1}$$，$$x_{t -<br>  2}$$….影响的，这就是为什么循环神经网络可以往前看任意多个输入值。</p>
+</blockquote>
+<ol>
+<li><strong>双向循环神经网络</strong></li>
+</ol>
+<blockquote>
+<p>  例子：我的手机坏了，我打算____一部新手机。</p>
+</blockquote>
+<blockquote>
+<p>  手机坏了，那么我是打算修一修？换一部新的？还是大哭一场？这些都是无法确定的。但如果我们也看到了横线后面的词是『一部新手机』，那么，横线上的词填『买』的概率就大得多了。</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/5d906d6451e9d82b25808d933597feaf.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/15cb378efcad1330ad4ba6d12d0732c1.png" alt=""></p>
+<blockquote>
+<p>  正向计算和反向计算<strong>不共享权重</strong>，也就是说U和U’、W和W’、V和V’都是不同的<strong>权重矩阵</strong>。</p>
+</blockquote>
+<ol>
+<li><strong>深度循环神经网络</strong></li>
+</ol>
+<blockquote>
+<p>  前面我们介绍的<strong>循环神经网络</strong>只有一个隐藏层，我们当然也可以堆叠两个以上的隐藏层，这样就得到了<strong>深度循环神经网络</strong>。如下图所示：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/8ffcfaeda84ec847a4e1888408a43aa0.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/b0cd23ebe79a55bb0cd6533541f33259.png" alt=""></p>
+<blockquote>
+<p>  对于隐藏层第i层，矩阵U乘的是<strong>t时刻</strong>前一层i-1层的值st(i-1)<br>  ，W乘的是t-1时刻第l层的值st-1(i)（这里我感觉上面没写清楚）</p>
+</blockquote>
+<ol>
+<li><strong>循环神经网络的训练BPTT算法</strong></li>
+</ol>
+<blockquote>
+<p>  思路：误差传递分两块，其一是沿着时间线的反向传递用于更新权重矩阵W，其一是沿着层数的反向传递用于更新权重矩阵U。</p>
+</blockquote>
+<ol>
+<li><p>前向计算每个神经元的输出值；</p>
+</li>
+<li><p>反向计算每个神经元的误差项值，<strong>它是误差函数E对神经元j的加权输入的偏导数</strong>；</p>
+</li>
+<li><p>计算每个权重的梯度。</p>
+</li>
+</ol>
+<blockquote>
+<p>  最后再用<strong>随机梯度下降</strong>算法更新权重。这里的误差函数，对于循环神经网络而言，一般选择交叉熵损失函数</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/4121cd1ecfdced302feac6aa19aaaad2.png" alt=""></p>
+<blockquote>
+<p>  <strong>6.1 前向计算</strong></p>
+</blockquote>
+<blockquote>
+<p>  我们假设输入向量x的维度是m，输出向量s的维度是n，则矩阵U的维度是，矩阵W的维度是。下面是上式展开成矩阵的样子，看起来更直观一些：</p>
+</blockquote>
+<blockquote>
+<p>  <strong>自己理解：输入向量x的维度为m，那么输入层就有m个神经元，每个神经元接受输入向量x的一个维度的值。向量s的维度为n，那么隐藏层就有n个神经元。这些具体的神经元在上图中都没有画出来，它只是抽象的网络在时间上进行展开了而已（一个圆圈代表了很多个神经元节点）。</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>重要的事情说三遍！！！！！！！！！！！！！！</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>上面的圆圈代表的不是一个神经元</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>上面的圆圈代表的不是一个神经元</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>上面的圆圈代表的不是一个神经元</strong></p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/7428704fd97d22b838f6b5732d239c00.png" alt=""></p>
+<blockquote>
+<p>  Sjt表示向量s的第j个元素在t时刻的值（隐层第j个神经元在t时刻的值）</p>
+</blockquote>
+<blockquote>
+<p>  uji表示输入层第i个神经元到循环层第j个神经元的权重</p>
+</blockquote>
+<blockquote>
+<p>  Wji表示循环层第t-1时刻的第i个神经元到循环层第t个时刻的第j个神经元的权重（不要嫌我啰嗦，这里再说一下，<strong>上面的一个圈代表的是某时刻一组神经元</strong>）。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>6.2 后向传播</strong></p>
+</blockquote>
+<p>神经元j的误差项定义：交叉熵损失函数对神经元j的加权输入的偏导数；</p>
+<p><img src="/2018/03/10/RNN学习/c572e50f111560c4844b61ef9c01ea86.png" alt=""></p>
+<p><strong>沿时间线反向传递</strong></p>
+<p>某神经元在k时刻的误差项为（其中netk为该神经元的加权输入）：</p>
+<p><img src="/2018/03/10/RNN学习/cff492cbdd16c2e46603ff7e186cc61e.png" alt=""></p>
+<p>如何计算上式：</p>
+<p><img src="/2018/03/10/RNN学习/6a3c1c442c85f30b9ab26da5925ed7d0.png" alt=""></p>
+<blockquote>
+<p>  <strong>这里建议大家看一下向量函数对向量求导的知识，求一阶导数得到Jacobian矩阵，二阶导得到Heissan矩阵</strong></p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/5c2027a80d7ea605354e01177428d641.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/aa2a14e323544a74850338f242e8b938.png" alt=""></p>
+<blockquote>
+<p>  <strong>带入</strong>误差项定义式子得到：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/04a694708c4fd405feeedfa6767e64f5.png" alt=""></p>
+<p><strong>沿网络层数反向传递</strong></p>
+<p><img src="/2018/03/10/RNN学习/75892d7c7c9f19667bd20e8e7c6507e9.png" alt=""></p>
+<blockquote>
+<p>  由上面式子可以得到：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/c6c96ae5da7a0d1d18a8083d42a2c5a2.png" alt=""></p>
+<blockquote>
+<p>  第l-1层某神经元在t时刻的误差项定义为损失函数对该神经元加权输入的偏导：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/09a590b9891597dfdf0ca2fd29d0108b.png" alt=""></p>
+<blockquote>
+<p>  <strong>6.3 权重更新：用梯度下降法，更新公式如下所示</strong></p>
+</blockquote>
+<blockquote>
+<p>  权重：=权重 - 学习率*损失函数对权重的梯度</p>
+</blockquote>
+<blockquote>
+<p>  所以先计算权重梯度：以计算损失函数对权重矩阵W为例讲解</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/14fe21960467a6574455ae3e30df8d5f.png" alt=""></p>
+<blockquote>
+<p>  普通神经网络的权重梯度算法：只要知道任意层的神经元误差项以及上一层的输出激活值a，就可以求出权重矩阵在l任意层的梯度。迁移到循环神经网络：只要知道了任意一个时刻的<strong>误差项，</strong>以及上一个时刻循环层的输出值，即可求出权重矩阵t时刻的梯度。</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/11ce6d934a02976ea01b4e695254fd24.png" alt=""></p>
+<blockquote>
+<p>  推导如下所示：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/ad67957036046b5c13f874143b891db9.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/0324b292052c102e55ffb867684cebe6.png" alt=""></p>
+<blockquote>
+<p>  具体证明过程这里不解释，可参考<a href="https://zybuluo.com/hanbingtao/note/541458" target="_blank" rel="noopener">https://zybuluo.com/hanbingtao/note/541458</a></p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/1c8259b55a92a9ef29fc18b7ee3d89f8.png" alt=""></p>
+<ol>
+<li><strong>梯度消失与梯度爆炸问题</strong></li>
+</ol>
+<blockquote>
+<p>  问题：前面介绍的几种RNN不能很好的处理较长的序列。主要原因在于RNN在训练中容易发生梯度消失与梯度爆炸的问题，使得RNN无法捕捉到长距离的影响。（但是现在有LSTM完美的解决了上述的问题）</p>
+</blockquote>
+<blockquote>
+<p>  根据误差项的反向传播（沿着时间轴反向传播）：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/8b9531c1d56b447aa706fc4410e085df.png" alt=""></p>
+<blockquote>
+<p>  如果t-k很大的话（也就是向前看很远的时候），会导致对应的<strong>误差项</strong>的值增长或缩小的非常快，这样就会导致相应的<strong>梯度爆炸</strong>和<strong>梯度消失</strong>问题。取决于β大于1还是小于1</p>
+</blockquote>
+<blockquote>
+<p>  总结：梯度消失于梯度爆炸表现在沿着时间轴线反向传播上，不能往前看很长的序列。另一方面，如果我们用的RNN很深，层数很大，也会造成梯度消失与梯度爆炸的问题。</p>
+</blockquote>
+<ol>
+<li><strong>RNN应用举例：</strong></li>
+</ol>
+<blockquote>
+<p>  我们首先把词依次输入到循环神经网络中，每输入一个词，循环神经网络就输出截止到目前为止，下一个最可能的词。例如，当我们依次输入</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/e5efb23c6df1ed0c25176a534e7db0bb.png" alt=""></p>
+<blockquote>
+<p>  <strong>解释内部运行机理：</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>首先先明确，每个圆圈指的不是一个神经元，而是一层的神经元。在输入“我”的时候，先把“我”转成embedding向量（假设维度为m），那么圆圈x2就有m个神经元接受这个向量，并乘以矩阵U（m*n）得到n维度向量（n为隐层s的向量维度或者叫做隐层神经元的数量）。那么如何计算s2呢？假设隐层s的值为n维向量（隐层有n个神经元，每个神经元输出n维向量某一维度的值），这个n维向量乘以矩阵W(n*n)变为n为向量。将两个n维度向量相加得到n维度向量，s2代表的一组n个神经元接受该n维向量，每个神经元接受一个维度的值，并用激活函数激活，然后输出。</strong></p>
+</blockquote>
+<blockquote>
+<p>  语言模型要求的输出是下一个最可能的词，我们可以让循环神经网络计算计算词典中每个词是下一个词的概率，这样，概率最大的词就是下一个最可能的词。因此，神经网络的输出向量也是一个N维向量，向量中的每个元素对应着词典中相应的词是下一个词的概率。如下图所示：</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/37e662c91f5f6910364d99617e70b4a3.png" alt=""></p>
+<blockquote>
+<p>  那么，怎么样才能让神经网络输出概率呢？方法就是用softmax层作为神经网络的输出层。</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/793d8cd5b5acdba9ef221a71d1f49354.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/3a2c6bf01b7f19902e8901aa19129c6b.png" alt=""></p>
+<ol>
+<li><strong>交叉熵误差</strong></li>
+</ol>
+<blockquote>
+<p>  当神经网络的输出层是softmax层时，对应的误差函数E通常选择交叉熵误差函数</p>
+</blockquote>
+<p><img src="/2018/03/10/RNN学习/2f5c271c9798e2afd3df90bd71dd7c97.png" alt=""></p>
+<p><img src="/2018/03/10/RNN学习/41060f6e45b649dcad5db00929b8be0e.png" alt=""></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/10/软件开发/" rel="prev" title="软件工程管理">
+                软件工程管理 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
