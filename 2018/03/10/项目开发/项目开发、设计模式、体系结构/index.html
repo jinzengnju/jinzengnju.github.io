@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="软件开发," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="企业进销存系统">
+<meta name="keywords" content="软件开发">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件工程管理">
+<meta property="og:url" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="企业进销存系统">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/4c357a685cf96ba04c6116828b982a28.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c3936d84f1e725ee21d983ae2da094d2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c409d34f9a74fd5490ddea4b4773a353.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/756b7b6e95125469b43fea122cc5b8b1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/6e072358c60cf93914b59672669abbff.jpg">
+<meta property="og:updated_time" content="2018-03-10T08:36:11.457Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="软件工程管理">
+<meta name="twitter:description" content="企业进销存系统">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/4c357a685cf96ba04c6116828b982a28.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/"/>
+
+
+
+
+
+  <title>软件工程管理 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">软件工程管理</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-10T16:11:11+08:00">
+                2018-03-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/软件开发/" itemprop="url" rel="index">
+                    <span itemprop="name">软件开发</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  企业进销存系统
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>软件工程计算这门课是真的烦，作业贼多，过程中记得自己无数次抱怨。（哈哈，推荐大家一首“最近比较烦”的歌）</p>
+<p>哈哈，实诚一点吧，其实我一路都是水过来的，希望老师没看见这篇文章！</p>
+<p>但是期末后，感觉其中有很多开发观念还是很牛逼的，这里就和大家分享一下！</p>
+<p>首先和大家分享一下这门课一些重要的概念，后面再和大家讨论搭建一个项目的过程。</p>
+<ol>
+<li><strong>需求工程</strong></li>
+</ol>
+<p>需求工程分为需求开发和需求管理，其中需求开发包括需求获取、需求分析、需求规格说明、需求验证。</p>
+<p>需求层次性：业务需求，用户需求、系统需求需求规格说明我们应该要明确系统级需求。业务需求是解决方案和系统特性，用户需求描述的是任务，系统需求描述的是系统行为。针对业务需求中每个特性都可以建立一组用户需求，根据每个用户需求，可以依据任务的交互细节将之转化为系统级需求。</p>
+<blockquote>
+<p>  需求分析方法（面向对象方法）：用例图、概念类图、交互图、状态图</p>
+</blockquote>
+<ol>
+<li><strong>软件设计</strong></li>
+</ol>
+<p><strong>软件体系结构风格（这里举比较熟悉的几种风格）</strong></p>
+<p>分层式风格：跨层次的连接是禁止的，逆向的连接是禁止的。缺点：1.<br>性能损失，可能会产生冗余的调用处理 2.<br>难以确定层数和粒度。层粒度大，不能完全发挥分层风格的可复用性和可修改性。如果粒度小，层次数量就会很多，模型很复杂。本次项目采用分层风格，分为了展示层、业务逻辑层以及数据层。</p>
+<p>MVC：MVC一般用于网络开发，模型封装了系统的数据和状态信息，实现业务逻辑，对外提供数据服务和执行业务逻辑。视图封装了用户交互，提供业务展现，接受用户行为。控制封装了系统的控制逻辑，根据用户的行为调用需要执行的业务逻辑和数据更新（调用模型），并且根据执行后的系统状态决定后续的业务展现。一个模型对应多个视图，一个视图可以对应多个模型。注意视图只能使用模型的数据查询服务，只有控制部件可以调用可能修改模型状态的程序，并将更改通知给视图。</p>
+<p>分层风格VS MVC</p>
+<p>用分层风格与MVC相比较，分层风格需要逐级调用，MVC中视图可以直接从模型中取数据。MVC的模型部件可以看成是三层风格里面业务逻辑和数据层的结合，因为MVC的模型部件本身也是含有数据对象的。</p>
+<p>软件设计应该遵循低耦合高内聚，耦合与内聚有如下情况。</p>
+<p><strong>耦合：</strong></p>
+<blockquote>
+<p>  内容耦合：一个模块直接操作或修改另一模块的数据，或直接进入另一模块</p>
+</blockquote>
+<blockquote>
+<p>  公共耦合：两个模块共享一个全局数据项</p>
+</blockquote>
+<blockquote>
+<p>  控制耦合：一个模块发送信息给另一个模块，接受信号的模块根据信号值执行程序（switch语句）</p>
+</blockquote>
+<blockquote>
+<p>  印记耦合：一个模块发送一条记录给另一模块，另一模块只用了该记录一个字段</p>
+</blockquote>
+<blockquote>
+<p>  数据耦合：两个模块间以参数形式传递基本数据类型的数据</p>
+</blockquote>
+<blockquote>
+<p>  非直接耦合</p>
+</blockquote>
+<p><strong>内聚：</strong></p>
+<blockquote>
+<p>  偶然内聚：一个模块里各个部分毫无关系</p>
+</blockquote>
+<blockquote>
+<p>  逻辑内聚：几个逻辑上相关的功能集在一起，但各部分在功能上毫无关系，包含若干个逻辑相似的动作，使用时可以选用一个或几个功能。（如模块内部switch语句）</p>
+</blockquote>
+<blockquote>
+<p>  过程内聚：模块内各部分无关，只是受一个控制流支配顺序执行</p>
+</blockquote>
+<blockquote>
+<p>  通信内聚：模块内各个组成部分使用相同的输入数据和输出数据</p>
+</blockquote>
+<blockquote>
+<p>  功能内聚：一个模块完成单一的功能，不要完成多余的功能。</p>
+</blockquote>
+<blockquote>
+<p>  信息内聚</p>
+</blockquote>
+<p><strong>软件设计的一些原则：</strong></p>
+<blockquote>
+<p>  <strong>单一职责原则</strong>：一个类只负责一项职责。如陆上动物呼吸空气，水里动物呼吸水，这时最好创建两个对象（陆上动物和水里动物对象）。否则，只创建一个Animal对象同时完成呼吸水和空气，那假如以后来了一种新的呼吸方式（比如呼吸火），需要修改Animal增加呼吸火的方法。而如果我们使用单一职责，可以新加一个呼吸火的动物类即可。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>里氏替换原则：</strong>子类可以扩展父类的功能，但不要修改父类的原有功能，即不要重写父类已有的功能方法，新建另一个方法扩展功能。使用类继承要遵循里氏替换原则。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>依赖倒置原则：</strong>具体依赖抽象。例子，有一个Book类，有个Mother类，mother可以讲book的故事。但如果我们想让mother类将newspaper的故事，这样是无法完成的，除非你修改book里面的方法。解决方式，先创建一个Ireader的接口，该接口定义拿到故事内容方法getContent()，然后book，newspaper分别去实现该接口，Mother持有Ireader引用，有成员函数narrate（Ireader<br>  reader）方法。在主程序中，新建book对象或者newspaper对象，传给narrate函数（），注意这里用到了多态（父类引用指向子类对象），因为本身我们新建的book对象或者newspaper对象，但我们强制把它看为Ireader类型的参数。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>接口隔离原则：</strong>客户端不应该依赖它不需要的接口，一个类对另一个类的依赖应该建立在最小的接口上。建立单一接口，不要建立太臃肿接口，尽量细化接口。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>迪米特法则：</strong>只与直接的朋友通信，一个对象应该对其他对象保持最小理解。举例：当一个人想去遛狗，千万不要命令狗的腿去走。而是人命令狗，让狗去命令它自己的腿走。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>开闭原则：</strong>一个软件实体如类、模块和函数应该对扩展开放，对修改关闭。</p>
+</blockquote>
+<ol>
+<li><strong>软件构造</strong></li>
+</ol>
+<blockquote>
+<p>  <strong>策略模式设计模式</strong></p>
+</blockquote>
+<p><img src="media/4c357a685cf96ba04c6116828b982a28.png" alt=""></p>
+<blockquote>
+<p>  将使用算法的职责和算法本身分开，Strategy是抽象策略接口，具体的策略类（ConcreateStrategyA与ConcreateStrategyB）都会实现该接口。</p>
+</blockquote>
+<blockquote>
+<p>  例子：对初级会员、中级会员、高级会员进行不同折扣方法后计算价格。先定义Strategy抽象接口，该接口定义了calPrice()计算价格的函数，初级会员、中级会员、高级会员计算价格的算法是三个实现了Strategy接口具体策略类。上下文环境Price价格类持有Strategy抽象接口引用，在其内部有设置策略的构造函数。这里我们将Price价格类与Client类给出方便大家理解。</p>
+</blockquote>
+<blockquote>
+<p>  Public class Price{</p>
+</blockquote>
+<blockquote>
+<p>  Private Strategy strategy;</p>
+</blockquote>
+<blockquote>
+<p>  Public Price(Strategy strategy){</p>
+</blockquote>
+<blockquote>
+<p>  this.strategy=strategy;</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  Public double quote(double price)//计算会员折扣后的价格{</p>
+</blockquote>
+<blockquote>
+<p>  Return this.strategy.calPrice();</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  Public class Client{</p>
+</blockquote>
+<blockquote>
+<p>  Public static void main(String[] args){</p>
+</blockquote>
+<blockquote>
+<p>  Strategy strategy=new AdvancedMemberStrategy();</p>
+</blockquote>
+<blockquote>
+<p>  //新建实现了Strategy接口的高级会员类</p>
+</blockquote>
+<blockquote>
+<p>  //父类引用指向子类对象，多态</p>
+</blockquote>
+<blockquote>
+<p>  Price price=new Price(strategy);</p>
+</blockquote>
+<blockquote>
+<p>  Double quote=price.quote(300);</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  注意：(1)建立Price对象时，新建的是AdvancedMemberStrategy对象，但它持有其父类引用。在quote函数中Return<br>  this.strategy.calPrice()会根据多态性调用高级会员的calPrice()方法。（2）策略模式并不决定何时使用算法，在什么情况下使用算法是由客户端Client决定的。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>抽象工厂模式设计模式</strong></p>
+</blockquote>
+<p><img src="media/c3936d84f1e725ee21d983ae2da094d2.png" alt=""></p>
+<blockquote>
+<p>  有多个抽象产品类，每个抽象产品类可以派生出多个具体产品类。</p>
+</blockquote>
+<blockquote>
+<p>  一个抽象工厂类，可以派生出多个具体工厂类。每个具体工厂类可以创建多个具体产品类实例。</p>
+</blockquote>
+<blockquote>
+<p>  客户Client通过抽象工厂接口的方法获得IProductA与IProductB，再利用产品接口来灵活使用具体的产品。（写过抽象工厂的同学会发现，其实这里你会发现返回的是持有IProductA抽象接口引用的具体产品类，又用到多态，多态真是个好东西！！！！！）重要的说三次！！！</p>
+</blockquote>
+<blockquote>
+<p>  工厂接口内的方法getProductA()得到持有抽象产品引用IProductA的类</p>
+</blockquote>
+<blockquote>
+<p>  工厂接口内的方法getProductA()得到持有抽象产品引用IProductA的类</p>
+</blockquote>
+<p>工厂接口内的方法getProductA()得到持有抽象产品引用IProductA的类</p>
+<blockquote>
+<p>  以上分析参考软件工程与计算（卷二）骆斌主编 丁二玉<br>  刘钦编著P272-273。DataFactoryMySql和DataFactorySeriablizableImpl是具体工厂，即实现了抽象工厂接口。DataFactoryMySql利用实现中利用了SaleDataServiceMySqlImpl、UserDataServiceMySqlImpl来创建不同的数据库。业务逻辑层的Sales可以利用抽象工厂提供的getSalesDatabase()得到相应的Sales数据，再使用其提供的数据访问服务SalesDataService，从而达到很好的灵活性。</p>
+</blockquote>
+<p><strong>软件开发过程模型</strong></p>
+<p>瀑布模型（文档驱动）</p>
+<p>增量迭代模型，演化模型（需求驱动，迭代开发）</p>
+<p>螺旋模型（风险驱动，适合高风险项目）</p>
+<p>===========================================================</p>
+<p>继续，这下到了真正的表演时刻，项目实际思路</p>
+<ol>
+<li><p>在分层风格设计时，不希望高层直接依赖低层，而是为低层建立接口包，实现倒置依赖原则，调整为：展示层开发包依赖于依赖于逻辑层接口包businesslogicservice包，逻辑层开发包也依赖于Logic层接口包businesslogicservice包（利用了依赖导致原则）</p>
+</li>
+<li><p>选用分层风格（展示层，业务逻辑层，数据层）业务逻辑层和数据层之间添加dataservice.salesdataservice.SalesDataService接口。展示层与业务逻辑层被置于客户端，data层被置于服务器端，所以Logic层的开发包已经不可能再依赖于Data层的开发包。解决方式：1.使用RMI技术，RMI将Data层的开发包分解为置于客户端的dataservice接口包和置于服务器端的Data层的开发包。Logic层的开发包会依赖于dataservice包，dataservice包和Data层的开发包都依赖于RMI类库包。</p>
+</li>
+<li><p>分层风格设计中，展示层与业务逻辑层，业务逻辑层和数据层之间可能会传递复杂数据对象，那么相邻两层都需要使用数据对象说明，所以将数据对象说明独立为开发包（VO包与PO包）PO：保存持久对象，用来在业务逻辑和数据层间传递数据，VO：用于在展示层和业务逻辑层之间传递数据的值对象，常用于跨网络。Businesslogicservice，bussinesslogic都会依赖于po包</p>
+</li>
+<li><p>XXController.java描述1：为了隔离业务逻辑职责和逻辑控制职责，加入XXController会将对销售的业务逻辑处理委托给sales对象。（委托式控制风格）</p>
+</li>
+<li><p>客户端系统最上层是代表展示层presentation包（mainui，salesui，userui，commodityui，memberui，promotionui子包）；接着是业务逻辑层提供的接口businesslogicservice包（salesblservice，userblservice，commodityblservice，memberblservice，promotionblservice子包），然后是代表业务逻辑层的bussinesslogic包（包括salesbl，userbl，commoditybl，memberbl等等），此外，还有代表数据层接口的dataservice包（如salesdataservice，userdataservice，commoditydataservice等用于为上层提供服务RMI技术）。客户端与服务器通过RMI通信，dataservice包就是远程调用的方法。服务器端也会有同样的dataservice数据层接口包和po包以及实现这些接口的data包（salesdata，userdata，commoditydata，memberdata）</p>
+</li>
+</ol>
+<p><img src="media/c409d34f9a74fd5490ddea4b4773a353.jpg" alt="图3-2 软件体系结构逻辑设计方案"></p>
+<p>体系结构设计：软件体系结构逻辑设计方案</p>
+<p><img src="media/756b7b6e95125469b43fea122cc5b8b1.jpg" alt="图4-1-1 企业进销存管理系统客户端开发包图"></p>
+<p>详细设计：企业进销存管理系统客户端开发包图</p>
+<p><img src="media/6e072358c60cf93914b59672669abbff.jpg" alt="图4-1-2 企业进销存管理系统服务端开发包图"></p>
+<p>详细设计：企业进销存管理系统服务器端开发包图</p>
+<p>下面以用户添加为例：</p>
+<p>Ui界面调用UserController（委托式控制风格，实现了UserBLService接口的类）</p>
+<p>ResultMessage result=this.userController.add（vo）</p>
+<p>//vo用于在ui层与业务逻辑层传递数据对象</p>
+<p>add方法具体的实现在User类里，是实现业务逻辑的对象，该方法先将vo转po，因为在业务逻辑和数据层的数据对象是po对象。</p>
+<p>再执行DataFactoryImpl.getInstance( ).getUserData(<br>).insert(po)，这行很有意思！！！！通过RMI远程调用方法以及抽象工厂方法创建产品持有父类UserDataService引用的UserDataServiceImpl具体产品类，该类封装了具体的add（User<br>po）添加用户方法。如此，便可持久化加入的用户信息到数据库或磁盘。</p>
+<p>哇，终于打完了，敬请指正！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/软件开发/" rel="tag"># 软件开发</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/12/17/Pro-Git-Note - 副本/" rel="next" title="曾进">
+                <i class="fa fa-chevron-left"></i> 曾进
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

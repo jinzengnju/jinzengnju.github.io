@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="研究生," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="南京大学">
-<meta name="keywords" content="研究生">
-<meta property="og:type" content="article">
-<meta property="og:title" content="曾进">
-<meta property="og:url" content="http://yoursite.com/2017/12/17/Pro-Git-Note - 副本/index.html">
+<meta name="description" content="nlper">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JinZeng&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/tags/软件开发/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="南京大学">
+<meta property="og:description" content="nlper">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T05:56:43.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="曾进">
-<meta name="twitter:description" content="南京大学">
+<meta name="twitter:title" content="JinZeng&#39;s Blog">
+<meta name="twitter:description" content="nlper">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2017/12/17/Pro-Git-Note - 副本/"/>
+  <link rel="canonical" href="http://yoursite.com/tags/软件开发/"/>
 
 
 
 
 
-  <title>曾进 | JinZeng's Blog</title>
+  <title>标签: 软件开发 | JinZeng's Blog</title>
   
 
 
@@ -145,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,220 +247,54 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block tag">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>软件开发<small>标签</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/12/17/Pro-Git-Note - 副本/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JinZeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JinZeng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2018/03/10/项目开发/项目开发、设计模式、体系结构/" itemprop="url">
+              
+                <span itemprop="name">软件工程管理</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">曾进</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-12-17T18:41:05+08:00">
-                2017-12-17
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2018-03-10T16:11:11+08:00"
+              content="2018-03-10" >
+          03-10
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/学校/" itemprop="url" rel="index">
-                    <span itemprop="name">学校</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-              <div class="post-description">
-                  南京大学
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <h2 id="Git-基础"><a href="#Git-基础" class="headerlink" title="Git 基础"></a>Git 基础</h2><p>获得项目的Git仓库的两种方式：</p>
-<blockquote>
-<p>在现存的目录下，通过导入所有文件来创建新的git仓库。<br>从已有的git仓库clone</p>
-</blockquote>
-<p>在工作目录中初始化git仓库</p>
-<blockquote>
-<p>执行git init ，在当前目录中就会出现一个.git目录，所有git需要的资源数据都放在里面。若是有几个想被纳入管理，使用git add</p>
-</blockquote>
-<p>克隆新仓库：</p>
-<blockquote>
-<p>执行git clone [url]<br>执行后在当前目录中就会出现一个与你clone的项目同名的目录，其中有一个.git目录。</p>
-</blockquote>
-<p>记录每次更新到仓库：</p>
-<blockquote>
-<p>工作目录下的文件无外乎就两种状态：未被跟踪和已被跟踪<br>刚clone的仓库中，所有文件都是已被跟踪且未修改<br>编辑过某些文件后，Git将其标记为已修改，逐步将其放入暂存区，直到最后一次性提交所有暂存文件。</p>
-</blockquote>
-<p>检查当前文件状态：</p>
-<blockquote>
-<p>git status</p>
-</blockquote>
-<p>跟踪新文件：</p>
-<blockquote>
-<p>git add<br>意思是将文件加入大staged area<br>暂存修改文件：同上</p>
-</blockquote>
-<p>忽略某些文件：</p>
-<blockquote>
-<p>有时候有一些不想纳入到git管理的文件，然后又不想一直在列表里看见，这时候就需要建立一个.gitignore文件<br>例如：<br><strong>.[oa] 忽略以.o或者.a结尾的文件<br>*</strong>~ 忽略以~结尾的文件</p>
-</blockquote>
-<p>格式规范：</p>
-<blockquote>
-<p>空行或者以#开头的行将被忽略<br>标准glob模式匹配<br>匹配模式最后跟反斜杠标示忽略的是目录<br>可使用!取反</p>
-</blockquote>
-<p>查看更新</p>
-<blockquote>
-<p>git diff 比较的是当前文件和暂存区文件的差异（未add的部分）<br>git diff - -cached 暂存文件和上次提交之间的差异。（未commit的部分）</p>
-</blockquote>
-<p>提交更新：</p>
-<blockquote>
-<p>并不会记录还未add的内容<br>提交完成后会告知你在哪个分支提交的。提交的是暂存区，已经修改但是还未暂存的部分仍然保持修改状态。</p>
-</blockquote>
-<p>跳过使用暂存区直接提交</p>
-<blockquote>
-<p>git commit -a 将所有已跟踪文件暂存并一并提交</p>
-</blockquote>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/研究生/" rel="tag"># 研究生</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/12/17/Pro-Git-Note/" rel="next" title="Pro Git Note">
-                <i class="fa fa-chevron-left"></i> Pro Git Note
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/10/项目开发/项目开发、设计模式、体系结构/" rel="prev" title="软件工程管理">
-                软件工程管理 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
 
 
           </div>
@@ -470,10 +302,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -494,17 +322,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -574,22 +393,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Git-基础"><span class="nav-number">1.</span> <span class="nav-text">Git 基础</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -730,10 +533,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
