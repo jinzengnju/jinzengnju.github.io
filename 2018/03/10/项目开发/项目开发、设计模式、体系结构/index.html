@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
 <meta property="og:description" content="企业进销存系统">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/4c357a685cf96ba04c6116828b982a28.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/imgs/软工管理/策略模式.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c3936d84f1e725ee21d983ae2da094d2.png">
 <meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c409d34f9a74fd5490ddea4b4773a353.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/756b7b6e95125469b43fea122cc5b8b1.jpg">
 <meta property="og:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/6e072358c60cf93914b59672669abbff.jpg">
-<meta property="og:updated_time" content="2018-03-10T08:36:11.457Z">
+<meta property="og:updated_time" content="2018-03-10T09:07:13.079Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="软件工程管理">
 <meta name="twitter:description" content="企业进销存系统">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/4c357a685cf96ba04c6116828b982a28.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/10/项目开发/项目开发、设计模式、体系结构/imgs/软工管理/策略模式.png">
 
 
 
@@ -446,7 +446,7 @@
 <blockquote>
 <p>  <strong>策略模式设计模式</strong></p>
 </blockquote>
-<p><img src="media/4c357a685cf96ba04c6116828b982a28.png" alt=""></p>
+<p><img src="/2018/03/10/项目开发/项目开发、设计模式、体系结构/imgs/软工管理/策略模式.png" alt=""></p>
 <blockquote>
 <p>  将使用算法的职责和算法本身分开，Strategy是抽象策略接口，具体的策略类（ConcreateStrategyA与ConcreateStrategyB）都会实现该接口。</p>
 </blockquote>
@@ -513,7 +513,7 @@
 <blockquote>
 <p>  <strong>抽象工厂模式设计模式</strong></p>
 </blockquote>
-<p><img src="media/c3936d84f1e725ee21d983ae2da094d2.png" alt=""></p>
+<p><img src="/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c3936d84f1e725ee21d983ae2da094d2.png" alt=""></p>
 <blockquote>
 <p>  有多个抽象产品类，每个抽象产品类可以派生出多个具体产品类。</p>
 </blockquote>
@@ -551,11 +551,11 @@
 <li><p>客户端系统最上层是代表展示层presentation包（mainui，salesui，userui，commodityui，memberui，promotionui子包）；接着是业务逻辑层提供的接口businesslogicservice包（salesblservice，userblservice，commodityblservice，memberblservice，promotionblservice子包），然后是代表业务逻辑层的bussinesslogic包（包括salesbl，userbl，commoditybl，memberbl等等），此外，还有代表数据层接口的dataservice包（如salesdataservice，userdataservice，commoditydataservice等用于为上层提供服务RMI技术）。客户端与服务器通过RMI通信，dataservice包就是远程调用的方法。服务器端也会有同样的dataservice数据层接口包和po包以及实现这些接口的data包（salesdata，userdata，commoditydata，memberdata）</p>
 </li>
 </ol>
-<p><img src="media/c409d34f9a74fd5490ddea4b4773a353.jpg" alt="图3-2 软件体系结构逻辑设计方案"></p>
+<p><img src="/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/c409d34f9a74fd5490ddea4b4773a353.jpg" alt="图3-2 软件体系结构逻辑设计方案"></p>
 <p>体系结构设计：软件体系结构逻辑设计方案</p>
-<p><img src="media/756b7b6e95125469b43fea122cc5b8b1.jpg" alt="图4-1-1 企业进销存管理系统客户端开发包图"></p>
+<p><img src="/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/756b7b6e95125469b43fea122cc5b8b1.jpg" alt="图4-1-1 企业进销存管理系统客户端开发包图"></p>
 <p>详细设计：企业进销存管理系统客户端开发包图</p>
-<p><img src="media/6e072358c60cf93914b59672669abbff.jpg" alt="图4-1-2 企业进销存管理系统服务端开发包图"></p>
+<p><img src="/2018/03/10/项目开发/项目开发、设计模式、体系结构/media/6e072358c60cf93914b59672669abbff.jpg" alt="图4-1-2 企业进销存管理系统服务端开发包图"></p>
 <p>详细设计：企业进销存管理系统服务器端开发包图</p>
 <p>下面以用户添加为例：</p>
 <p>Ui界面调用UserController（委托式控制风格，实现了UserBLService接口的类）</p>
@@ -590,22 +590,6 @@
       
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2017/12/17/Pro-Git-Note - 副本/" rel="next" title="曾进">
-                <i class="fa fa-chevron-left"></i> 曾进
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -670,7 +654,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -681,7 +665,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -692,7 +676,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
