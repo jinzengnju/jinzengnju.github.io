@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="远程监督学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="知识图谱抽取">
+<meta name="keywords" content="远程监督学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识图谱三元组关系的抽取">
+<meta property="og:url" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="知识图谱抽取">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/46df207b13161d9ebdde8da971113a5e.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/e422c74ebb62d0444ebeaa4d91f435de.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/df28e2ee556726718da46f1a1f7adcbf.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/0c9a1037ec5cc8e307905cde222278eb.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/4c85786636adf64bad573bc3e6bb1d4a.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/f37c6b5d88a32c72030a60fbf5923607.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/e22aa4123f679a488d73c32dd451ec55.png">
+<meta property="og:updated_time" content="2018-03-14T14:29:48.471Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="知识图谱三元组关系的抽取">
+<meta name="twitter:description" content="知识图谱抽取">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/14/知识图谱三元组抽取/46df207b13161d9ebdde8da971113a5e.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/14/知识图谱三元组抽取/"/>
+
+
+
+
+
+  <title>知识图谱三元组关系的抽取 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/14/知识图谱三元组抽取/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">知识图谱三元组关系的抽取</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-14T22:27:21+08:00">
+                2018-03-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/远程监督学习/" itemprop="url" rel="index">
+                    <span itemprop="name">远程监督学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  知识图谱抽取
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在研究关系抽取，由于人工标注太麻烦，所以想用远程监督生成更多数据。那么就必须找相对准确的关系模式，比如在已有知识图谱关系三元组，这就涉及到知识图谱三元组抽取了。其实，也可以人工定制少量的准确的关系三元组作为远程监督的种子，不过太麻烦了。</p>
+<h1 id="在线查看（以wikidata知识图谱为例）"><a href="#在线查看（以wikidata知识图谱为例）" class="headerlink" title="在线查看（以wikidata知识图谱为例）"></a>在线查看（以wikidata知识图谱为例）</h1><h2 id="得到和用户输入有关的实体id"><a href="#得到和用户输入有关的实体id" class="headerlink" title="得到和用户输入有关的实体id"></a>得到和用户输入有关的实体id</h2><blockquote>
+<p>  <a href="https://www.wikidata.org/w/api.php?action=wbsearchentities&amp;search=Fudan&amp;language=en&amp;limit=20&amp;format=json" target="_blank" rel="noopener">https://www.wikidata.org/w/api.php?action=wbsearchentities&amp;search=Fudan&amp;language=en&amp;limit=20&amp;format=json</a></p>
+</blockquote>
+<h2 id="实体信息获取"><a href="#实体信息获取" class="headerlink" title="实体信息获取"></a>实体信息获取</h2><blockquote>
+<p>  <a href="https://www.wikidata.org/w/api.php?action=wbgetentities&amp;ids=Q495015&amp;format=json&amp;languages=en" target="_blank" rel="noopener">https://www.wikidata.org/w/api.php?action=wbgetentities&amp;ids=Q495015&amp;format=json&amp;languages=en</a></p>
+</blockquote>
+<blockquote>
+<p>  entity顶级字段：</p>
+</blockquote>
+<blockquote>
+<p>  id: 实体id。</p>
+</blockquote>
+<blockquote>
+<p>  type: 实体类型。</p>
+</blockquote>
+<blockquote>
+<p>  labels: 不同语言描述的实体标签。</p>
+</blockquote>
+<blockquote>
+<p>  descriptions: 不同语言的实体描述。</p>
+</blockquote>
+<blockquote>
+<p>  aliases: 不同语言描述的实体别名。</p>
+</blockquote>
+<blockquote>
+<p>  claims: 以属性分组的实体声明(claims)或者陈述(statements)。</p>
+</blockquote>
+<blockquote>
+<p>  sitelinks: 各种网站上关于此实体的描述。</p>
+</blockquote>
+<blockquote>
+<p>  lastrevid: 当前json文件的版本。</p>
+</blockquote>
+<blockquote>
+<p>  modified: 当前json文件的发布日期。</p>
+</blockquote>
+<p>而entity中的具体数据被称为claim，一个entity可以有许多<br>claim.每个claim总是与一个属性（property）关联，并且在一个实体中可以有多条claim与同一property关联。从结果可以看出，P109属性的结构<br>[ { },{ },……]，是一个Json数组，对应到维基数据上：</p>
+<p><img src="/2018/03/14/知识图谱三元组抽取/46df207b13161d9ebdde8da971113a5e.png" alt=""></p>
+<p>左侧栏目定义了属性，右侧是与该属性关联的claims，可以有一个，也可以有多个。</p>
+<p>id: 识别码，只能保证当前数据库中唯一，不包含其他信息。</p>
+<p>type: claim的类型，目前只有statement和claim两种。</p>
+<p>mainsnak:<br>如果claim含有type值，那么它具有mainsnak字段包含与property相关的主体信息。<strong>注意：mainsnak中的datavalue也可以为其它关联实体(提供实体id)</strong></p>
+<p>rank: 表示claim是否应该显示在查询结果中，为preferred, normal 或者 deprecated.</p>
+<p>qualifiers:<br>修饰信息，一般为主体信息的上下文信息，每一条都与一个属性(property)关联。</p>
+<p>references: 如果claim是statement，那么会有一个参考资料的列表。</p>
+<h2 id="属性详情查看"><a href="#属性详情查看" class="headerlink" title="属性详情查看"></a>属性详情查看</h2><blockquote>
+<p>  <a href="https://www.wikidata.org/wiki/Property:P580" target="_blank" rel="noopener">https://www.wikidata.org/wiki/Property:P580</a></p>
+</blockquote>
+<p>参考网站：<a href="https://www.ibm.com/developerworks/cn/java/j-sparql/\#fig1" target="_blank" rel="noopener">https://www.ibm.com/developerworks/cn/java/j-sparql/\#fig1</a></p>
+<h1 id="解析RDF数据得到语义Net"><a href="#解析RDF数据得到语义Net" class="headerlink" title="解析RDF数据得到语义Net"></a>解析RDF数据得到语义Net</h1><h2 id="RDF图模式解析"><a href="#RDF图模式解析" class="headerlink" title="RDF图模式解析"></a>RDF图模式解析</h2><blockquote>
+<p>  主题是节点，谓词是圆弧，值在圆弧的另一边</p>
+</blockquote>
+<p><img src="/2018/03/14/知识图谱三元组抽取/e422c74ebb62d0444ebeaa4d91f435de.png" alt=""></p>
+<blockquote>
+<p>  需要将我的生日发布为一个机器可以处理的事实，可以使用一个称为 N-Triples<br>  的简单的 RDF<br>  序列化，将语句存储到一个文件中。采用这种格式时，每行都有一个用句点终止的事实如下：</p>
+</blockquote>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a>\<a href="http://xmlns.com/foaf/0.1/birthday\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/birthday\</a><br>  “05-26”</p>
+</blockquote>
+<p><img src="/2018/03/14/知识图谱三元组抽取/df28e2ee556726718da46f1a1f7adcbf.png" alt=""></p>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a> \<a href="http://xmlns.com/foaf/0.1/name\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/name\</a><br>  “Brian Sletten”</p>
+</blockquote>
+<blockquote>
+<p>  不管这两个事实是存储在同一个文件中，还是存储在两个不同的文件中，如果它们被读入相同的模型中，那么属性和值将会针对主题进行累积（如图<br>  3 所示），因为这两个语句引用了使用相同标示符的同一个主题。</p>
+</blockquote>
+<p><img src="/2018/03/14/知识图谱三元组抽取/0c9a1037ec5cc8e307905cde222278eb.png" alt=""></p>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a> \<a href="http://xmlns.com/foaf/0.1/birthday\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/birthday\</a><br>  “05-26”</p>
+</blockquote>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a> \<a href="http://xmlns.com/foaf/0.1/name\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/name\</a><br>  “Brian Sletten”</p>
+</blockquote>
+<p>如何定义实例所属关系：需要一个特殊的谓词来表明资源是某个类的一个实例。RDF<br>为这种类型的关系提供了一个术语：<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns\#type。这种类型的语句具有与您目前为止看到的属性关系不同的语义，但表达方式是相同的：" target="_blank" rel="noopener">http://www.w3.org/1999/02/22-rdf-syntax-ns\#type。这种类型的语句具有与您目前为止看到的属性关系不同的语义，但表达方式是相同的：</a></p>
+<p>\<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a>\<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns\#type\" target="_blank" rel="noopener">http://www.w3.org/1999/02/22-rdf-syntax-ns\#type\</a>    \<a href="http://xmlns.com/foaf/0.1/Person\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/Person\</a><br>.</p>
+<p><img src="/2018/03/14/知识图谱三元组抽取/4c85786636adf64bad573bc3e6bb1d4a.png" alt=""></p>
+<blockquote>
+<p>  所以，最后的N-triples描述文件如：</p>
+</blockquote>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a> \<a href="http://xmlns.com/foaf/0.1/birthday\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/birthday\</a><br>  “05-26”</p>
+</blockquote>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a> \<a href="http://xmlns.com/foaf/0.1/name\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/name\</a><br>  “Brian Sletten”</p>
+</blockquote>
+<blockquote>
+<p>  \<a href="https://w3id.org/people/bsletten\" target="_blank" rel="noopener">https://w3id.org/people/bsletten\</a>\<a href="http://www.w3.org/1999/02/22-rdf-syntax-ns\#type\" target="_blank" rel="noopener">http://www.w3.org/1999/02/22-rdf-syntax-ns\#type\</a> \<a href="http://xmlns.com/foaf/0.1/Person\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/Person\</a></p>
+</blockquote>
+<h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><blockquote>
+<p>  数据如下所示：</p>
+</blockquote>
+<p><img src="/2018/03/14/知识图谱三元组抽取/f37c6b5d88a32c72030a60fbf5923607.png" alt=""></p>
+<blockquote>
+<p>  基础查询：sparql –query query.rq –data basic.nt</p>
+</blockquote>
+<blockquote>
+<p>  在 RDF<br>  中，节点转换为主语实体，连接到属性的圆弧将它们连接到图形中的其他节点。</p>
+</blockquote>
+<blockquote>
+<p>  <strong>找到指定图形模式中的主语：主语通过uri指定</strong></p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?p ?o WHERE { \<a href="https://w3id.org/people/mcarducci\" target="_blank" rel="noopener">https://w3id.org/people/mcarducci\</a> ?p ?o }</p>
+</blockquote>
+<blockquote>
+<p>  <strong>找到一个主语标识符：</strong></p>
+</blockquote>
+<blockquote>
+<p>  PREFIX foaf: \<a href="http://xmlns.com/foaf/0.1/\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/\</a></p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?s WHERE { ?s foaf:name “Michael Carducci” }</p>
+</blockquote>
+<blockquote>
+<p>  在知道要使用哪个标识符后，您可以运行之前的查询来获取 Michael 的信息，如下：</p>
+</blockquote>
+<blockquote>
+<p>  PREFIX foaf: \<a href="http://xmlns.com/foaf/0.1/\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/\</a></p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?p ?o</p>
+</blockquote>
+<blockquote>
+<p>  Where</p>
+</blockquote>
+<blockquote>
+<p>  {</p>
+</blockquote>
+<blockquote>
+<pre><code>?s foaf:name &quot;Michael Carducci&quot; ；
+</code></pre></blockquote>
+<blockquote>
+<pre><code>?p ?o .
+</code></pre></blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  <strong>上面的 ?s foaf:name “Michael Carducci”<br>  ；必须要写，因为要先匹配到该模式后，再选择?p ?o 作为输出。</strong></p>
+</blockquote>
+<blockquote>
+<p>  <strong>查询多个数据集</strong></p>
+</blockquote>
+<blockquote>
+<p>  通过 foaf:knows 关系将 Brian 的节点连接到 Michael 的节点</p>
+</blockquote>
+<blockquote>
+<p>  PREFIX ex: \<a href="http://example.com/ns/\" target="_blank" rel="noopener">http://example.com/ns/\</a></p>
+</blockquote>
+<blockquote>
+<p>  PREFIX foaf: \<a href="http://xmlns.com/foaf/0.1/\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/\</a></p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?magician ?name</p>
+</blockquote>
+<blockquote>
+<p>  WHERE {</p>
+</blockquote>
+<blockquote>
+<pre><code>?s foaf:name &quot;Brian Sletten&quot; ;
+</code></pre></blockquote>
+<blockquote>
+<pre><code>foaf:knows ?magician .
+</code></pre></blockquote>
+<blockquote>
+<pre><code>?magician a ex:Magician ;
+</code></pre></blockquote>
+<blockquote>
+<pre><code>foaf:name ?name .
+</code></pre></blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  告诉我任何 (?s) 名叫 Brian Sletten<br>  的人，这个人需要知道某个是 ex:Magician 类的实例 (?magician)<br>  的人。另外，获取另一个人的姓名。<strong>查询过程如下：先匹配模式?s foaf:name<br>  “Brian Sletten” ;并且可以连接Michael （foaf:knows<br>  ?magician）的节点的ex:Magician类型（?magician a<br>  ex:Magician），才算匹配成功，并且返回其name值。</strong></p>
+</blockquote>
+<p><img src="/2018/03/14/知识图谱三元组抽取/e22aa4123f679a488d73c32dd451ec55.png" alt=""></p>
+<blockquote>
+<p>  PREFIX foaf: \<a href="http://xmlns.com/foaf/0.1/\" target="_blank" rel="noopener">http://xmlns.com/foaf/0.1/\</a></p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?url</p>
+</blockquote>
+<blockquote>
+<p>  FROM    \&lt;bloggers.rdf></p>
+</blockquote>
+<blockquote>
+<p>  WHERE  {</p>
+</blockquote>
+<blockquote>
+<pre><code>?contributor foaf:name &quot;Jon Foobar&quot; .
+</code></pre></blockquote>
+<blockquote>
+<pre><code>?contributor foaf:weblog ?url .
+</code></pre></blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  第一个三元组与 foaf:name 属性为“Jon<br>  Foobar”的节点匹配，并且赋给contributor相应的值。在 bloggers.rdf<br>  模型中，contributor 会和顶部的空节点id123456匹配。图形模式的第二个三元组与 contributor 的 foaf:weblog 属性对应的对象匹配。要两个模式同时匹配才算成功，最后返回url的值。</p>
+</blockquote>
+<blockquote>
+<p>  可选匹配</p>
+</blockquote>
+<blockquote>
+<p>  <em>可选块</em> 定义了附加图形模式，即使模式不匹配，不会造成结果被拒绝，但在匹配的时候，图形模式会被绑定到图形上</p>
+</blockquote>
+<blockquote>
+<p>  <em>替换匹配</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>替换匹配的定义方式是写出多个替换图形模式，中间用 UNION 关键字连接</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>值约束条件</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>SPARQL<br>  中的 FILTER 关键字对绑定变量的值进行约束，从而限制查询的结果。这些值约束条件是对布尔值进行计算的逻辑表达式，并且可以与逻辑操作符 &amp;&amp; 和 ||组合使用</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>查找包含某个模式的图</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>使用 GRAPH 的另一种方法是在它后面跟一个未绑定变量。在这种情况下，图形模式被应用到查询可以使用的每个命名图中。如果模式和其中一个命名图匹配，那么这个图的<br>  URI 就被绑定到 GRAPH 的变量上</em></p>
+</blockquote>
+<blockquote>
+<p>  <em>其他：</em></p>
+</blockquote>
+<blockquote>
+<p>  查询所有属性</p>
+</blockquote>
+<blockquote>
+<p>  查询一个类的所有子类</p>
+</blockquote>
+<blockquote>
+<p>  查询一个类的所有超类</p>
+</blockquote>
+<blockquote>
+<p>  查询一个属性的子属性</p>
+</blockquote>
+<blockquote>
+<p>  列出一个类的所有属性</p>
+</blockquote>
+<blockquote>
+<p>  使用FILTER正则匹配：FILTER regex(?x, “pattern” [, “flags”])  </p>
+</blockquote>
+<blockquote>
+<p>  SELECT DISTINCT ?p</p>
+</blockquote>
+<blockquote>
+<p>  Where {</p>
+</blockquote>
+<blockquote>
+<p>  ?p a rdf:Property.</p>
+</blockquote>
+<blockquote>
+<p>  ?s ?p ?o.</p>
+</blockquote>
+<blockquote>
+<p>  FILTER (REGEX(str(?p), “date”, “i”)) #<br>  “i”代表大小写不敏感，匹配?p中出现date</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  聚合语句的写法（显示配偶信息大于1条的演员）</p>
+</blockquote>
+<blockquote>
+<p>  SELECT ?s, (COUNT(?s) AS ?cnt)</p>
+</blockquote>
+<blockquote>
+<p>  {</p>
+</blockquote>
+<blockquote>
+<p>  ?s a ont:Actor.</p>
+</blockquote>
+<blockquote>
+<p>  ?s prop:spouse ?o.</p>
+</blockquote>
+<blockquote>
+<p>  FILTER(isLiteral(?o))</p>
+</blockquote>
+<blockquote>
+<p>  }</p>
+</blockquote>
+<blockquote>
+<p>  GROUP BY ?s</p>
+</blockquote>
+<blockquote>
+<p>  HAVING (COUNT(?s) > 1)</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/远程监督学习/" rel="tag"># 远程监督学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/13/编程基础Python/" rel="next" title="编程基础">
+                <i class="fa fa-chevron-left"></i> 编程基础
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#在线查看（以wikidata知识图谱为例）"><span class="nav-number">1.</span> <span class="nav-text">在线查看（以wikidata知识图谱为例）</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#得到和用户输入有关的实体id"><span class="nav-number">1.1.</span> <span class="nav-text">得到和用户输入有关的实体id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实体信息获取"><span class="nav-number">1.2.</span> <span class="nav-text">实体信息获取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#属性详情查看"><span class="nav-number">1.3.</span> <span class="nav-text">属性详情查看</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#解析RDF数据得到语义Net"><span class="nav-number">2.</span> <span class="nav-text">解析RDF数据得到语义Net</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#RDF图模式解析"><span class="nav-number">2.1.</span> <span class="nav-text">RDF图模式解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#应用"><span class="nav-number">2.2.</span> <span class="nav-text">应用</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
