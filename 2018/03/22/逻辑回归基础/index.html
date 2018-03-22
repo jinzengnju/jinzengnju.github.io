@@ -79,18 +79,32 @@
 
 
 
-<meta name="description" content="Tensorflow基础">
+<meta name="description" content="逻辑回归基础">
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow新编程概念">
-<meta property="og:url" content="http://yoursite.com/2018/03/21/tensorflow基础知识/index.html">
+<meta property="og:title" content="逻辑回归向量化和梯度下降">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/逻辑回归基础/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="Tensorflow基础">
+<meta property="og:description" content="逻辑回归基础">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-21T14:16:37.444Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/7e4bcda29282c570f13fa30582822e21.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b8777181e97b23cccb05e2776a20e4.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/b195248915e0a9b371e565dcfdea69d2.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/3f5ebebf5569bc86b8d8452ff9738b79.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/3ef32eb57d4f32068f43a4671c026977.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/e5bc584b5a612e904c9cc3ad7a74ddab.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/1c925f27f6a990c2afe2bc36280f469b.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/f46134002771f9ec47fd28ee0c07c4e8.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/671c0e28379814d24a5698c743e18fb9.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/1d08cd3dda7441fd397fe30f9b8dc887.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/c80f7984e917776556a958da5ccab2ee.png">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/528ca7678c8f507590fdc92f884e8e8d.png">
+<meta property="og:updated_time" content="2018-03-22T13:57:50.102Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow新编程概念">
-<meta name="twitter:description" content="Tensorflow基础">
+<meta name="twitter:title" content="逻辑回归向量化和梯度下降">
+<meta name="twitter:description" content="逻辑回归基础">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png">
 
 
 
@@ -120,13 +134,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/21/tensorflow基础知识/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/22/逻辑回归基础/"/>
 
 
 
 
 
-  <title>tensorflow新编程概念 | JinZeng's Blog</title>
+  <title>逻辑回归向量化和梯度下降 | JinZeng's Blog</title>
   
 
 
@@ -263,7 +277,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/21/tensorflow基础知识/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/逻辑回归基础/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JinZeng">
@@ -280,7 +294,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensorflow新编程概念</h1>
+          <h1 class="post-title" itemprop="name headline">逻辑回归向量化和梯度下降</h1>
         
 
         <div class="post-meta">
@@ -292,8 +306,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-21T22:15:19+08:00">
-                2018-03-21
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T21:53:52+08:00">
+                2018-03-22
               </time>
             
 
@@ -339,7 +353,7 @@
 
           
               <div class="post-description">
-                  Tensorflow基础
+                  逻辑回归基础
               </div>
           
 
@@ -356,82 +370,36 @@
       
 
       
-        <h1 id="编程模式"><a href="#编程模式" class="headerlink" title="编程模式"></a>编程模式</h1><blockquote>
-<p>  符号式编程：tensorflow</p>
-</blockquote>
+        <h1 id="符号解释"><a href="#符号解释" class="headerlink" title="符号解释"></a>符号解释</h1><p>(x，y)：其中x表示一个nx维度的数据，为输入数据，维度为（nx，1），也是一个nx维的特征向量，y表示标签</p>
+<p>用大写X表示<strong>训练集</strong>矩阵，X是一个规模为nx乘以m的矩阵，X.shape()会返回(nx，m)，由m个样例组成的训练集矩阵，第一个样例放在第一列……。而<strong>训练集</strong>的输入标签Y也可以用一个(1，m)的矩阵表示。</p>
+<p>上标圆括号(i)表示第i个训练样本。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>逻辑回归定义的损失函数不再是差的平方的一半，原因是当学习权重参数的时候，会发现如果用差的平方和，优化目标不是凸优化（代价函数不是凸函数），只能找到多个局部最小，GD算法可能找不到全局最优。</p>
+<p>所以，这里我们定义的损失函数是：</p>
+<p><img src="/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png" alt=""></p>
+<p>损失函数是对单个训练样本定义的，它衡量的是单个训练样本在算法中表现如何，为了衡量在训练集算法效果，引入代价函数，是对m个样本的损失函数求和除以m。</p>
+<p><img src="/2018/03/22/逻辑回归基础/7e4bcda29282c570f13fa30582822e21.png" alt=""></p>
+<p>训练的时候对代价函数GD算法即可。</p>
+<h1 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h1><p><strong>3.1 单个样本损失函数：</strong></p>
+<p><img src="/2018/03/22/逻辑回归基础/28b8777181e97b23cccb05e2776a20e4.png" alt=""></p>
+<p><img src="/2018/03/22/逻辑回归基础/b195248915e0a9b371e565dcfdea69d2.png" alt=""></p>
+<p><img src="/2018/03/22/逻辑回归基础/3f5ebebf5569bc86b8d8452ff9738b79.png" alt=""></p>
+<p><strong>3.2 m个样本的梯度下降</strong></p>
+<p><img src="/2018/03/22/逻辑回归基础/3ef32eb57d4f32068f43a4671c026977.png" alt=""></p>
+<p>使用一个for循环遍历训练集。同时，计算相应的每个训练样本的微分，然后将他们加起来。让i从1取到m，m正好是训练样本的个数。</p>
+<p><img src="/2018/03/22/逻辑回归基础/e5bc584b5a612e904c9cc3ad7a74ddab.png" alt=""></p>
+<p><img src="/2018/03/22/逻辑回归基础/1c925f27f6a990c2afe2bc36280f469b.png" alt=""></p>
+<p>上述方法：有两个for循环，第一个是循环遍历m个样本，第二个是循环遍历所有特征（上面例子只有两个特征w1，w2，nx=2）。可以采用向量化加速运算。</p>
+<h1 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化<br></h1><p><img src="/2018/03/22/逻辑回归基础/f46134002771f9ec47fd28ee0c07c4e8.png" alt=""></p>
+<p><img src="/2018/03/22/逻辑回归基础/671c0e28379814d24a5698c743e18fb9.png" alt=""></p>
+<p>内层j的循环去掉，向量化实现，对第i个训练样本（一个nx的向量），与维度同为nx的dz向量相乘。</p>
+<h1 id="向量化的逻辑回归"><a href="#向量化的逻辑回归" class="headerlink" title="向量化的逻辑回归"></a>向量化的逻辑回归</h1><p><strong>非向量化实现</strong></p>
+<p><img src="/2018/03/22/逻辑回归基础/1d08cd3dda7441fd397fe30f9b8dc887.png" alt=""></p>
+<p><strong>向量化实现：</strong></p>
+<p><img src="/2018/03/22/逻辑回归基础/c80f7984e917776556a958da5ccab2ee.png" alt=""></p>
+<p><img src="/2018/03/22/逻辑回归基础/528ca7678c8f507590fdc92f884e8e8d.png" alt=""></p>
 <blockquote>
-<p>  命令式编程：Pytorch</p>
+<p>  在这里w是一个向量，x是一个向量，b是一个数</p>
 </blockquote>
-<blockquote>
-<p>  两种编程模式结合：Caffee，Mxnet</p>
-</blockquote>
-<p>命令式编程就是编写我们理解意义上的程序，很容易理解和调试。，按照原有逻辑执行。符号编程一般先定义各种变量，然后建立一个数据流图，在数据流图中规定各个变量之间的计算关系。最后对数据流图编译，但此时里面还没有任何实际数据，只有把需要运算的数据放进去后，才能在整个模型中形成数据流。</p>
-<p>例如：t=tf.add(8，9)</p>
-<p>Print(t)</p>
-<p>上面并不会打印出17，因为没有执行运算。运算需要放在图中运行，而图的运行只发生在会话中。</p>
-<h1 id="基本介绍"><a href="#基本介绍" class="headerlink" title="基本介绍"></a>基本介绍</h1><p>Tensorflow计算流图由节点与边组成。Tensor（张量）代表了数据流图的边，而flow（流动）这个操作代表了数据流图中节点所做的操作。</p>
-<p>边：Tensor（张量），边定义了数据依赖和控制依赖，实线代表数据依赖，即张量</p>
-<p>节点：代表一个操作，用来表示施加的数学运算</p>
-<p>在调用Session对象的run()时候，会传入一些tensor，这个过程叫填充。会话的extend可以往图中增加节点和边，run操作时输入计算的节点和填充必要的数据后进行运算。</p>
-<p>State=tf.Variable(0, name=’counter’)</p>
-<p>创建一个变量，初始化为标量0</p>
-<p>填充机制：在构建图时用tf.placeholder()历史替代任意操作的张量，在调用Session对象的run方法执行图时，使用填充数据作为参数。</p>
-<h1 id="变量的作用域"><a href="#变量的作用域" class="headerlink" title="变量的作用域"></a>变量的作用域</h1><blockquote>
-<p>  Variable_scope：给variable_name和op_name加前缀</p>
-</blockquote>
-<blockquote>
-<p>  V=tf.get_variable(name, shape, dtype, initializer)</p>
-</blockquote>
-<blockquote>
-<p>  通过所给的名字创建或是返回一个变量</p>
-</blockquote>
-<blockquote>
-<p>  tf.variable_scope(\&lt;scope_name>)</p>
-</blockquote>
-<blockquote>
-<p>  为变量指定作用域</p>
-</blockquote>
-<p>注意：如果在开启的变量作用域里使用之前预先定义的一个作用域，则会跳过当前变量的作用域，保持预先存在的作用域不变。</p>
-<p>变量作用域可以默认携带一个初始化器，在这个作用域的子作用域或变量都可以继承或者重写父作用域初始化器中的值。</p>
-<p>在作用域variable_scope下的操作，会被加上前缀：</p>
-<p>With tf.variable_scope(“foo”):</p>
-<p>X=1.0+tf.get_variable(“v”, [1])</p>
-<p>Assert x.op.name==”foo/add”</p>
-<p>Name_scope：为变量划分范围，在可视化中，这表示在计算图中的一个层级。</p>
-<p>name_scope会影响op_name，不会影响get_variable()创建的变量，但会影响Variable()创建的变量。</p>
-<h1 id="批标准化"><a href="#批标准化" class="headerlink" title="批标准化"></a>批标准化</h1><p>为了克服神经网络层数加深导致难以训练而产生的。解决思路：根据训练样本和目标样本的比例对训练样本做一个矫正。因此，通过引入批标准化来规范化某些层或者所有层的输入，从而固定每层输入信号的均值域方差。</p>
-<p>批标准化一般用在激活函数前，是结果均值为0，方差为1。在遇到NN收敛速度很慢或梯度爆炸等无法训练的情况下，可以尝试采用批标准化。</p>
-<p>相关函数：tf.nn.batch_normalization( )函数</p>
-<h1 id="激活函数"><a href="#激活函数" class="headerlink" title="激活函数"></a>激活函数</h1><p>Sigmoid函数</p>
-<blockquote>
-<p>  Tanh函数</p>
-</blockquote>
-<p>Relu函数</p>
-<p>Dropout函数：一个神经元依概率keep_prop决定是否被抑制。如果被抑制，输出为0，若不被抑制，该神经元的输出被放大为原来的1/keep_prop倍。</p>
-<p>在训练的时候用概率p丢弃，在预测的时候，所有参数都按照比例乘以p缩小。在实际实现中，都是用反向ropout代替dropout，也就是，在训练的时候一边dropout，然后再按照比例放大，也就是乘以1/p，然后在预测时候不做任何处理。</p>
-<p>当输入数据特征相差明显，tanh会比较好。当特征相差不明显，sigmoid函数好，用sigmoid函数和tanh‘函数要注意规范化，否则激活值容易进入平坦区，失去训练效果。Relu作为激活函数可以不用考虑规范化。</p>
-<h1 id="模型存储和加载"><a href="#模型存储和加载" class="headerlink" title="模型存储和加载"></a>模型存储和加载</h1><p>检查点文件.ckpt，只包含权重和程序中定义的变量，不包含图结构Saver.save()</p>
-<p>图协议文件.pb，只包含图结构，没有权重参数信息，tf.train.write_graph()</p>
-<h1 id="加载数据"><a href="#加载数据" class="headerlink" title="加载数据"></a>加载数据</h1><p>预加载：在图中定义常量和变量来保存所有数据</p>
-<p>填充数据：Python产生数据，在通过Session的run方法填充数据</p>
-<p>从文件读取：从文件中直接读取，让队列管理器从文件中读取数据。先把样本数据写入TFrecords文件，再从队列中读取。</p>
-<h1 id="八-Tensorflow源代码学习"><a href="#八-Tensorflow源代码学习" class="headerlink" title="八. Tensorflow源代码学习"></a>八. Tensorflow源代码学习</h1><ol>
-<li>先对网络模型原理了解，知道实现的基本原理。</li>
-</ol>
-<p>2．尝试运行Github上的<em><a href="https://github.com/tensorflow/models" target="_blank" rel="noopener">https://github.com/tensorflow/models</a></em>的模型，lm_1b，Swivel，syntaxnet，textsum以及tutorials目录中的word2vec，运行模型，尝试调参和调试</p>
-<h1 id="conv1d，conv2d，conv3d区别"><a href="#conv1d，conv2d，conv3d区别" class="headerlink" title="conv1d，conv2d，conv3d区别"></a>conv1d，conv2d，conv3d区别</h1><p><strong>（注意：卷积操作后得到的时对应的feature map）</strong></p>
-<p>2d的运算一般用在图像上，3d的运算用在视屏数据上（连续的几帧是有关系的）</p>
-<p><a href="http://blog.csdn.net/liuxiao214/article/details/78212982" target="_blank" rel="noopener">http://blog.csdn.net/liuxiao214/article/details/78212982</a></p>
-<p>9.1. Conv2d：</p>
-<p><strong>input</strong>：是需要做卷积的输入图像，要求是一个Tensor，具有[batch, in_height,<br>in_width, in_channels]这样的shape，具体含义是[训练时一个batch的图片数量,<br>图片高度, 图片宽度,<br>图像通道数]，注意这是一个4维的Tensor，要求类型为float32和float64其中之一。</p>
-<p><strong>filter</strong>：相当于CNN中的卷积滤波器，要求是一个Tensor，具有[filter_height,<br>filter_width, in_channels,<br>out_channels]这样的shape，具体含义是[卷积核的高度，卷积核的宽度，图像通道数，卷积核个数]，要求类型与参数input相同。注意，第三维in_channels，就是参数input的第四维。</p>
-<p><strong>strides</strong>：卷积时在图像每一维滑动的步长，这是一个一维的向量，长度4，一般是[1，x，x，1]的形式。</p>
-<p>例子1：</p>
-<p>input：使用一张3×3、5通道的图像（对应的shape：[1，3，3，5]）。filter：用一个1×1的卷积核（对应的shape：[1，1，5，1]）。<br>strides：[1,1,1,1]。 </p>
-<p>返回tensor：是一张3×3、单通道（卷积核个数）的feature<br>map（对应的shape：[1，3，3，1]）。 </p>
-<p>这就相当于每一个像素点，卷积核都与该像素点的每一个通道做点积，该像素点有5个通道。</p>
-<p>例子2：</p>
-<p>input：使用10张5×5、5通道的图像（对应的shape：[10，5，5，5]）。 一个batch有10张图片<br>filter：用7个3×3的卷积核（对应的shape：[3，3，5，7]）。<br>padding：SAME。<br>strides：[1,2,2,1]。<br>返回tensor：是10张3×3、7通道的feature map（对应的shape：[10，3，3，7]）</p>
 
       
     </div>
@@ -462,8 +430,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/20/tensorflow-gpu安装/" rel="next" title="tensorflow-gpu的安装">
-                <i class="fa fa-chevron-left"></i> tensorflow-gpu的安装
+              <a href="/2018/03/22/神经网络向量化和梯度下降/" rel="next" title="神经网络向量化和梯度下降">
+                <i class="fa fa-chevron-left"></i> 神经网络向量化和梯度下降
               </a>
             
           </div>
@@ -471,10 +439,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/22/CNN与RNN初探/" rel="prev" title="CNN与RNN初探">
-                CNN与RNN初探 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -616,7 +580,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#编程模式"><span class="nav-number">1.</span> <span class="nav-text">编程模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基本介绍"><span class="nav-number">2.</span> <span class="nav-text">基本介绍</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#变量的作用域"><span class="nav-number">3.</span> <span class="nav-text">变量的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#批标准化"><span class="nav-number">4.</span> <span class="nav-text">批标准化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#激活函数"><span class="nav-number">5.</span> <span class="nav-text">激活函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#模型存储和加载"><span class="nav-number">6.</span> <span class="nav-text">模型存储和加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#加载数据"><span class="nav-number">7.</span> <span class="nav-text">加载数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#八-Tensorflow源代码学习"><span class="nav-number">8.</span> <span class="nav-text">八. Tensorflow源代码学习</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#conv1d，conv2d，conv3d区别"><span class="nav-number">9.</span> <span class="nav-text">conv1d，conv2d，conv3d区别</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#符号解释"><span class="nav-number">1.</span> <span class="nav-text">符号解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度下降"><span class="nav-number">3.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化"><span class="nav-number">4.</span> <span class="nav-text">向量化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化的逻辑回归"><span class="nav-number">5.</span> <span class="nav-text">向量化的逻辑回归</span></a></li></ol></div>
             
 
           </div>

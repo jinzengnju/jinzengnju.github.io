@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
 <meta property="og:description" content="CNN与RNN的发展">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/da2370e73974f44f17c3d93cd0a2e13d.jpg">
-<meta property="og:updated_time" content="2018-03-22T02:09:52.968Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/d1859bb544ddeaa8f16697079d72e1bb.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/da2370e73974f44f17c3d93cd0a2e13d.jpg">
+<meta property="og:updated_time" content="2018-03-22T02:13:06.750Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CNN与RNN初探">
 <meta name="twitter:description" content="CNN与RNN的发展">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/d1859bb544ddeaa8f16697079d72e1bb.jpg">
 
 
 
@@ -361,7 +361,7 @@
       
         <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><p>它的权值共享的网络结构显著降低了模型的复杂度，减少了权值的数量。卷积层通过一块块卷积核在原始图像上平移来提取特征，每一个特征就是一个feature<br>map；而池化层通过汇聚特征后稀疏参数来减少要学习的参数，降低网络复杂度。</p>
 <p>下图为CNN的发展史：</p>
-<p><img src="/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80321-222338.jpg"></p>
+<p><img src="/2018/03/22/CNN与RNN初探/d1859bb544ddeaa8f16697079d72e1bb.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80321-222338.jpg"></p>
 <p>要训练CNN，会面临很多参数，由于参数过多，如果样本太少，容易出现过拟合。解决方式：</p>
 <p>(1)数据增强，即图像翻转</p>
 <p>(2)dropout正则，被抑制的神经元不参与前向传播，也不参与反向传播。因此，每输入一个样本，就相当于该神经网络尝试了一个新结构，但所有的结构共享权重，因为神经元不能依赖于其他的神经元存在，这种技术降低了神经元的复杂互适应关系。</p>
@@ -369,7 +369,7 @@
 <p>根据一般经验，只要没发生梯度消失与梯度爆炸，并且不过拟合，网络应该越深越好。但实际上，在训练CIFAR10的网络时，层数从20增加到56，错误率提升，准确率下降了。这种情况称为网络退化。为此，在ResNet中引入了一个shortcut结构，将输入跳层传递与卷积的结果相加。</p>
 <h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><p>传统神经网络中，输入层到输出层的每层直接是全连接的，但是每层内部的神经元彼此之间没有连接。很难解决文本的上下文依赖的问题，RNN这样解决：隐层的输入不仅包括<strong>上一层</strong>的输出，还包括<strong>上一时刻</strong>该隐藏层的输出。</p>
 <p>RNN的两个发展方向：增强隐藏层的功能，网络双向化及加深。</p>
-<p><img src="/2018/03/22/CNN与RNN初探/media/da2370e73974f44f17c3d93cd0a2e13d.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80322-095627.jpg"></p>
+<p><img src="/2018/03/22/CNN与RNN初探/da2370e73974f44f17c3d93cd0a2e13d.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80322-095627.jpg"></p>
 <p>LSTM网络结构：将RNN隐藏层的圈变为LSTM中的Block(包括1个单元cell和三个门)，参考Tensorflow技术解析与实战P128</p>
 <h1 id="基于Tensorflow的元框架Keras"><a href="#基于Tensorflow的元框架Keras" class="headerlink" title="基于Tensorflow的元框架Keras"></a>基于Tensorflow的元框架Keras</h1><p>Keras模型：包括Sequential模型（简单网络）与Model模型（复杂网络）</p>
 <p>模型保存加载：save_model, load_model</p>
@@ -414,6 +414,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/22/神经网络向量化和梯度下降/" rel="prev" title="神经网络向量化和梯度下降">
+                神经网络向量化和梯度下降 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -490,7 +494,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">11</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
