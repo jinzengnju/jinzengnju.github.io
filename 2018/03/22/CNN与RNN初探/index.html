@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="深度学习," />
 
 
 
@@ -79,17 +79,21 @@
 
 
 
-<meta name="description" content="nlper">
-<meta property="og:type" content="website">
-<meta property="og:title" content="jzengscu@163.com">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+<meta name="description" content="CNN与RNN的发展">
+<meta name="keywords" content="深度学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="CNN与RNN初探">
+<meta property="og:url" content="http://yoursite.com/2018/03/22/CNN与RNN初探/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="nlper">
+<meta property="og:description" content="CNN与RNN的发展">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-10T03:15:52.003Z">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/da2370e73974f44f17c3d93cd0a2e13d.jpg">
+<meta property="og:updated_time" content="2018-03-22T02:09:52.968Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jzengscu@163.com">
-<meta name="twitter:description" content="nlper">
+<meta name="twitter:title" content="CNN与RNN初探">
+<meta name="twitter:description" content="CNN与RNN的发展">
+<meta name="twitter:image" content="http://yoursite.com/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg">
 
 
 
@@ -119,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/about/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/22/CNN与RNN初探/"/>
 
 
 
 
 
-  <title>jzengscu@163.com | JinZeng's Blog</title>
+  <title>CNN与RNN初探 | JinZeng's Blog</title>
   
 
 
@@ -250,33 +254,185 @@
 
   <div id="posts" class="posts-expand">
     
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/CNN与RNN初探/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
     
-    
-    <div class="post-block page">
       <header class="post-header">
 
-	<h1 class="post-title" itemprop="name headline">jzengscu@163.com</h1>
-
-
-
-</header>
-
-      
-      
-      
-      <div class="post-body">
         
         
+          <h1 class="post-title" itemprop="name headline">CNN与RNN初探</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T10:08:28+08:00">
+                2018-03-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-      </div>
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/深度学习/" itemprop="url" rel="index">
+                    <span itemprop="name">深度学习</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  CNN与RNN的发展
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
       
       
+
+      
+        <h1 id="卷积神经网络"><a href="#卷积神经网络" class="headerlink" title="卷积神经网络"></a>卷积神经网络</h1><p>它的权值共享的网络结构显著降低了模型的复杂度，减少了权值的数量。卷积层通过一块块卷积核在原始图像上平移来提取特征，每一个特征就是一个feature<br>map；而池化层通过汇聚特征后稀疏参数来减少要学习的参数，降低网络复杂度。</p>
+<p>下图为CNN的发展史：</p>
+<p><img src="/2018/03/22/CNN与RNN初探/media/d1859bb544ddeaa8f16697079d72e1bb.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80321-222338.jpg"></p>
+<p>要训练CNN，会面临很多参数，由于参数过多，如果样本太少，容易出现过拟合。解决方式：</p>
+<p>(1)数据增强，即图像翻转</p>
+<p>(2)dropout正则，被抑制的神经元不参与前向传播，也不参与反向传播。因此，每输入一个样本，就相当于该神经网络尝试了一个新结构，但所有的结构共享权重，因为神经元不能依赖于其他的神经元存在，这种技术降低了神经元的复杂互适应关系。</p>
+<p>注意：ResNet的引入</p>
+<p>根据一般经验，只要没发生梯度消失与梯度爆炸，并且不过拟合，网络应该越深越好。但实际上，在训练CIFAR10的网络时，层数从20增加到56，错误率提升，准确率下降了。这种情况称为网络退化。为此，在ResNet中引入了一个shortcut结构，将输入跳层传递与卷积的结果相加。</p>
+<h1 id="循环神经网络"><a href="#循环神经网络" class="headerlink" title="循环神经网络"></a>循环神经网络</h1><p>传统神经网络中，输入层到输出层的每层直接是全连接的，但是每层内部的神经元彼此之间没有连接。很难解决文本的上下文依赖的问题，RNN这样解决：隐层的输入不仅包括<strong>上一层</strong>的输出，还包括<strong>上一时刻</strong>该隐藏层的输出。</p>
+<p>RNN的两个发展方向：增强隐藏层的功能，网络双向化及加深。</p>
+<p><img src="/2018/03/22/CNN与RNN初探/media/da2370e73974f44f17c3d93cd0a2e13d.jpg" alt="C:\\Users\\jzeng\\Documents\\Tencent Files\\1534357193\\FileRecv\\MobileFile\\P80322-095627.jpg"></p>
+<p>LSTM网络结构：将RNN隐藏层的圈变为LSTM中的Block(包括1个单元cell和三个门)，参考Tensorflow技术解析与实战P128</p>
+<h1 id="基于Tensorflow的元框架Keras"><a href="#基于Tensorflow的元框架Keras" class="headerlink" title="基于Tensorflow的元框架Keras"></a>基于Tensorflow的元框架Keras</h1><p>Keras模型：包括Sequential模型（简单网络）与Model模型（复杂网络）</p>
+<p>模型保存加载：save_model, load_model</p>
+<p>只保存模型结构：model.to_json( )</p>
+<p>只保存权重：model.save_weights()</p>
+
       
     </div>
     
     
     
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/21/tensorflow基础知识/" rel="next" title="tensorflow新编程概念">
+                <i class="fa fa-chevron-left"></i> tensorflow新编程概念
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
   </div>
 
 
@@ -309,8 +465,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -380,6 +545,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#卷积神经网络"><span class="nav-number">1.</span> <span class="nav-text">卷积神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#循环神经网络"><span class="nav-number">2.</span> <span class="nav-text">循环神经网络</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#基于Tensorflow的元框架Keras"><span class="nav-number">3.</span> <span class="nav-text">基于Tensorflow的元框架Keras</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
