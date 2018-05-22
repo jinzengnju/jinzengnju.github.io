@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="My Algorithm这篇博客很多地方写的略简洁，很多地方只写了一个简单的思想，写这篇博客的主要目的其实是总结一下算法的内容罢了。如果大佬看可能很容易就看懂了，小白可能有点吃力。 最近对问题问题描述：在一个包含n个点的集合中，找出举例最近的两个点 蛮力法： 计算任意两个点之间的距离，两层for循环 分治解法： 将所有点按照x升序排列位P，按照y升序排序为Q。在x轴上的中位线将数据分为两部分Pl和">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JinZeng&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2018/05/22/leetcode高级算法/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="My Algorithm这篇博客很多地方写的略简洁，很多地方只写了一个简单的思想，写这篇博客的主要目的其实是总结一下算法的内容罢了。如果大佬看可能很容易就看懂了，小白可能有点吃力。 最近对问题问题描述：在一个包含n个点的集合中，找出举例最近的两个点 蛮力法： 计算任意两个点之间的距离，两层for循环 分治解法： 将所有点按照x升序排列位P，按照y升序排序为Q。在x轴上的中位线将数据分为两部分Pl和">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-05-22T14:06:50.687Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JinZeng&#39;s Blog">
+<meta name="twitter:description" content="My Algorithm这篇博客很多地方写的略简洁，很多地方只写了一个简单的思想，写这篇博客的主要目的其实是总结一下算法的内容罢了。如果大佬看可能很容易就看懂了，小白可能有点吃力。 最近对问题问题描述：在一个包含n个点的集合中，找出举例最近的两个点 蛮力法： 计算任意两个点之间的距离，两层for循环 分治解法： 将所有点按照x升序排列位P，按照y升序排序为Q。在x轴上的中位线将数据分为两部分Pl和">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/22/leetcode高级算法/"/>
+
+
+
+
+
+  <title> | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/leetcode高级算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T22:06:50+08:00">
+                2018-05-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="My-Algorithm"><a href="#My-Algorithm" class="headerlink" title="My Algorithm"></a>My Algorithm</h1><p>这篇博客很多地方写的略简洁，很多地方只写了一个简单的思想，写这篇博客的主要目的其实是总结一下算法的内容罢了。如果大佬看可能很容易就看懂了，小白可能有点吃力。</p>
+<h2 id="最近对问题"><a href="#最近对问题" class="headerlink" title="最近对问题"></a>最近对问题</h2><p>问题描述：在一个包含n个点的集合中，找出举例最近的两个点</p>
+<p><strong>蛮力法</strong>：</p>
+<p>计算任意两个点之间的距离，两层for循环</p>
+<p><strong>分治解法</strong>：</p>
+<p>将所有点按照x升序排列位P，按照y升序排序为Q。在x轴上的中位线将数据分为两部分Pl和Pr，求解两个部分的最近对距离d。</p>
+<p><strong>注意</strong>：d不一定是所有点对的最小距离，因为距离最近的两个点可能分别位于分界线的两侧。在合并子问题时候，可以只关注以分割带为对称的、宽度为2d的垂直带中的点</p>
+<h2 id="凸包问题"><a href="#凸包问题" class="headerlink" title="凸包问题"></a>凸包问题</h2><p>问题描述：在平面或者高纬空间的一个给定点集合中寻找凸包。</p>
+<p>什么是凸包：对于平面上n个点的集合，它的凸包就是包含所有这些点的最小凸多边形。任意包含n>2个点的S的凸包是以S中的某些点为顶点的凸多边形（如果所有的点都位于一条直线上，多边形退化为一条线段，但它的两个端点仍然包含在S中）。</p>
+<p>凸包问题是为一个有n个点的集合构造凸包的问题。为了解决该问题，需要找出某些点，它们将作为这个集合的凸多边形顶点。这种顶点又通常称为“极点”。</p>
+<p><strong>分治解法：</strong></p>
+<p>将所有点按照x升序，（若x相同则y升序排序）得到一个列表，该列表的首尾两个顶点一定是凸包顶点。两顶点连线将数据分为两部分，然后分别对两个部分递归构造上包和下包（构造原则：距离凸包顶点连线最远的点，如果有一样远的点，选择角度最大的点）</p>
+<h2 id="旅行商问题TSP（注意与BFS遍历找最近的点区别）"><a href="#旅行商问题TSP（注意与BFS遍历找最近的点区别）" class="headerlink" title="旅行商问题TSP（注意与BFS遍历找最近的点区别）"></a>旅行商问题TSP（注意与BFS遍历找最近的点区别）</h2><p>找出一条n个给定城市间的最短路径，使我们再回到出发的城市之前，对每个城市都只访问一次。这个问题可以用一个加权图来建模，问题转化为求一个图的最短哈密顿回路问题。</p>
+<h2 id="背包问题"><a href="#背包问题" class="headerlink" title="背包问题"></a>背包问题</h2><p>问题描述：给定n个重量为w1，w2…….，价值为v1，v2……的物品和一个承重为W的背包，求这些物品中最有价值的一个子集，并且能够装到背包中。</p>
+<p><strong>蛮力法：</strong></p>
+<p>穷举出给定的n个物品集合的所有子集，为了找出可行的子集，需要计算每个子集的总重量，然后找到在它们中间价值最大的子集。</p>
+<p><strong>上述两个问题（旅行商和背包问题）都是NP难问题，没有可以在多项式时间内解决的方法，可以用动态规划或者贪心算法得到局部最优解。</strong></p>
+<p><strong>动态规划：</strong></p>
+<p>设F(i，j)表示由前i个物品定义的实例，背包承重为j的最优解的物品总价值。有两种情况：包含第i个物品的子集和不包含第i个物品的子集。</p>
+<p>在不包含第i个物品的子集中，最优子集的总价值为F(i-1，j)，在包含第i个物品的子集中（j-wi>0）,最优子集是由该物品和前i-1个物品的能够放进称重量为j-wi的背包的最优子集构成。具体递推式参考《算法设计与分析基础》Anany<br>Levitin著P226</p>
+<p><strong>最后我们在递推的时候需要记录一张动态规划表，以记录下较小子问题的解，解较大问题的解时，只需要查询子问题的结果即可。</strong></p>
+<h2 id="蛮力法之深度优先"><a href="#蛮力法之深度优先" class="headerlink" title="蛮力法之深度优先"></a>蛮力法之深度优先</h2><p>图的两种不同表示方法：邻接矩阵和邻接表</p>
+<p>用一个<strong>栈</strong>来跟踪深度优先查找的操作是比较方便的，在第一次访问一个顶点时候（开始对顶点的访问时），将顶点入栈；当它成为一个终点（结束对该顶点的访问时候）时出栈。</p>
+<p>深度优先：图、遍历栈，DFS森林（树向边和回边）（后入先出）。深度优先遍历有以下应用。</p>
+<p>判断图的连通性：在访问所有和初始顶点有路径相连的顶点之后停下来，检查是否所有的点都被遍历以确定图是否连通</p>
+<p>判断图有没有环：用图的DFS森林表示法，看该DFS是否包含回边</p>
+<h2 id="蛮力法之广度优先BFS"><a href="#蛮力法之广度优先BFS" class="headerlink" title="蛮力法之广度优先BFS"></a>蛮力法之广度优先BFS</h2><p>广度优先使用<strong>队列</strong>跟踪查找的操作，先入先出。从遍历的初始顶点开始，将顶点标记为已访问。在每次迭代的时候，该算法找出所有和堆头顶点邻接的为访问节点，把它们标记为已经访问，再把它们入队。然后将队头顶点从队列中移去。</p>
+<p>广度优先查找与深度优先查找的区别：广度优先只产生顶点的一种排序（因为队列是一种先入先出的结构），而深度优先产生顶点的两种排序。</p>
+<p>BFS的交叉边与DFS的回边：BFS的交叉边还连接BFS树中同层或者相邻层中的兄弟顶点。</p>
+<p><strong>BFS应用：求两个给定顶点间边的数量最少的路径。我们从两个给定顶点中的一个开始遍历，一旦访问到了另一个顶点就结束。</strong></p>
+<h2 id="减治法"><a href="#减治法" class="headerlink" title="减治法"></a>减治法</h2><p><strong>折半查找：</strong></p>
+<p>每次迭代，算法都会把原数组规模缩小一半，所以从初始规模n减小到1所需要进行的迭代次数大概是logn</p>
+<p><strong>减治法之假币问题：</strong></p>
+<p>N枚硬币分为两堆称重，假币在轻的一方。（若N为奇数，留下一枚硬币，剩下的分为两堆称重，如果一样中，那么单独的一枚硬币是假币）。再对包含假币的一组硬币中递归调用上述方法。</p>
+<p><strong>减治法（减可变规模）之二叉树查找与插入问题：</strong></p>
+<p>该二叉树最好是平衡的，否则效率不高。在二叉树查找值v时，递归调用以下做法。</p>
+<p>若该树为空，查找失败。</p>
+<p>若该树不为空，将v与根节点值比较，相等则找到。不相等根据具体的情况去左子树或者右子树中寻找。在每次迭代的过程中，查找一颗二叉树的问题，转变为查找一颗更小的二叉树。<strong>显然，每一次迭代过程中，树的高度的减少通常都不相同，这就是所谓的减可变规模。</strong></p>
+<h2 id="分治法："><a href="#分治法：" class="headerlink" title="分治法："></a>分治法：</h2><p>计算二叉树高度：叶子到根的最长路径长度。二叉树的高度为左右子树的最大高度加一，加1代表根所在的那一层</p>
+<p>前序：根，左，右</p>
+<p>中序：左，根，右</p>
+<p>后序：左，右，根</p>
+<p>注意：并非所有关于二叉树的算法都需要遍历左右两颗子树。例如二叉查找树的查找、插入和删除只需要遍历两颗子树的一颗</p>
+<p><strong>合并排序：</strong></p>
+<p>合并排序的主要缺点是该算法需要额外的线性空间。</p>
+<p>合并排序按照元素在数组中的位置进行划分，快速排序按照元素的值进行划分。在合并排序中，划分是很快的，算法主要工作在于合并子问题的解。而在快速排序中，算法主要工作在于划分阶段，而不需要再去合并子问题的解。</p>
+<p><strong>快速排序：</strong></p>
+<p>首先选出中轴元素，放在第一位。</p>
+<p>从左到右扫描从第二个元素开始，下标用i表示，直到第一个大于等于中轴的元素停止。</p>
+<p>从右到左扫描从最后一个元素开始，下标用j表示，直到小于等于中轴元素停止。</p>
+<p>为什么相等也需要停止：当遇到很多元素相同的数组时，如果遇到相等的元素继续扫描，对于一个具有n个相等元素的数组来说，划分后得到的两个子数组可能分别为n-1和0，规模只减1。</p>
+<p>当i，j相交即i>=j，交换中轴和A[j]的元素，若不相交则交换A[i]，A[j]对应的元素。快排最差情况下时间效率为O(n2)，平均情况为O(nlogn)。</p>
+<p><strong>减治法与分治法：</strong></p>
+<p>二项查找规模减半的两个子问题只有一个问题需要解决，是减治法。分治求和，规模减半的两个子问题都需要求解。减治二项查找，只需要解决一个子问题。</p>
+<p><strong>分治法之大整数乘法：</strong></p>
+<p>两个数的乘法：需要对超过100位的十进制整数进行乘法计算，然而这样的数没法在计算机中用一个字装下。两个n位整数a和b的积，其中n是一位正的偶数。将上述整数一分为2，a=a1a0表示a=a1*10n/2+a0，b=b1*10n/2+b0。</p>
+<p>那么c=a*b=c2*10n+c1*10n/2+c0</p>
+<p>c2=a1*b1，c0=a0*b0，c1=(a1+a0)*(b1+b0)-(c1+c0)</p>
+<h2 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h2><p>堆：使用数组实现堆。对于每一个非叶子节点的父母节点i，其子女将会位于2i与2i+1的位置。（达到这种效果必须要求数组实现时，索引位置为0的地方空出来）。</p>
+<p><strong>如何构造堆：</strong></p>
+<p>从最后的父母节点开始，依次向上检查是否满足父母优势。如果不满足，把节点的键K值和它子女的最大键进行交换。</p>
+<p>如何评价建堆的时间待检：考虑树的堆化所需的键值比较次数。对于要移动到另一相邻层的节点，都需要2次比较</p>
+<p>删除堆中的根</p>
+<p>根的键和堆中的最后一个键K交换，严格按照上述自底向上的算法构造新堆</p>
+<p><strong>堆排序：</strong></p>
+<p>先构造最大堆</p>
+<p>删除根元素（删除了根元素还需要进行堆化）</p>
+<p>再删除根元素</p>
+<p>一直删除根元素</p>
+<p>注意：无论是最好和最差情况，堆排序效率都为nlogn</p>
+<h2 id="时空权衡（输入增强和预构造）："><a href="#时空权衡（输入增强和预构造）：" class="headerlink" title="时空权衡（输入增强和预构造）："></a>时空权衡（输入增强和预构造）：</h2><p><strong>输入增强：</strong>对问题的部分或全部输入做预处理，然后将获得的额外信息进行存储，以加速后面问题的解。例如：计数法排序和Boyer-Moore字符串匹配算法</p>
+<p><strong>计数排序：</strong></p>
+<p>针对排序列表中的每一个元素，算出列表中小于该元素的元素个数，并把结果记录在一张表中。该个数指出了元素在有序列表中的位置，假如该个数为10，该元素会放在索引为10的位置上（从0开始编号）</p>
+<p><strong>分布计数：</strong></p>
+<p>分布值指出了在最后的有序数组中，它们的元素最后一次出现时的正确位置。如果从0开始编号，为了得到相应元素的位置，分布值必须减1</p>
+<p><strong>字符串匹配问题：</strong>在一个较长的成为文本的n个字符串中，寻找一个成为模式的给定的m个字符的串。</p>
+<p>用蛮力法时不匹配时把模式向右移动一格，在进行下一次尝试。时间复杂度为O(mn)。用时空权衡技术：O(m+n)</p>
+<p>对模式进行预处理以得到它的一些信息，把这些信息存储在表中，然后在给定文本中实际查找模式时使用这些信息。注意：Boyer-moore算法把模式和文本的开头字符对齐。如果第一次尝试失败，将模式向右移。只是每次尝试过程中的比较才是从右到左的，即从模式的最后一个字符开始</p>
+<p>Horspool算法时Boyer-moore的简化版本</p>
+<p>假设我们要寻找的源串文本中，对齐模式的最后一个字符的元素是字符c，Horspool根据c的不同情况来移动模式串。我们可以先预先算出每次移动的距离并且把它们记录在表中，这个表是以文本中所有可能遇到的字符为索引的。对于每一个字符c，移动距离为：</p>
+<p><strong>如果c不包含在模式的前m-1个字符中：模式的长度</strong></p>
+<p><strong>其他情况：模式前m-1个字符中最右边的c到模式最后一个字符的距离</strong></p>
+<p>编程时，把表中所有单元格都初始化为模式长度m，然后从左到右扫描模式，将下列步骤重复m-1遍：对于模式中的第j个字符（0\&lt;=j\&lt;=m-2），将它在表中的单元格改写为m-1-j，这是该字符到模式右端的距离</p>
+<p><strong>Boyer-moore算法：</strong></p>
+<p>坏符号移动与号后缀移动</p>
+<p>坏符号移动会用到horspool的表，好后缀移动是根据模式后缀的长度1，……，m-1来填表</p>
+<p>在实际操作Boyer-moore算法时，假设在K>=0个字符匹配以后遇到一个不匹配的字符。如果c是文本中不匹配的字符，从坏符号移动表中取出移动距离。如果K>0，还要从好后缀移动表中取出距离d2，这时候移动距离为d1与d2的最大值。</p>
+<p><strong>预构造：</strong></p>
+<p><strong>散列：</strong></p>
+<p>使用额外空间来实现更快的或者更方便的数据存取。和输入增强不同，这个技术只涉及存取结构。例如散列法和B树索引。</p>
+<p>散列法：把键分布在一个称为散列表的一维数组中。我们可以通过对每个键计算某些被称为散列函数的预定义函数h的值，来生成散列表。该函数为每个键指定一个称为散列地址的位于0到m-1之间的整数。</p>
+<p>散列碰撞：多个键散列到散列表中同一个地址。根据解决碰撞的机制不同可以分为：开散列也叫做分离链或者闭散列也叫做开式寻址。</p>
+<p>开散列：键被存储在附着于散列表单元格的链表中</p>
+<p>闭散列：所有的键都存储在散列表本身中，而没有使用链表。这意味着表的长度至少必须和键的数量一样大，可以采用不同的方式来解决碰撞。最简单的一种是线性探查。</p>
+<p>对于检查元素的唯一性有几种方法：预排序，散列法（把检索范围压缩到哈希地址的开散列列表检查）</p>
+<p><strong>B树：</strong></p>
+<p>讨论的数据集合数量很庞大，需要存储到磁盘上，那么利用额外空间来提高给定数据集合访问速度就尤其重要了。组织这种数据集合一种重要的技术就是索引，这里我们将讨论B树。当我们用B树在磁盘上存储一个大型的数据文件时，B树的节点常常和磁盘的页相对应。</p>
+<p>它是对2-3树的一个扩展。B树中，所有的数据记录都按照键的升序存储在叶子中，它们的父母节点作为索引。每个父母节点包含n-1个有序的键，并且在这些键之间插入了n个指向节点子女的指针。</p>
+<p>对于一棵次数为m>=2的B树必须满足以下条件：</p>
+<p>它的根要么是一个叶子，要么具有2到m个子女</p>
+<p>除了根和叶子以外的每个节点，具有上限(m/2)到m个子女</p>
+<p>这棵树是完美平衡的，也就是说，它的所有叶子都在同一层上</p>
+<p><strong>B树元素的插入：</strong></p>
+<p>如果要插入的节点已经没有空间，该叶子一分为2，把后面一半的记录放在一个新节点中。在这之后，新节点中最小的键K‘以及指向它的指针要插入到原来的叶子的父母中，递归该过程一直到根中。</p>
+<h2 id="动态规划："><a href="#动态规划：" class="headerlink" title="动态规划："></a>动态规划：</h2><p>与递归的区别：递归是自顶向下，动态规划是自底向上</p>
+<p>如果问题是由交叠的子问题构成，用动态规划。一般来说，这样的子问题出现在对给定问题求解的递推关系中，这个递推关系中包含了相同类型更小子问题的解。动态规划注重：与其对交叠的子问题一次一次求解，还不如对每个较小的子问题只求解一次并把结果记录在表中。</p>
+<p>虽然动态规划也可以解释成一种特殊的空间换时间的时空权衡技术，但有时候一个动态规划算法经过改进可以避免使用额外的空间。动态规划一定需要导出一个问题实例的递推关系，该递推关系包含该问题的更小子实例的解。动态规划一般用于求解最优化问题。</p>
+<p>实例：币值最大化，找零问题，硬币收集问题，背包问题</p>
+<h2 id="贪心算法："><a href="#贪心算法：" class="headerlink" title="贪心算法："></a>贪心算法：</h2><p>贪心算法的核心是，所做的每一步选择都必须满足以下条件：可行的：即它必须满足问题的约束。局部最优：它是当前步骤中所有可行选择中最佳的局部选择。不可取消：一旦选择做出，在算法的后面步骤中就无法改变了</p>
+<p>连通图的一棵生成树是包含图的所有顶点的连通无环子图，也就是一棵树。加权连通图的一颗最小生成树是图的一颗权重最小的生成树，树的权重定义为所有边的权重总和。</p>
+<p><strong>加权图最小生成树：</strong></p>
+<p>Prim算法和Kruskal算法</p>
+<p>Prim算法是选最小生成树的点</p>
+<p>Kruskal算法选择最小生成树的边。该算法将图看作一个具有V-1条边的无环子图，并且边的权重和是最小的。该算法开始时候，会按照权重的非递减顺序对图中的边进行排序。然后，从一个空子图开始，扫描该有序列表，并且试图把列表中的下一条边加到当前的子图中。当然，这种添加不能产生回路，如果产生则跳过这条边。</p>
+<p><strong>解加权图最短路径问题的Dijkstra算法</strong></p>
+<p>给定起点，求出它到其他顶点之间的一系列最短路径。这里强调的是，不是从一个起点出发访问所有其他顶点的单条最短路径，而是单起点最短路径。单起点路径问题求的是一组路径，每条路径都从起点出发通向图图中一个不同的顶点，当然其中某些路径具有公共边。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/04/01/AGirl/" rel="next" title="A Story of me">
+                <i class="fa fa-chevron-left"></i> A Story of me
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/05/22/~$etcode高级算法/" rel="prev" title="">
+                 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#My-Algorithm"><span class="nav-number">1.</span> <span class="nav-text">My Algorithm</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#最近对问题"><span class="nav-number">1.1.</span> <span class="nav-text">最近对问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#凸包问题"><span class="nav-number">1.2.</span> <span class="nav-text">凸包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#旅行商问题TSP（注意与BFS遍历找最近的点区别）"><span class="nav-number">1.3.</span> <span class="nav-text">旅行商问题TSP（注意与BFS遍历找最近的点区别）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#背包问题"><span class="nav-number">1.4.</span> <span class="nav-text">背包问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蛮力法之深度优先"><span class="nav-number">1.5.</span> <span class="nav-text">蛮力法之深度优先</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#蛮力法之广度优先BFS"><span class="nav-number">1.6.</span> <span class="nav-text">蛮力法之广度优先BFS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#减治法"><span class="nav-number">1.7.</span> <span class="nav-text">减治法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分治法："><span class="nav-number">1.8.</span> <span class="nav-text">分治法：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆"><span class="nav-number">1.9.</span> <span class="nav-text">堆</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#时空权衡（输入增强和预构造）："><span class="nav-number">1.10.</span> <span class="nav-text">时空权衡（输入增强和预构造）：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#动态规划："><span class="nav-number">1.11.</span> <span class="nav-text">动态规划：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#贪心算法："><span class="nav-number">1.12.</span> <span class="nav-text">贪心算法：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
