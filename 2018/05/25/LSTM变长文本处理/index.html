@@ -79,32 +79,28 @@
 
 
 
-<meta name="description" content="逻辑回归基础">
+<meta name="description" content="循环神经网络变长文本处理">
 <meta name="keywords" content="深度学习">
 <meta property="og:type" content="article">
-<meta property="og:title" content="逻辑回归向量化和梯度下降">
-<meta property="og:url" content="http://yoursite.com/2018/03/22/逻辑回归基础/index.html">
+<meta property="og:title" content="循环神经网络变长文本处理">
+<meta property="og:url" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="逻辑回归基础">
+<meta property="og:description" content="循环神经网络变长文本处理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/7e4bcda29282c570f13fa30582822e21.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b8777181e97b23cccb05e2776a20e4.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/b195248915e0a9b371e565dcfdea69d2.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/3f5ebebf5569bc86b8d8452ff9738b79.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/3ef32eb57d4f32068f43a4671c026977.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/e5bc584b5a612e904c9cc3ad7a74ddab.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/1c925f27f6a990c2afe2bc36280f469b.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/f46134002771f9ec47fd28ee0c07c4e8.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/671c0e28379814d24a5698c743e18fb9.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/1d08cd3dda7441fd397fe30f9b8dc887.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/c80f7984e917776556a958da5ccab2ee.png">
-<meta property="og:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/528ca7678c8f507590fdc92f884e8e8d.png">
-<meta property="og:updated_time" content="2018-03-22T13:57:50.102Z">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/8d5b4ae20a20ad76d0abeb835f6a9743.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/28c8df73c50233661fe85250b8dbd666.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/e62f27d55b8dfcebaa65e9e903290814.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/4ea4dc7dcad5c3e573ab59d0c02d6130.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/1e80e9f4b8a5a6aeeeadef19eaef3d52.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/e1cacbef5d55503484db02f619f052cf.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/8ef1a7b2103f903c7217886bbe5bc0f3.png">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/99790c62411b3a8a2bab7d0dd8f03e89.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/8eb6245d41cf204de24c914953b4bb60.png">
+<meta property="og:updated_time" content="2018-05-25T01:52:31.726Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="逻辑回归向量化和梯度下降">
-<meta name="twitter:description" content="逻辑回归基础">
-<meta name="twitter:image" content="http://yoursite.com/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png">
+<meta name="twitter:title" content="循环神经网络变长文本处理">
+<meta name="twitter:description" content="循环神经网络变长文本处理">
+<meta name="twitter:image" content="http://yoursite.com/2018/05/25/LSTM变长文本处理/8d5b4ae20a20ad76d0abeb835f6a9743.png">
 
 
 
@@ -134,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/22/逻辑回归基础/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/05/25/LSTM变长文本处理/"/>
 
 
 
 
 
-  <title>逻辑回归向量化和梯度下降 | JinZeng's Blog</title>
+  <title>循环神经网络变长文本处理 | JinZeng's Blog</title>
   
 
 
@@ -277,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/22/逻辑回归基础/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/25/LSTM变长文本处理/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JinZeng">
@@ -294,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">逻辑回归向量化和梯度下降</h1>
+          <h1 class="post-title" itemprop="name headline">循环神经网络变长文本处理</h1>
         
 
         <div class="post-meta">
@@ -306,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-22T21:53:52+08:00">
-                2018-03-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-25T09:50:44+08:00">
+                2018-05-25
               </time>
             
 
@@ -353,7 +349,7 @@
 
           
               <div class="post-description">
-                  逻辑回归基础
+                  循环神经网络变长文本处理
               </div>
           
 
@@ -370,36 +366,80 @@
       
 
       
-        <h1 id="符号解释"><a href="#符号解释" class="headerlink" title="符号解释"></a>符号解释</h1><p>(x，y)：其中x表示一个nx维度的数据，为输入数据，维度为（nx，1），也是一个nx维的特征向量，y表示标签</p>
-<p>用大写X表示<strong>训练集</strong>矩阵，X是一个规模为nx乘以m的矩阵，X.shape()会返回(nx，m)，由m个样例组成的训练集矩阵，第一个样例放在第一列……。而<strong>训练集</strong>的输入标签Y也可以用一个(1，m)的矩阵表示。</p>
-<p>上标圆括号(i)表示第i个训练样本。</p>
-<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>逻辑回归定义的损失函数不再是差的平方的一半，原因是当学习权重参数的时候，会发现如果用差的平方和，优化目标不是凸优化（代价函数不是凸函数），只能找到多个局部最小，GD算法可能找不到全局最优。</p>
-<p>所以，这里我们定义的损失函数是：</p>
-<p><img src="/2018/03/22/逻辑回归基础/28b44e9ed020ea24a7d56704ba47fbc6.png" alt=""></p>
-<p>损失函数是对单个训练样本定义的，它衡量的是单个训练样本在算法中表现如何，为了衡量在训练集算法效果，引入代价函数，是对m个样本的损失函数求和除以m。</p>
-<p><img src="/2018/03/22/逻辑回归基础/7e4bcda29282c570f13fa30582822e21.png" alt=""></p>
-<p>训练的时候对代价函数GD算法即可。</p>
-<h1 id="梯度下降"><a href="#梯度下降" class="headerlink" title="梯度下降"></a>梯度下降</h1><p><strong>3.1 单个样本损失函数：</strong></p>
-<p><img src="/2018/03/22/逻辑回归基础/28b8777181e97b23cccb05e2776a20e4.png" alt=""></p>
-<p><img src="/2018/03/22/逻辑回归基础/b195248915e0a9b371e565dcfdea69d2.png" alt=""></p>
-<p><img src="/2018/03/22/逻辑回归基础/3f5ebebf5569bc86b8d8452ff9738b79.png" alt=""></p>
-<p><strong>3.2 m个样本的梯度下降</strong></p>
-<p><img src="/2018/03/22/逻辑回归基础/3ef32eb57d4f32068f43a4671c026977.png" alt=""></p>
-<p>使用一个for循环遍历训练集。同时，计算相应的每个训练样本的微分，然后将他们加起来。让i从1取到m，m正好是训练样本的个数。</p>
-<p><img src="/2018/03/22/逻辑回归基础/e5bc584b5a612e904c9cc3ad7a74ddab.png" alt=""></p>
-<p><img src="/2018/03/22/逻辑回归基础/1c925f27f6a990c2afe2bc36280f469b.png" alt=""></p>
-<p>上述方法：有两个for循环，第一个是循环遍历m个样本，第二个是循环遍历所有特征（上面例子只有两个特征w1，w2，nx=2）。可以采用向量化加速运算。</p>
-<h1 id="向量化"><a href="#向量化" class="headerlink" title="向量化"></a>向量化<br></h1><p><img src="/2018/03/22/逻辑回归基础/f46134002771f9ec47fd28ee0c07c4e8.png" alt=""></p>
-<p><img src="/2018/03/22/逻辑回归基础/671c0e28379814d24a5698c743e18fb9.png" alt=""></p>
-<p>内层j的循环去掉，向量化实现，对第i个训练样本（一个nx的向量），与维度同为nx的dz向量相乘。</p>
-<h1 id="向量化的逻辑回归"><a href="#向量化的逻辑回归" class="headerlink" title="向量化的逻辑回归"></a>向量化的逻辑回归</h1><p><strong>非向量化实现</strong></p>
-<p><img src="/2018/03/22/逻辑回归基础/1d08cd3dda7441fd397fe30f9b8dc887.png" alt=""></p>
-<p><strong>向量化实现：</strong></p>
-<p><img src="/2018/03/22/逻辑回归基础/c80f7984e917776556a958da5ccab2ee.png" alt=""></p>
-<p><img src="/2018/03/22/逻辑回归基础/528ca7678c8f507590fdc92f884e8e8d.png" alt=""></p>
+        <h1 id="LSTM实现变长文本处理"><a href="#LSTM实现变长文本处理" class="headerlink" title="LSTM实现变长文本处理"></a>LSTM实现变长文本处理</h1><p><img src="/2018/05/25/LSTM变长文本处理/8d5b4ae20a20ad76d0abeb835f6a9743.png" alt="https://img-blog.csdn.net/20171010144849872?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvdGN4MTk5Mg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"></p>
+<p><img src="/2018/05/25/LSTM变长文本处理/28c8df73c50233661fe85250b8dbd666.png" alt=""></p>
+<p>由于喂到模型中是fixed-size tensor（如256*100*50, batch size *sequence<br>length*embedding size）,<br>RNN需要用mask来maintain序列真实长度，从而在计算loss的时候去除掉padding的部分。Padding和Mask是不一样的。Padding仅仅是补0，如果直接用到LSTM中这些0会参与计算，影响结果。因为LSTM中神经元不仅受当前状态影响，还会受之前状态影响，所以哪怕输入是0仍然可能会有非零输出。而mask是补0后还让LSTM在遇到0的时候溯回到上一个非零的状态，这样就相当于既统一了输入的长度，又告诉了模型每个输入的真实长度，避免这些补的0参与到输入中。</p>
+<p><img src="/2018/05/25/LSTM变长文本处理/e62f27d55b8dfcebaa65e9e903290814.png" alt=""></p>
+<p><img src="/2018/05/25/LSTM变长文本处理/4ea4dc7dcad5c3e573ab59d0c02d6130.png" alt=""></p>
+<p><img src="/2018/05/25/LSTM变长文本处理/1e80e9f4b8a5a6aeeeadef19eaef3d52.png" alt=""></p>
+<p>注意：rnn(<br>)可以利用buckets实现变长rnn的训练，<strong>虽然每个graph的RNN的time_step可能不同，但是在不同time_step间网络参数是共享的</strong>。所以对于不同的graph1和graph2，即使time_step参数不同，但所有网络参数是可以共享的。</p>
+<h2 id="对于dynamic-rnn-与rnn-有什么区别："><a href="#对于dynamic-rnn-与rnn-有什么区别：" class="headerlink" title="对于dynamic_rnn( )与rnn( )有什么区别："></a>对于dynamic_rnn( )与rnn( )有什么区别：</h2><p>定义好了一个RNNCell，调用该RNNCell的call函数time_steps次，对应的代码就是：</p>
+<p>outputs, state <strong>=</strong> tf<strong>.</strong>nn<strong>.</strong>dynamic_rnn(cell, inputs,<br>initial_state<strong>=</strong>initial_state)</p>
+<p>得到的outputs就是time_steps步里所有的输出。它的形状为(batch_size, time_steps,<br>cell.output_size)。state是<strong>最后一步的隐状态</strong>，它的形状为(batch_size,<br>n(LSTMStateTuple))，这是因为LSTM的每层状态都是c与h构成的元组。state是整个seq输入完之后的得到的每层的state。如果有n<br>layer，则state有n个元素，对应每一层的state。</p>
+<p>注意区分dynamic_run()与rnn()函数的区别</p>
+<p>run()函数的输出.shape为[batch_size,<br>hidden_units_size]，是某一t时刻的输出，对应着t时刻的输入[batch_size,<br>hidden_units_size]</p>
+<p>而dynamic_run()的state强调序列最后一个时刻的输出，注意，是最后一个时刻！！！！！！！！！。而outputs仍然是各个时刻的输出。</p>
+<h2 id="其他坑："><a href="#其他坑：" class="headerlink" title="其他坑："></a>其他坑：</h2><p><img src="/2018/05/25/LSTM变长文本处理/e1cacbef5d55503484db02f619f052cf.jpg" alt="preview"></p>
+<p>h就对应了BasicRNNCell的state_size。那么，y是不是就对应了BasicRNNCell的output_size呢？<strong>答案是否定的</strong>。</p>
+<p><img src="/2018/05/25/LSTM变长文本处理/8ef1a7b2103f903c7217886bbe5bc0f3.png" alt=""></p>
+<p>方法一：</p>
+<p>调用 dynamic_rnn() 来让我们构建好的网络运行起来</p>
+<p>outputs,state=tf.nn.dynamic_rnn(mlstm_cell,inputs=X,initial_state=init_state,time_major=False)</p>
+<p>当 time_major==False 时，</p>
+<p>outputs.shape=[batch_size,timestep_size,hidden_size]</p>
+<p>State存储各个隐层状态值，包括h_state与c_state【layer_num, 2, batch_size,<br>hidden_size】</p>
+<p>h_state = outputs[:, -1, :]或者h_state = state[-1][1]</p>
+<p>最后输出维度是 [batch_size, hidden_size]</p>
+<h2 id="写项目遇到的坑："><a href="#写项目遇到的坑：" class="headerlink" title="写项目遇到的坑："></a>写项目遇到的坑：</h2><ol>
+<li>首先是有一个叫做int(<br>)的参数不能是Variable，比如我想动态调整batch_size时，那么我的batch_size会被设置为变量Variable，在进行</li>
+</ol>
 <blockquote>
-<p>  在这里w是一个向量，x是一个向量，b是一个数</p>
+<p>  self._initial_state=cell.zero_state(self.batch_size, dtype=tf.float32)报错</p>
 </blockquote>
+<p>这时我们可以用强制类型转换，如下所示：</p>
+<p>self._initial_state=cell.zero_state(tf.cast(self.batch_size,tf.int32),<br>dtype=tf.float32)</p>
+<ol>
+<li>Tf.graph()可以用来建立一个新的图</li>
+</ol>
+<blockquote>
+<p>  假如我们用g1=tf.Graph()建立了一个图之后，</p>
+</blockquote>
+<blockquote>
+<p>  With g1.as_default( )：</p>
+</blockquote>
+<blockquote>
+<p>  图内容</p>
+</blockquote>
+<blockquote>
+<p>  上述代码会把g1设置为默认图，当退出上述上下文环境后，系统默认图便不再是g1，而是原来默认的计算图。</p>
+</blockquote>
+<ol>
+<li>for time_step in range(num_step):</li>
+</ol>
+<blockquote>
+<p>  (cell_output,state)=cell(inputs[:,time_step,:],state)</p>
+</blockquote>
+<blockquote>
+<p>  Out_put.Append(cell_output)</p>
+</blockquote>
+<blockquote>
+<p>  其中输出cell_output这个time_step的输出，维度为[batch_size,<br>  hidden_units]，所以最后的out_put维度为[time_step, batch_size, hidden_units]</p>
+</blockquote>
+<ol>
+<li><p>reduce_sum(),reduce_mean()表示沿着某一维度压扁并进行运算</p>
+</li>
+<li><p>Tensorboard到底指到哪个目录结构由tf.summary.FileWriter(<br>)决定，该函数的路径参数即是tensorboard的指定路径</p>
+</li>
+<li><p>三维矩阵相乘，为对应页相乘</p>
+</li>
+</ol>
+<p><img src="/2018/05/25/LSTM变长文本处理/99790c62411b3a8a2bab7d0dd8f03e89.jpg" alt=""></p>
+<blockquote>
+<p>  C:\Users\jzeng\Documents\Tencent<br>  Files\1534357193\FileRecv\MobileFile\P80425-195942.jpg</p>
+</blockquote>
+<h2 id="循环神经网络处理变长文本"><a href="#循环神经网络处理变长文本" class="headerlink" title="循环神经网络处理变长文本"></a>循环神经网络处理变长文本</h2><p>有多种方法：比如dynamic_rnn( )或者建立mask_x矩阵</p>
+<p>在使用RNN的时候，需要指定num_step，也就是Tensorflow的roll<br>step步数，但对于变长的文本而言，指定num_step不可避免的需要执行padding操作，用mask方法先自动padding，再对padding的内容进行删除，需要我们定义mask矩阵。除了mask方法，tensorflow还提供了一种更为优雅的dynamic_rnn的方法</p>
+<p><img src="/2018/05/25/LSTM变长文本处理/8eb6245d41cf204de24c914953b4bb60.png" alt=""></p>
 
       
     </div>
@@ -430,8 +470,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/22/神经网络向量化和梯度下降/" rel="next" title="神经网络向量化和梯度下降">
-                <i class="fa fa-chevron-left"></i> 神经网络向量化和梯度下降
+              <a href="/2018/05/24/seq2seq与Attention机制/" rel="next" title="seq2seq与Attention机制">
+                <i class="fa fa-chevron-left"></i> seq2seq与Attention机制
               </a>
             
           </div>
@@ -439,10 +479,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/26/LSTM参数和网络架构解释/" rel="prev" title="LSTM参数和网络架构解释">
-                LSTM参数和网络架构解释 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -584,7 +620,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#符号解释"><span class="nav-number">1.</span> <span class="nav-text">符号解释</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">2.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#梯度下降"><span class="nav-number">3.</span> <span class="nav-text">梯度下降</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化"><span class="nav-number">4.</span> <span class="nav-text">向量化</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#向量化的逻辑回归"><span class="nav-number">5.</span> <span class="nav-text">向量化的逻辑回归</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#LSTM实现变长文本处理"><span class="nav-number">1.</span> <span class="nav-text">LSTM实现变长文本处理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对于dynamic-rnn-与rnn-有什么区别："><span class="nav-number">1.1.</span> <span class="nav-text">对于dynamic_rnn( )与rnn( )有什么区别：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#其他坑："><span class="nav-number">1.2.</span> <span class="nav-text">其他坑：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#写项目遇到的坑："><span class="nav-number">1.3.</span> <span class="nav-text">写项目遇到的坑：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#循环神经网络处理变长文本"><span class="nav-number">1.4.</span> <span class="nav-text">循环神经网络处理变长文本</span></a></li></ol></li></ol></div>
             
 
           </div>
