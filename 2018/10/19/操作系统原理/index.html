@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
 <meta property="og:description" content="操作系统原理">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-19T03:25:20.957Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/19/操作系统原理/D:/MyApplication/Nodejs/Blog/source/_posts/操作系统原理/CPU组成.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/10/19/操作系统原理/D:/MyApplication/Nodejs/Blog/source/_posts/操作系统原理/CPU组成2.jpg">
+<meta property="og:updated_time" content="2018-10-19T12:09:45.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="操作系统原理">
 <meta name="twitter:description" content="操作系统原理">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/19/操作系统原理/D:/MyApplication/Nodejs/Blog/source/_posts/操作系统原理/CPU组成.jpg">
 
 
 
@@ -356,7 +359,66 @@
       
 
       
-        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a><center>操作系统</center></h1><p>产生对房产税丢部分v赐御书</p>
+        <h1 id="操作系统"><a href="#操作系统" class="headerlink" title="操作系统"></a><center>操作系统</center></h1><h2 id="计算机组成原理"><a href="#计算机组成原理" class="headerlink" title="计算机组成原理"></a>计算机组成原理</h2><p>在将操作系统前我们讲一下有关计算机组成的硬件知识</p>
+<p><img src="/2018/10/19/操作系统原理/D:/MyApplication\Nodejs\Blog\source\_posts\操作系统原理\CPU组成.jpg" alt="CPU组成"></p>
+<p>寄存器是CPU内部的原件，寄存器拥有非常高的读写速度，所以在寄存器之间的数据传送非常快。</p>
+<p>寄存器作用：</p>
+<ul>
+<li>将寄存器内的数据执行算术即逻辑运算。<strong>因为CPU最后执行运算时都是对寄存器进行操作，寄存器的速度决定了CPU的速度。我们最后在对数据操作的时候，需要根据相关地址寄存器去内存中获取数据，然后加载到数据寄存器中，执行算术运算。数据在内存上是没法进行运算的，必须读入寄存器</strong></li>
+<li>存于寄存器的地址可用来指向内存中的某个位置</li>
+<li>8086设定了8个8位的数据寄存器以及4个段寄存器</li>
+</ul>
+<p>当一个程序执行的时候，需要知道程序代码、数据和堆栈各要用到内存中的哪些位置。通过设定段寄存器CS,DS,SS来指向这些起始位置。</p>
+<p><img src="/2018/10/19/操作系统原理/D:/MyApplication\Nodejs\Blog\source\_posts\操作系统原理\CPU组成2.jpg" alt="CPU组成2"></p>
+<h2 id="进程与线程"><a href="#进程与线程" class="headerlink" title="进程与线程"></a>进程与线程</h2><p>进程是具有一定独立功能的程序关于某个数据集合上的一次运行活动，是系统进行资源分配的一个独立单位。</p>
+<p>用户运行程序的时候，会为它分配除了CPU的各种资源，如内存、磁盘和I/O设备等，然后进程进入进程就绪队列（注意不是进入运行状态）。然后进程调度程序选中他，为它分配CPU及其他相关资源，然后该进程开始运行。</p>
+<p>有了进程为什么要引入线程：</p>
+<ul>
+<li>易于调度</li>
+<li>提高并发性</li>
+<li>开销小。创建线程比创建进程要快，所需要的开销也小</li>
+<li>有利于发挥多处理器的性能。通过创建多线程，每个线程都在一个处理器上运行，从而实现应用程序的并行，使得每个处理器都得到充分运行。</li>
+</ul>
+<p>不同点</p>
+<ul>
+<li>一个线程必定属于也只能属于一个进程；而一个进程可以拥有多个线程并且至少拥有一个线程。</li>
+<li>属于一个进程的所有线程共享该进程的所有资源，包括进程打开的文件，创建的socket</li>
+<li>进程有进程控制块，线程有线程控制块。但线程控制块比进程控制块小很多。线程间切换代价小，进程切换代价大</li>
+<li>进程是一次程序的执行，线程可以理解为程序中一段程序片段的运行。</li>
+<li>每个进程都有独立的内存空间，而线程共享其所属的内存空间。</li>
+</ul>
+<h2 id="线程同步"><a href="#线程同步" class="headerlink" title="线程同步"></a>线程同步</h2><p>线程同步互斥的控制机制：临界区，互斥量，信号量和事件</p>
+<ul>
+<li>临界区：通过对多线程的串行化来访问公共资源或者一段代码。速度快，适合控制数据访问。</li>
+<li>互斥量：只有拥有互斥锁的线程才有权访问系统的公共资源，因为互斥对象只有一个，所以可以保证同一时间公共资源不会被多个线程访问。互斥不仅能够实现统一应用程序的公共资源安全共享，还能实现不同应用程序的公共资源安全共享</li>
+<li>信号量：为控制一个具有有限数量的用户资源而设计。它允许同一时刻有多个线程访问同一资源，但一般需要限制同一时刻访问此资源的最大线程数目。</li>
+<li>事件：用来通知线程有一些事件已经发生，从而启动后继续任务的开始。</li>
+</ul>
+<p>临界区和互斥量与信号量的区别：</p>
+<p>互斥量和信号量在系统中任何进程里都是可见的。一个进程创建了一个互斥量和信号量，另一个进程可以试图去获取该锁。然而，临界区的作用范围仅在本进程，其他的进程无法获取该锁。</p>
+<h2 id="内核线程和用户线程的区别以及系统进程和用户进程的区别"><a href="#内核线程和用户线程的区别以及系统进程和用户进程的区别" class="headerlink" title="内核线程和用户线程的区别以及系统进程和用户进程的区别"></a>内核线程和用户线程的区别以及系统进程和用户进程的区别</h2><p><strong>根据对操作系统内核是否对线程感知，可以把线程分为内核线程和用户线程</strong></p>
+<p>内核线程建立和销毁都是由操作系统负责、通过系统调用完成的。操作系统在调度时，参考各进程的线程运行情况做出调度决定。如果一个进程中没有就绪态的线程，那么这个进程也不会被调度占用CPU。</p>
+<p>用户线程：用户线程指不需要内核支持而在用户程序中实现的线程，其不依赖于操作系统的核心，用户进程利用线程库提供创建、同步、调度和管理线程的函数来控制用户线程。</p>
+<p>用户线程相关的缺点：</p>
+<ul>
+<li>同一进程中只能同时有一个线程在运行，如果一个线程使用了系统调用而阻塞，那么整个进程就会被挂起。</li>
+</ul>
+<p>系统进程与用户进程:</p>
+<ul>
+<li>系统进程：可以执行内存资源分配和进程切换等管理工作。而且，该进程的运行不受用户的干预，即使root用户也不能干预系统进程的运行</li>
+<li>用户进程：通过执行用户程序、应用程序或者内核之外的系统程序而产生的进程，此进程可以在用户的控制下运行和关闭</li>
+</ul>
+<h2 id="内核栈与用户栈的区别"><a href="#内核栈与用户栈的区别" class="headerlink" title="内核栈与用户栈的区别"></a>内核栈与用户栈的区别</h2><p>每个进程一般会有两个栈，一个用户栈，一个内核栈，存在于内核空间。</p>
+<p>当进程在用户空间运行时，cpu堆栈指针寄存器里面的内容时用户堆栈的地址，使用的是用户栈。</p>
+<p>当进程在内核空间时，cpu堆栈指针寄存器里的内容是内核栈空间的地址，使用内核栈。</p>
+<p>内核栈是<strong>内存</strong>中属于操作系统空间的一块区域，主要用途为：</p>
+<ul>
+<li>保护中断现场</li>
+<li>保护操作系统子程序间相互调用的参数、返回值、返回点以及子程序函数的局部变量</li>
+</ul>
+<p>用户栈是用户进程空间中的一块区域，用于保存用户进程的子程序间相互作用的参数、返回值以及相关局部变量</p>
+<p><strong>当进程因为中断或者系统调用而陷入内核态，进程所使用的堆栈也要从用户栈转到内核栈</strong>。进程陷入内核态后，先把用户态堆栈的地址保存在内核栈中，然后设置堆栈指针寄存器的内容为内核栈的地址，这样就完成了用户栈到内核栈的转换。<strong>当进程从内核态回复为用户态时，在内核态之后的最后将保存在内核栈里面的用户栈地址恢复到堆栈指针寄存器即可</strong>。这样就实现了内核栈和用户栈的互转。</p>
+<p>注意：<strong>每次进程从用户态陷入内核的时候得到的内核栈都是空的，所以在进程陷入内核的时候，直接把内核栈的栈顶地址给堆栈指针寄存器即可。</strong></p>
 
       
     </div>
@@ -537,7 +599,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#操作系统"><span class="nav-number">1.</span> <span class="nav-text">操作系统</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#计算机组成原理"><span class="nav-number">1.1.</span> <span class="nav-text">计算机组成原理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进程与线程"><span class="nav-number">1.2.</span> <span class="nav-text">进程与线程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#线程同步"><span class="nav-number">1.3.</span> <span class="nav-text">线程同步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核线程和用户线程的区别以及系统进程和用户进程的区别"><span class="nav-number">1.4.</span> <span class="nav-text">内核线程和用户线程的区别以及系统进程和用户进程的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#内核栈与用户栈的区别"><span class="nav-number">1.5.</span> <span class="nav-text">内核栈与用户栈的区别</span></a></li></ol></li></ol></div>
             
 
           </div>
