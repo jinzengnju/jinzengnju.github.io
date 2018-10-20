@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
 <meta property="og:description" content="leetcode算法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-20T09:33:53.430Z">
+<meta property="og:updated_time" content="2018-10-20T13:56:05.971Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="leetcode算法">
 <meta name="twitter:description" content="leetcode算法">
@@ -380,6 +380,32 @@
 <p>题目描述：删除 s 中的一些字符，使得它构成字符串列表 d 中的一个字符串，找出能构成的最长字符串。如果有多个相同长度的结果，返回字典序的最大字符串。</p>
 <p>这道题貌似没什么捷径，首先如何判断两字符串s与d[i]是否满足题意情况：<strong>双指针i和j，分别指向s与d[i]的第一个字符，i和j按情况自增，以此判断是否满足情况</strong></p>
 <p>那么如何输出字典序最大的字符串呢？String类有提供按照字典序比较两字符串的大小函数compareTo函数</p>
+<h2 id="桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序"><a href="#桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序" class="headerlink" title="桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序"></a>桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序</h2><p>桶是什么：是一个数组，数组的每个维度装的是一个list，即桶是数组List<integer>[]</integer></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">List&lt;Integer&gt;[] bucket=<span class="keyword">new</span> ArrayList[nums.length+<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
+<p><strong>每个下标对应的是一个桶，每个桶存储出现频率相同的数。并且桶的下标就代表桶中数出现的频率，即第i个桶中存储出现频率为i的数</strong>。把数据都放入桶之后，从后向前遍历，最先得到的k个数即为所求。</p>
+<p>有关map的操作：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mymap.getOrDefault(num, <span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>这是什么意思？这是在map中寻找键为num对应的value，没有默认返回0</p>
+<h2 id="二分法"><a href="#二分法" class="headerlink" title="二分法"></a>二分法</h2><p>在二分法中有几个注意点：</p>
+<ul>
+<li>当h的赋值表达式子为h=m时，循环条件为l&lt;h，<strong>不能取等号</strong>，否则会进入死循环</li>
+</ul>
+<h3 id="540-Single-Element-in-a-Sorted-Array-Medium"><a href="#540-Single-Element-in-a-Sorted-Array-Medium" class="headerlink" title="540. Single Element in a Sorted Array (Medium)"></a><strong><a href="https://leetcode.com/problems/single-element-in-a-sorted-array/description/" target="_blank" rel="noopener">540. Single Element in a Sorted Array (Medium)</a></strong></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Input: [1, 1, 2, 3, 3, 4, 4, 8, 8]</span><br><span class="line">Output: 2</span><br></pre></td></tr></table></figure>
+<p>题目描述：一个有序数组只有一个数不出现两次，找出这个数。要求以 O(logN) 时间复杂度进行求解。</p>
+<p>经上述观察，假设单个数的索引为index，当m 为偶数的时候，假设m+1&lt;index，那么有nums[m]==nums[m+1];当m+1&gt;=index，有nums[m]！=nums[m+1]。用二分法解决上述问题：保证mid为偶数的情况下，如果nums[m]==nums[m+1]，那么index所在的位置为[m+2，h]。如果nums[m]！=nums[m+1]，那么index所在的位置为[l, m]</p>
+<p>有以下注意点：</p>
+<ul>
+<li>每次计算出mid之后，需要将mid调整为偶数</li>
+<li>有赋值h=m，循环条件为l&lt;h，不能取等</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">int</span> <span class="title">singleNonDuplicate</span><span class="params">(<span class="keyword">int</span>[] nums)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> l = <span class="number">0</span>, h = nums.length - <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (l &lt; h) &#123;</span><br><span class="line">        <span class="keyword">int</span> m = l + (h - l) / <span class="number">2</span>;</span><br><span class="line">        <span class="keyword">if</span> (m % <span class="number">2</span> == <span class="number">1</span>) &#123;</span><br><span class="line">            m--;   <span class="comment">// 保证 l/h/m 都在偶数位，使得查找区间大小一直都是奇数</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> (nums[m] == nums[m + <span class="number">1</span>]) &#123;</span><br><span class="line">            l = m + <span class="number">2</span>;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            h = m;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> nums[l];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="旋转数组的最小数字"><a href="#旋转数组的最小数字" class="headerlink" title="旋转数组的最小数字"></a>旋转数组的最小数字</h3><p>对于一个旋转数组nums，当nums[mid]&lt;nums[h]，说明最小值在[l，mid]之间（<strong>正序的</strong>）。否则在[mid+1，h]之间。</p>
+<ul>
+<li>注意：因为赋值语句为h=m，所以循环条件不能取等</li>
+</ul>
+<h3 id="34-Search-for-a-Range-Medium"><a href="#34-Search-for-a-Range-Medium" class="headerlink" title="34. Search for a Range (Medium)"></a><a href="https://leetcode.com/problems/search-for-a-range/description/" target="_blank" rel="noopener">34. Search for a Range (Medium)</a></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input: nums = [5,7,7,8,8,10], target = 8</span><br><span class="line">Output: [3,4]</span><br><span class="line"></span><br><span class="line">Input: nums = [5,7,7,8,8,10], target = 6</span><br><span class="line">Output: [-1,-1]</span><br></pre></td></tr></table></figure>
+<p>假设待查找的数据为K，二分法定义函数：找到第一个大于等于K的下标（也就是最左边）。</p>
+<p>找到大于等于K的最左边的下标记为first，找到第一个大于等于K+1的下标记为last即可</p>
 
       
     </div>
@@ -560,7 +586,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode刷"><span class="nav-number">1.</span> <span class="nav-text">Leetcode刷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TopKElements-and-KthElements"><span class="nav-number">1.1.</span> <span class="nav-text">TopKElements and KthElements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长子序列"><span class="nav-number">1.2.</span> <span class="nav-text">最长子序列</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode刷"><span class="nav-number">1.</span> <span class="nav-text">Leetcode刷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TopKElements-and-KthElements"><span class="nav-number">1.1.</span> <span class="nav-text">TopKElements and KthElements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长子序列"><span class="nav-number">1.2.</span> <span class="nav-text">最长子序列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序"><span class="nav-number">1.3.</span> <span class="nav-text">桶排序：出现频率最多的K个数，按照字符出现次数对字符串排序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#二分法"><span class="nav-number">1.4.</span> <span class="nav-text">二分法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#540-Single-Element-in-a-Sorted-Array-Medium"><span class="nav-number">1.4.1.</span> <span class="nav-text">540. Single Element in a Sorted Array (Medium)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#旋转数组的最小数字"><span class="nav-number">1.4.2.</span> <span class="nav-text">旋转数组的最小数字</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#34-Search-for-a-Range-Medium"><span class="nav-number">1.4.3.</span> <span class="nav-text">34. Search for a Range (Medium)</span></a></li></ol></li></ol></li></ol></div>
             
 
           </div>
