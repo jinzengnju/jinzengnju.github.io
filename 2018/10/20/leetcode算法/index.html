@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习," />
+  <meta name="keywords" content="leetcode," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="遇到的坑">
-<meta name="keywords" content="深度学习">
+<meta name="description" content="leetcode算法">
+<meta name="keywords" content="leetcode">
 <meta property="og:type" content="article">
-<meta property="og:title" content="tensorflow-gpu的安装">
-<meta property="og:url" content="http://yoursite.com/2018/03/20/tensorflow-gpu安装/index.html">
+<meta property="og:title" content="leetcode算法">
+<meta property="og:url" content="http://yoursite.com/2018/10/20/leetcode算法/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="遇到的坑">
+<meta property="og:description" content="leetcode算法">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-03-22T04:48:48.144Z">
+<meta property="og:updated_time" content="2018-10-20T09:33:53.430Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="tensorflow-gpu的安装">
-<meta name="twitter:description" content="遇到的坑">
+<meta name="twitter:title" content="leetcode算法">
+<meta name="twitter:description" content="leetcode算法">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/03/20/tensorflow-gpu安装/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/20/leetcode算法/"/>
 
 
 
 
 
-  <title>tensorflow-gpu的安装 | JinZeng's Blog</title>
+  <title>leetcode算法 | JinZeng's Blog</title>
   
 
 
@@ -263,7 +263,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/20/tensorflow-gpu安装/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/20/leetcode算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="JinZeng">
@@ -280,7 +280,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">tensorflow-gpu的安装</h1>
+          <h1 class="post-title" itemprop="name headline">leetcode算法</h1>
         
 
         <div class="post-meta">
@@ -292,8 +292,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-20T16:43:46+08:00">
-                2018-03-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-20T15:56:59+08:00">
+                2018-10-20
               </time>
             
 
@@ -315,8 +315,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
+                  <a href="/categories/leetcode/" itemprop="url" rel="index">
+                    <span itemprop="name">leetcode</span>
                   </a>
                 </span>
 
@@ -339,7 +339,7 @@
 
           
               <div class="post-description">
-                  遇到的坑
+                  leetcode算法
               </div>
           
 
@@ -356,24 +356,30 @@
       
 
       
-        <h1 id="安装tensorflow-gpu的坑"><a href="#安装tensorflow-gpu的坑" class="headerlink" title="安装tensorflow-gpu的坑"></a>安装tensorflow-gpu的坑</h1><p>推荐安装：CUDA9.0（注意不是9.1），cudnn7.1，tensorflow-gpu1.6.0</p>
-<p>今天在WIN10上体验了以下tensorflow-gpu安装，感受是Windows做科研真心垃圾，安装软件贼烦。不信？那就请往下看</p>
-<p>首先在官网下了CUDA9.1与Cudnn7.1，安装没问题，很舒畅。然后需要安装tensorflow-gpu。所以，通过</p>
-<p>Conda create -n tensorflow python=3.5 创建tensorflow运算环境</p>
-<p>Activate tensorflow 激活tensorflow运算环境</p>
-<p>Conda list 查看该环境下的包</p>
-<p>Pip install tensorflow-gpu 安装没问题</p>
-<p>Import tensorflow</p>
-<p>就是这里，真的是卧槽！！！！！！！！！这里出现各种bug，很明确自己环境变量设置都没有问题，查了很多资料，发现是版本兼容的问题。</p>
-<p>我的预编译tensorflow-gpu版本与cuda的版本不兼容，所以找不到相关的文件比如：cudart80_64.dll等（报错找不到该文件），但在环境变量实际有指向cdart90_64.dll文件。好了，针对这个问题，原本想用tensorflow-gpu的源代码编译安装（通过Gcc和bazel），但是google了很多资料，在Windows下通过源代码编译安装的博客很少，给不了指导性的意见，教程一般是在Ubuntu环境下的。</p>
-<p>那我怎么解决该问题的呢？</p>
-<p>当然是重装cuda了，或者安装和CUDA9.1、Cudnn7.1兼容的tensorflow-gpu呀。这里我选的是第一种方式，Cuda8.0，Cudnn5.1，tensorflow-gpu1.1.0，安装后可以正常运行。</p>
-<p>建议：</p>
-<p>Windows下要安装tensorflow-gpu真的太烦了，选好版本最重要。要是Ubuntu就直接源代码编译安装吧，编译时可以指定你用的Cuda版本，轻松解决兼容问题。</p>
-<p>另外，在安装过程中，conda的使用更清楚了</p>
-<p>Conda create -n tensorflow python=3.5 创建一个名叫tensorflow的python3.5环境</p>
-<p>Conda remove 删除创建的一个python环境</p>
-<p>Conda/pip uninstall … 在已经activate的环境里卸载包</p>
+        <h1 id="Leetcode刷"><a href="#Leetcode刷" class="headerlink" title="Leetcode刷"></a><center>Leetcode刷</center></h1><h2 id="TopKElements-and-KthElements"><a href="#TopKElements-and-KthElements" class="headerlink" title="TopKElements and KthElements"></a>TopKElements and KthElements</h2><p>这两个问题都可以通过快速排序和堆排序来解决</p>
+<p>KthElements问题</p>
+<ul>
+<li><p>快速排序：利用快速排序进行Partition，返回j的值。比较j的值与K值得大小，如果j&lt;K，那么在[j+1，h之间]。很多时候，快排书写得一些细节需要注意一下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">int</span> <span class="title">Partition</span><span class="params">(<span class="keyword">int</span>[] nums,<span class="keyword">int</span> l,<span class="keyword">int</span> h)</span></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i=l+<span class="number">1</span>;</span><br><span class="line">  <span class="keyword">int</span> j=h;</span><br><span class="line">  <span class="keyword">while</span>(<span class="keyword">true</span>)&#123;</span><br><span class="line">    <span class="keyword">while</span>(nums[i++]&lt;nums[l]&amp;&amp;i&lt;h);</span><br><span class="line">    <span class="keyword">while</span>(nums[j--]&gt;nums[l]&amp;&amp;j&gt;l);</span><br><span class="line">    <span class="keyword">if</span>(i&gt;=j)&#123;</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    swap(nums,i,j)</span><br><span class="line">  &#125;</span><br><span class="line">  swap(nums,j,l);</span><br><span class="line">  <span class="keyword">return</span> j;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>堆排序：创建最小堆，最后堆中剩下得元素中堆顶元素为要求的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">堆得创建用优先队列：</span><br><span class="line">PriorityQueue&lt;Integer&gt; heap=<span class="keyword">new</span> PriorityQueue&lt;&gt;();这是创建了小顶堆</span><br><span class="line">PriorityQueue&lt;Integer&gt; heap2=<span class="keyword">new</span> PriorityQueue&lt;&gt;(((o1, o2) -&gt; o2-o1));这是创建大顶堆</span><br><span class="line">为什么是大顶堆？后面返回值为负数时（即o2-o1小于<span class="number">0</span>），传入的o1放在前面，o2放在后面。因为o1是比o2大的，所以o1放在前面相当于把**大的值放在前面**</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">如何维护堆的大小？不断往堆中插入数据，每次都要检测优先队列的size是否大于K值</span><br><span class="line"><span class="keyword">for</span> (<span class="keyword">int</span> val : nums) &#123;</span><br><span class="line">        pq.add(val);</span><br><span class="line">        <span class="keyword">if</span> (pq.size() &gt; k)  <span class="comment">// 维护堆的大小为 K</span></span><br><span class="line">            pq.poll();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>TopKElements问题</p>
+<ul>
+<li>快速排序：上述找到KthElements后，在位置K后面的所有元素是TopK的元素</li>
+<li>堆排序：堆中最后剩下的元素即为要求的解</li>
+</ul>
+<p><strong>拓展</strong></p>
+<p>栈的创建：Stack容器即可</p>
+<p>队列的创建：有Queue的容器</p>
+<h2 id="最长子序列"><a href="#最长子序列" class="headerlink" title="最长子序列"></a>最长子序列</h2><p><a href="https://leetcode.com/problems/longest-word-in-dictionary-through-deleting/description/" target="_blank" rel="noopener">524. Longest Word in Dictionary through Deleting (Medium)</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Input:</span><br><span class="line">s = &quot;abpcplea&quot;, d = [&quot;ale&quot;,&quot;apple&quot;,&quot;monkey&quot;,&quot;plea&quot;]</span><br><span class="line"></span><br><span class="line">Output:</span><br><span class="line">&quot;apple&quot;</span><br></pre></td></tr></table></figure>
+<p>题目描述：删除 s 中的一些字符，使得它构成字符串列表 d 中的一个字符串，找出能构成的最长字符串。如果有多个相同长度的结果，返回字典序的最大字符串。</p>
+<p>这道题貌似没什么捷径，首先如何判断两字符串s与d[i]是否满足题意情况：<strong>双指针i和j，分别指向s与d[i]的第一个字符，i和j按情况自增，以此判断是否满足情况</strong></p>
+<p>那么如何输出字典序最大的字符串呢？String类有提供按照字典序比较两字符串的大小函数compareTo函数</p>
 
       
     </div>
@@ -391,7 +397,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
+            <a href="/tags/leetcode/" rel="tag"># leetcode</a>
           
         </div>
       
@@ -404,8 +410,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/03/14/知识图谱三元组抽取/" rel="next" title="知识图谱三元组关系的抽取">
-                <i class="fa fa-chevron-left"></i> 知识图谱三元组关系的抽取
+              <a href="/2018/10/19/操作系统原理/" rel="next" title="操作系统原理">
+                <i class="fa fa-chevron-left"></i> 操作系统原理
               </a>
             
           </div>
@@ -413,10 +419,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/03/21/tensorflow基础知识/" rel="prev" title="tensorflow新编程概念">
-                tensorflow新编程概念 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -558,7 +560,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#安装tensorflow-gpu的坑"><span class="nav-number">1.</span> <span class="nav-text">安装tensorflow-gpu的坑</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Leetcode刷"><span class="nav-number">1.</span> <span class="nav-text">Leetcode刷</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#TopKElements-and-KthElements"><span class="nav-number">1.1.</span> <span class="nav-text">TopKElements and KthElements</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#最长子序列"><span class="nav-number">1.2.</span> <span class="nav-text">最长子序列</span></a></li></ol></li></ol></div>
             
 
           </div>
