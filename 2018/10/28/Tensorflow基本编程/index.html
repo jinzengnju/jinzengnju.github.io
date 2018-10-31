@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tensorflow," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tensorflow基本编程">
+<meta name="keywords" content="Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow基本编程">
+<meta property="og:url" content="http://yoursite.com/2018/10/28/Tensorflow基本编程/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="Tensorflow基本编程">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-10-31T10:52:59.788Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow基本编程">
+<meta name="twitter:description" content="Tensorflow基本编程">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/28/Tensorflow基本编程/"/>
+
+
+
+
+
+  <title>Tensorflow基本编程 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/28/Tensorflow基本编程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow基本编程</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-28T10:38:50+08:00">
+                2018-10-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Tensorflow基本编程
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Tensorflow基本编程"><a href="#Tensorflow基本编程" class="headerlink" title="Tensorflow基本编程"></a><center>Tensorflow基本编程</center></h1><ul>
+<li>张量的阶和形状是不同的概念。一阶张量表示数组，二阶张量表示矩阵。但形状指的是二阶张量的具体形状，比如[3，4]。形状中的None值比如[None, 784]，这是一个二阶张量，None表示该维度可以是任何长度。</li>
+</ul>
+<h2 id="Tensorflow数据读取"><a href="#Tensorflow数据读取" class="headerlink" title="Tensorflow数据读取"></a>Tensorflow数据读取</h2><ul>
+<li><p>feeding供给数据：<strong>通过run()函数和eval()函数输入feed_dict参数，可以启动运算过程。设计placeholder节点的唯一目的就是为了提供数据供给feeding的方法</strong>。placeholder节点被声明的时候是未被初始化的，不会包含任何数据。如果运行时没有给它供给数据，Tensorflow运行的时候就会报错。</p>
+</li>
+<li><p>文件读取管线，其相关步骤如下所示：</p>
+<ul>
+<li><p>创建文件名列表</p>
+</li>
+<li><p>选择是否配置文件名乱序shuffing</p>
+</li>
+<li><p>选择配置最大迭代次数epoch_limit</p>
+</li>
+<li><p>创建文件名队列：将文件名列表交给tf.train.string_input_producer()函数，会生成一个先入先出的队列，<strong>对应的文件阅读器会需要它来阅读数据</strong>。有一个QueueRunner的工作线程专门负责这一生成文件名队列的过程。</p>
+<p>QueueRunner的工作线程是独立于文件阅读器的线程，因此乱序和将文件名推入队列这些过程不会阻塞文件阅读器的运行。<strong>也就是QueueRunner的运行不会阻塞文件阅读器的运行</strong>。</p>
+</li>
+<li><p>创建针对文件格式的阅读器</p>
+</li>
+<li><p>记录解析器</p>
+</li>
+<li><p>可配置的预处理器</p>
+</li>
+<li><p>样本队列</p>
+</li>
+</ul>
+<p><strong>注意：在调用run函数或者eval函数之前，必须用tf.train.start_queue_runners来将文件名填充到队列。否则，read方法操作将会被阻塞到文件名队列中有值位置。</strong></p>
+<p>所以，一个多线程的数据读取往往需要我们创建两个队列，<strong>一个是文件名队列string_input_producer，另一个队列tf.train.shuffle_batch()来执行输入样本的训练，评价推理准备</strong></p>
+</li>
+<li><p>从<strong>二进制文件</strong>读取固定长度的记录，可以使用<a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#FixedLengthRecordReader" target="_blank" rel="noopener"><code>tf.FixedLengthRecordReader</code></a>的<a href="http://www.tensorfly.cn/tfdoc/api_docs/python/io_ops.html#decode_raw" target="_blank" rel="noopener"><code>tf.decode_raw</code></a>操作。decode_raw操作可以将一个字符串转换为一个uint的张量</p>
+</li>
+<li><p>Coordinator：可以用来同时停止多个工作线程并且向那个在等待所有工作线程的程序报告异常。包括方法有should_stop()，request_stop()，join()等。QueueRunner用来协调多个工作线程同时将多个张量推入同意队列中。</p>
+</li>
+<li><p>QueueRunner会创建一组线程，这些线程可以重复的执行入队操作。这些线程使用同一个Coordinator来处理线程同步终止。通常在训练程序中，会创建一个QueueRunner来运行几个线程，这几个线程处理样本，并将样本推入队列。创建一个Coordinator，让queueRunner来启动这些线程。创建一个训练的循环，并且使用Coordinator来控制QueueRunner的线程的终止。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"># Create a queue runner that will run 4 threads in parallel to enqueue</span><br><span class="line"># examples.</span><br><span class="line">qr = tf.train.QueueRunner(queue, [enqueue_op] * <span class="number">4</span>)</span><br><span class="line"></span><br><span class="line"># Launch the graph.</span><br><span class="line">sess = tf.Session()</span><br><span class="line"># Create a coordinator, launch the queue runner threads.</span><br><span class="line">coord = tf.train.Coordinator()</span><br><span class="line">enqueue_threads = qr.create_threads(sess, coord=coord, start=True)</span><br><span class="line"># Run the training loop, controlling termination with the coordinator.</span><br><span class="line"><span class="function"><span class="keyword">for</span> step in <span class="title">xrange</span><span class="params">(<span class="number">1000000</span>)</span>:</span></span><br><span class="line"><span class="function">    <span class="keyword">if</span> coord.<span class="title">should_stop</span><span class="params">()</span>:</span></span><br><span class="line"><span class="function">        <span class="keyword">break</span></span></span><br><span class="line"><span class="function">    sess.<span class="title">run</span><span class="params">(train_op)</span></span></span><br><span class="line"><span class="function"># When done, ask the threads to stop.</span></span><br><span class="line"><span class="function">coord.<span class="title">request_stop</span><span class="params">()</span></span></span><br><span class="line"><span class="function"># And wait <span class="keyword">for</span> them to actually <span class="keyword">do</span> it.注意join函数是等待被指定的线程终止</span></span><br><span class="line"><span class="function">coord.<span class="title">join</span><span class="params">(threads)</span></span></span><br></pre></td></tr></table></figure>
+<p>这里有一个问题是：为什么request_stop会在join函数前面。</p>
+</li>
+</ul>
+<p>不要重新引导主机</p>
+<h2 id="tf-train-slice-input-producer、tf-train-batch、tf-train-shuffle-batch、tf-train-shuffle-batch-join"><a href="#tf-train-slice-input-producer、tf-train-batch、tf-train-shuffle-batch、tf-train-shuffle-batch-join" class="headerlink" title="tf.train.slice_input_producer、tf.train.batch、tf.train.shuffle_batch、tf.train.shuffle_batch_join"></a>tf.train.slice_input_producer、tf.train.batch、tf.train.shuffle_batch、tf.train.shuffle_batch_join</h2><ul>
+<li><p>tf.train.slice_input_producer解析</p>
+<p>是一个tensor生成器，该函数接受一个tensor列表，然后根据该列表返回一个生成器。<strong>按照设定，每次从一个tensor列表中按照顺序或者随机抽取出一个tensor放入列表（注意是一个）</strong>。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">slice_input_producer(tensor_list, num_epochs=<span class="keyword">None</span>, shuffle=<span class="keyword">True</span>, seed=<span class="keyword">None</span>,</span><br><span class="line">                         capacity=<span class="number">32</span>, shared_name=<span class="keyword">None</span>, name=<span class="keyword">None</span>)</span><br></pre></td></tr></table></figure>
+<p>其中的第一个参数tensor_list：包含一系列tensor的列表，表中的第一维度的值必须相等，即个数值必须相等。如训练样本X和label Y的第一维度值相等。</p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/28/python生成器/" rel="next" title="python生成器">
+                <i class="fa fa-chevron-left"></i> python生成器
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/Linux操作/" rel="prev" title="Linux操作">
+                Linux操作 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow基本编程"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow基本编程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tensorflow数据读取"><span class="nav-number">1.1.</span> <span class="nav-text">Tensorflow数据读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#tf-train-slice-input-producer、tf-train-batch、tf-train-shuffle-batch、tf-train-shuffle-batch-join"><span class="nav-number">1.2.</span> <span class="nav-text">tf.train.slice_input_producer、tf.train.batch、tf.train.shuffle_batch、tf.train.shuffle_batch_join</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

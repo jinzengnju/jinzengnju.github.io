@@ -1,0 +1,884 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Linux," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Linux">
+<meta name="keywords" content="Linux">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux操作">
+<meta property="og:url" content="http://yoursite.com/2018/10/29/Linux操作/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="Linux">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Linux操作/res.png">
+<meta property="og:updated_time" content="2018-10-31T11:13:49.056Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux操作">
+<meta name="twitter:description" content="Linux">
+<meta name="twitter:image" content="http://yoursite.com/2018/10/29/Linux操作/res.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/10/29/Linux操作/"/>
+
+
+
+
+
+  <title>Linux操作 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/29/Linux操作/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Linux操作</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-29T15:46:59+08:00">
+                2018-10-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Linux/" itemprop="url" rel="index">
+                    <span itemprop="name">Linux</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Linux
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Linux相关操作"><a href="#Linux相关操作" class="headerlink" title="Linux相关操作"></a><center>Linux相关操作</center></h1><ul>
+<li><p>快速查看文件前几行：head file.txt。将文件前100行移到另一文件：head -n 100 accu.txt &gt; accu_temp.txt</p>
+</li>
+<li><p>Linux查看显卡：<strong>nvidia-smi  </strong></p>
+</li>
+<li><p>sudo apt-get命令报错dpkg相关错误，info文件重命名</p>
+<ol>
+<li>sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bak //现将info文件夹更名</li>
+<li>sudo mkdir /var/lib/dpkg/info //再新建一个新的info文件夹</li>
+<li>sudo apt-get update</li>
+<li>sudo apt-get -f install xxx</li>
+<li>sudo mv /var/lib/dpkg/info/* /var/lib/dpkg/info.bak</li>
+<li>sudo rm -rf /var/lib/dpkg/info //把自己新建的info文件夹删掉</li>
+<li>sudo mv /var/lib/dpkg/info.bak /var/lib/dpkg/info //把以前的info文件夹重新改回名字</li>
+</ol>
+</li>
+<li><p>scp传送文件：首先要保证ssh服务开启，所以需要先安装openssh-server</p>
+<p>sudo apt-get update</p>
+<p>sudo apt-get install openssh-server(可能会遇到dpkg相关错误)</p>
+<p>开启服务service sshd start</p>
+<p>查看sshd是否启动：ps -e|grep ssh</p>
+<p>scp  文件名 <a href="mailto:root@192.168.68.41" target="_blank" rel="noopener">root@192.168.68.41</a>:/home/jin/data（这时传到远程主机下的文件是加锁的）</p>
+<p>scp  文件名 <a href="mailto:jin@192.168.68.41" target="_blank" rel="noopener">jin@192.168.68.41</a>:/home/jin/data（这时传到远程主机下的文件是没有加锁的）</p>
+<p>这两种方式都是可以的，前提是root和jin都拥有对文件的读取权限。有什么不同，一种在scp的时候通过root连接远程主机，一种通过用户jin连接远程主机。</p>
+<p>有时，scp无法传到root用户下，那是因为远程主机没有配置sshd的配置文件PermitRootLogin为yes，当让如果配置了也不行，看是否没有给root账户设置密码：密码设置方法为sudo passwd root</p>
+<ul>
+<li><p>当需要拷贝文件夹（包括文件夹本身）：</p>
+<p><strong>scp -r   /home/wwwroot/www/charts/util <a href="mailto:root@192.168.1.65" target="_blank" rel="noopener">root@192.168.1.65</a>:/home/wwwroot/limesurvey_back/scp</strong></p>
+<p>需要加一个-r递归</p>
+</li>
+<li><p>当拷贝文件夹下所有文件，不包括文件夹本身</p>
+<p><strong>scp   /home/wwwroot/www/charts/util/* <a href="mailto:root@192.168.1.65" target="_blank" rel="noopener">root@192.168.1.65</a>:/home/wwwroot/limesurvey_back/scp</strong></p>
+<p><img src="/2018/10/29/Linux操作/res.png" alt="res"></p>
+<p>文件1是通过scp 1 <a href="mailto:root@192.168.68.41" target="_blank" rel="noopener">root@192.168.68.41</a>:/home/jin/data</p>
+<p>文件2是通过scp 2 <a href="mailto:jin@192.168.68.41" target="_blank" rel="noopener">jin@192.168.68.41</a>:/home/jin/data</p>
+<p>区别在于文件是否加锁。查看文件1和2的权限如下：</p>
+<p>文件1：-rw-r–r– 1 root root …….</p>
+<p>文件2：-rw-rw-r– 1 jin jin ………</p>
+<p>经查看：cat /etc/group|grep 组名：用于查找某个用户组</p>
+<p>root用户组只有root用户，jin用户组只有jin用户。对于文件1，该文件即使在/home/jin下，jin用户也没有对其更改的权力，如果试图采用vim编辑修改是无法修改的。</p>
+</li>
+</ul>
+</li>
+<li><p>Linux查看权限</p>
+<p>查看文件权限：ls -l 文件名，查看文件夹权限：ls -d 文件夹名</p>
+<p>文件权限修改：</p>
+<ul>
+<li><p>chmod 用户+（-）权限 文件名：其中用户有四个参数可选，u（拥有者）、g（用户组）、o（其他人）、a（所有人）。例如：给文件test的其他用户添加可读权限：chmod o+r test</p>
+</li>
+<li><p>chmod 权限数字 文件名</p>
+<p>例如将test变为文件拥有者可读可写可执行，文件所属组可读可写可执行，其他人可读可执行不可写</p>
+<p>chmod 775 test</p>
+</li>
+</ul>
+</li>
+<li><p>用户及用户组管理</p>
+<p>cat /etc/group：输出用户组，组名称：组密码占位符：组编号：组中用户名列表</p>
+<p>cat /etc/group|grep 组名：用于查找某个用户组</p>
+<p>cat /etc/passwd：输出所有用户信息，第四个数据为用户组编号</p>
+<p>cat /etc/passwd|grep 用户名：用于查找某个用户</p>
+<p>groups 用户名：查看该用户所属的用户组有哪些</p>
+<p>更改文件拥有者：chown 用户名 文件</p>
+<p>更改文件所属群组：chgrp 群组名称 文件</p>
+</li>
+<li><p>Linux下从普通用户到root用户下copy文件：cp 普通用户下文件 /root用户下路径的文件名</p>
+<p>创建user：adduser testuser</p>
+<p>给testuser设置密码：passwd testuser</p>
+<p>如果当前系统用户处于非testuser下，比如在jin用户中，无法在testuser用户目录下修改删除文件。要想从jin用户复制文件到testuser，只能申请root权限完成</p>
+</li>
+<li><p>ssh配置普通账户无密码登陆</p>
+<p>先本地ssh-keygen -t rsa（自己的机子）</p>
+<p>将id_rsa.pub传到虚拟机，并配置免密码登陆</p>
+<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**root**@192.168.1.100" target="_blank" rel="noopener">**root**@192.168.1.100</a>，其中root为需要登录到远程机器上的身份，需要替换成需要的用户名。如果要登陆到远程主机的jin，可用如下：</p>
+<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**jin**@192.168.1.100" target="_blank" rel="noopener">**jin**@192.168.1.100</a></p>
+<p>免密码测试登陆的时候，需要写明ssh到哪个账户</p>
+<p>ssh <a href="mailto:root@192.168.1.100" target="_blank" rel="noopener">root@192.168.1.100</a>或者ssh <a href="mailto:jin@192.168.1.100" target="_blank" rel="noopener">jin@192.168.1.100</a></p>
+</li>
+<li><p>Linux常用命令</p>
+<p>ls -a 路径：显示路径下的所以文件，包括隐藏文件</p>
+<p>mv：重命名和移动文件</p>
+<p>less 文件名：使用方向键移动查看内容</p>
+<p>查看命令cp的使用方法：man cp</p>
+<p>tab键自动补全</p>
+</li>
+<li><p>vim编辑</p>
+<p>esc进入命令模式，i或者a进入编辑模式</p>
+<p>在命令模式下：</p>
+<p>x：删除一个字符</p>
+<p>u：撤销上一步操作</p>
+<p>dd：删除一行</p>
+<p>dw：删除一个单词</p>
+<p>yy：复制一行</p>
+<p>yw：复制一个单词</p>
+<p>p：粘贴复制的内容</p>
+<p>e：跳到下一个单词</p>
+<p>:q：退出，如果文件已经修改，则不能推出</p>
+</li>
+<li><p>Linux输入密码后又返回登陆界面，可能原因</p>
+<p>可能是因为安装了显卡驱动，那进入命令行卸载显卡驱动</p>
+<p>Ctrl+Alt+F1进入命令行</p>
+<p>sudo service lightdm stop </p>
+<p>然后,卸载nvidia显卡驱动。注意此时千万不能重启,重新电脑可能会导致无法进入系统。</p>
+<p>sudo apt-get remove nvidia* </p>
+<p>卸载显卡驱动</p>
+<p>然后Ctrl+Alt+F7返回图形界面</p>
+</li>
+<li><p>安装Nvidia显卡的官方驱动和系统自带的nouveau驱动冲突。</p>
+<p>E: mkinitramfs failure cpio 141 gzip 1<br>update-initramfs: failed for /boot/initrd.img-3.2.0-33-generic with 1.</p>
+<p>报上述错：</p>
+<p>说明/boot分区满了，如何解决</p>
+<p>df -h查看Ubuntu系统使用情况</p>
+<p>dpkg –get-selections|grep linux查看已经安装的旧的内核</p>
+<p>uname -a查看当前使用内核版本</p>
+<p>sudo apt-get remove linux-image- （按两次tab键） 搜索相关linux-image-</p>
+<p>sudo apt-get remove linux-image-4.4.0-31-generic删除多余内核</p>
+</li>
+<li><p>NVIDIA驱动安装</p>
+<p>关闭图形界面sudo lightdm stop</p>
+<p>init 3启动级别设置为3，已确认完全关闭图形界面</p>
+<p>禁用nouveau驱动</p>
+<p>下面是正常的命令行操作</p>
+</li>
+<li><p>注意export PATH即使设置了，在开机过后是没有用的，要设置永久有效，必须加到~/.bashrc</p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Linux/" rel="tag"># Linux</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/28/Tensorflow基本编程/" rel="next" title="Tensorflow基本编程">
+                <i class="fa fa-chevron-left"></i> Tensorflow基本编程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/10/29/Ubuntu安装/" rel="prev" title="Ubuntu安装">
+                Ubuntu安装 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Linux相关操作"><span class="nav-number">1.</span> <span class="nav-text">Linux相关操作</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
