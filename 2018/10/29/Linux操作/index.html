@@ -88,7 +88,8 @@
 <meta property="og:description" content="Linux">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/2018/10/29/Linux操作/res.png">
-<meta property="og:updated_time" content="2018-10-31T11:13:49.056Z">
+<meta property="og:image" content="http://yoursite.com/2018/10/29/Linux操作/web访问过程.jpg">
+<meta property="og:updated_time" content="2019-01-23T09:37:07.557Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Linux操作">
 <meta name="twitter:description" content="Linux">
@@ -363,6 +364,9 @@
 </li>
 <li><p>Linux查看显卡：<strong>nvidia-smi  </strong></p>
 </li>
+<li><p>安装配置git</p>
+<p>本地与远程仓库的git认证：ssh-keygen</p>
+</li>
 <li><p>sudo apt-get命令报错dpkg相关错误，info文件重命名</p>
 <ol>
 <li>sudo mv /var/lib/dpkg/info /var/lib/dpkg/info.bak //现将info文件夹更名</li>
@@ -373,6 +377,16 @@
 <li>sudo rm -rf /var/lib/dpkg/info //把自己新建的info文件夹删掉</li>
 <li>sudo mv /var/lib/dpkg/info.bak /var/lib/dpkg/info //把以前的info文件夹重新改回名字</li>
 </ol>
+</li>
+<li><p>ssh配置普通账户无密码登陆</p>
+<p>先本地ssh-keygen -t rsa（自己的机子上执行）</p>
+<p>将id_rsa.pub传到虚拟机，并配置免密码登陆</p>
+<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**root**@192.168.1.100" target="_blank" rel="noopener">**root**@192.168.1.100</a>，其中root为需要登录到远程机器上的身份，需要替换成需要的用户名。如果要登陆到远程主机的jin，可用如下：</p>
+<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**jin**@192.168.1.100" target="_blank" rel="noopener">**jin**@192.168.1.100</a></p>
+<p>免密码测试登陆的时候，需要写明ssh到哪个账户</p>
+<p>ssh <a href="mailto:root@192.168.1.100" target="_blank" rel="noopener">root@192.168.1.100</a>或者ssh <a href="mailto:jin@192.168.1.100" target="_blank" rel="noopener">jin@192.168.1.100</a></p>
+<p>配置<strong>slave1 无密码登录 slave2 服务器</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">在slave1上执行ssh-keygen得到密约</span><br><span class="line">ssh-keygen -t rsa</span><br><span class="line">将公约传到服务器</span><br><span class="line">scp执行</span><br><span class="line">（以下操作在服务器上执行）</span><br><span class="line">将slave1的共约追加到slave2服务器的authorized_keys中，并删除slave1的公钥文件</span><br><span class="line">cat /home/hadoop/id_rsa.pub &gt;&gt; .ssh/authorized_keys</span><br><span class="line">rm /home/hadoop/id_rsa.pub</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>scp传送文件：首先要保证ssh服务开启，所以需要先安装openssh-server</p>
 <p>sudo apt-get update</p>
@@ -427,14 +441,6 @@
 <p>给testuser设置密码：passwd testuser</p>
 <p>如果当前系统用户处于非testuser下，比如在jin用户中，无法在testuser用户目录下修改删除文件。要想从jin用户复制文件到testuser，只能申请root权限完成</p>
 </li>
-<li><p>ssh配置普通账户无密码登陆</p>
-<p>先本地ssh-keygen -t rsa（自己的机子）</p>
-<p>将id_rsa.pub传到虚拟机，并配置免密码登陆</p>
-<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**root**@192.168.1.100" target="_blank" rel="noopener">**root**@192.168.1.100</a>，其中root为需要登录到远程机器上的身份，需要替换成需要的用户名。如果要登陆到远程主机的jin，可用如下：</p>
-<p>ssh-copy-id -i ~/.ssh/id_rsa.pub <a href="mailto:**jin**@192.168.1.100" target="_blank" rel="noopener">**jin**@192.168.1.100</a></p>
-<p>免密码测试登陆的时候，需要写明ssh到哪个账户</p>
-<p>ssh <a href="mailto:root@192.168.1.100" target="_blank" rel="noopener">root@192.168.1.100</a>或者ssh <a href="mailto:jin@192.168.1.100" target="_blank" rel="noopener">jin@192.168.1.100</a></p>
-</li>
 <li><p>Linux常用命令</p>
 <p>ls -a 路径：显示路径下的所以文件，包括隐藏文件</p>
 <p>mv：重命名和移动文件</p>
@@ -481,7 +487,47 @@
 <p>下面是正常的命令行操作</p>
 </li>
 <li><p>注意export PATH即使设置了，在开机过后是没有用的，要设置永久有效，必须加到~/.bashrc</p>
-<p>​</p>
+</li>
+<li><p>pycharm调出文件函数列表以及变量列表</p>
+<p>ALT+7</p>
+<p>python中以_开头的函数是protected的，只有该类极其子类才能访问</p>
+</li>
+<li><p>Linux文件删除</p>
+<p>强制递归的删除一个文件夹：rm -r -f  文件夹名字</p>
+</li>
+<li><p>查看内存和cpu占用情况</p>
+<p>free命令</p>
+</li>
+<li><p>检测tensorflow的能使用设备情况：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">from tensorflow.python.client import device_lib</span><br><span class="line">print(device_lib.list_local_devices())</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看gpu使用情况</p>
+<p>显卡也分为两部分，即显卡跟计算单元，类似与内存跟CPU。</p>
+<p>nvidia-smi</p>
+<p>Memory-Usage:显卡的显存使用容量跟显卡总的大小 </p>
+<p>GPU-Util：显卡<a href="https://www.aliyun.com/" target="_blank" rel="noopener">计算</a>单元使用率。 </p>
+</li>
+<li><p>显卡的使用方式</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">with tf.Session() as sess:</span><br></pre></td></tr></table></figure>
+<p>这种方式会把当前机器上所有的显卡的剩余显存基本都占用，注意是机器上所有显卡的剩余显存。因此程序可能只需要一块显卡，但是程序就是这么霸道，我不用其他的显卡，或者我用不了那么多显卡，但是我就是要占用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto() </span><br><span class="line">config.gpu_options.per_process_gpu_memory_fraction=0.6 </span><br><span class="line">with tf.Session(config=config) as sess:</span><br></pre></td></tr></table></figure>
+<p>其中这种方式跟上面直接使用方式的差异就是，我不占用所有的显存了，例如这样写，我就占有每块显卡的60%。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">config = tf.ConfigProto() </span><br><span class="line">config.gpu_options.allow_growth=True </span><br><span class="line">with tf.Session(config=config) as sess:</span><br></pre></td></tr></table></figure>
+<p>上面这种方式是动态申请的，是动态申请显存的，只会申请内存，不会释放内存。而且如果别人的程序把剩余显卡全部占了，就会报错。</p>
+<p>第一种因为是全部占用内存，因此只要模型的大小不超过显存的大小，就不会产生显存碎片，影响计算性能。可以说合适部署应用的配置。<br>第二种和第三种适合多人使用一台服务器的情况，但第二种存在浪费显存的情况，第三种在一定程序上避免了显存的浪费，但极容易出现程序由于申请不到内存导致崩溃的情况</p>
+</li>
+<li><p>指定可以被看见的GPU设备</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line"># 默认情况，TF 会占用所有 GPU 的所有内存, 我们可以指定</span><br><span class="line"># 只有 GPU0 和 GPU1 这两块卡被看到，从而达到限制其使用所有GPU的目的</span><br><span class="line">os.environ[&apos;CUDA_VISIBLE_DEVICES&apos;] = &apos;0, 1&apos;   </span><br><span class="line"># 打印 TF 可用的 GPU</span><br><span class="line">print os.environ[&apos;CUDA_VISIBLE_DEVICES&apos;]</span><br></pre></td></tr></table></figure>
+<p>限定使用显存的比例</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 在开启对话session前，先创建一个 tf.ConfigProto() 实例对象</span><br><span class="line"># 通过 allow_soft_placement 参数自动将无法放在 GPU 上的操作放回 CPU</span><br><span class="line">gpuConfig = tf.ConfigProto(allow_soft_placement=True)</span><br><span class="line"></span><br><span class="line"># 限制一个进程使用 60% 的显存</span><br><span class="line">gpuConfig.gpu_options.per_process_gpu_memory_fraction = 0.6</span><br><span class="line"></span><br><span class="line"># 把你的配置部署到session</span><br><span class="line">with tf.Session(config=gpuConfig) as sess:</span><br><span class="line">  pass</span><br><span class="line"></span><br><span class="line">这样，如果你指定的卡的显存是8000M的话，你这个进程只能用4800M。</span><br></pre></td></tr></table></figure>
+<p>gpu使用前应声明如何使用，不声明时默认全部霸占</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">import os</span><br><span class="line">os.environ[&apos;CUDA_VISIBLE_DEVICES&apos;] = &apos;0, 1&apos;  </span><br><span class="line"></span><br><span class="line">gpuConfig = tf.ConfigProto(allow_soft_placement=True)</span><br><span class="line">gpuConfig.gpu_options.allow_growth = True  </span><br><span class="line"></span><br><span class="line">with tf.Session(config=gpuConfig) as sess:</span><br><span class="line">     pass</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>端口查看指令</p>
+<p>netstat -an</p>
+</li>
+<li><p>web访问过程</p>
+<p><img src="/2018/10/29/Linux操作/web访问过程.jpg" alt="web访问过程"></p>
 </li>
 </ul>
 
@@ -603,7 +649,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">36</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -614,7 +660,7 @@
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -625,7 +671,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">15</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -688,7 +734,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

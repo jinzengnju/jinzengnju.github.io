@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tensorflow," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tensorboard可视化">
+<meta name="keywords" content="Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorboard可视化">
+<meta property="og:url" content="http://yoursite.com/2018/11/13/Tensorboard可视化/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="Tensorboard可视化">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/Tensorboard可视化/hist.png">
+<meta property="og:image" content="http://yoursite.com/2018/11/13/Tensorboard可视化/dist.png">
+<meta property="og:updated_time" content="2018-12-10T09:24:05.337Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorboard可视化">
+<meta name="twitter:description" content="Tensorboard可视化">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/13/Tensorboard可视化/hist.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/13/Tensorboard可视化/"/>
+
+
+
+
+
+  <title>Tensorboard可视化 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/13/Tensorboard可视化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tensorboard可视化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-13T15:11:19+08:00">
+                2018-11-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Tensorboard可视化
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Tensorboard可视化"><a href="#Tensorboard可视化" class="headerlink" title="Tensorboard可视化"></a><center>Tensorboard可视化</center></h1><p>Tensorboard在展现计算图的时候，<strong>默认情况下，只有顶层节点才会展示</strong>。但我们可以点击顶层节点进入内部，观察顶层节点的内部细节。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">import tensorflow as tf</span><br><span class="line"></span><br><span class="line">with tf.name_scope(&apos;hidden&apos;) as scope:</span><br><span class="line">  a = tf.constant(5, name=&apos;alpha&apos;)</span><br><span class="line">  W = tf.Variable(tf.random_uniform([1, 2], -1.0, 1.0), name=&apos;weights&apos;)</span><br><span class="line">  b = tf.Variable(tf.zeros([1]), name=&apos;biases&apos;)</span><br></pre></td></tr></table></figure>
+<p>结果是得到了下面三个操作名:</p>
+<ul>
+<li><em>hidden</em>/alpha</li>
+<li><em>hidden</em>/weights</li>
+<li><em>hidden</em>/biases</li>
+</ul>
+<p>默认地，三个操作名会折叠为一个节点并标注为<code>hidden</code>。其额外细节并没有丢失，你可以双击，或点击右上方橙色的<code>+</code>来展开节点，然后就会看到三个子节点<code>alpha</code>，<code>weights</code>和<code>biases</code>了。</p>
+<ul>
+<li><p>如果要在一张图中显示多个模型的结果，可以如下做。log_filepath设置为/temp/tensorflow，该文件夹下创建两个文件。一个run_a文件夹，一个run_b文件夹，分别存放模型a和b的运行结果。</p>
+<p>最后在tensorboard指令的时候–logdir的参数定位在/temp/tensorflow</p>
+<p>法二：tensorboard上显示不同训练模型曲线的方法</p>
+<p>tensorboard –logdir=run1：“路径1”，run2：“路径2” –port=6006</p>
+</li>
+<li><p>由于存在训练集合和测试集合，所以在定义tf.summary.FileWriter的时候应该定义两个</p>
+<p>train_writer = tf.summary.FileWriter(FLAGS.log_dir + ‘/train’, sess.graph)</p>
+<p>test_writer = tf.summary.FileWriter(FLAGS.log_dir + ‘/test’)</p>
+</li>
+<li><p>什么时候应该加tf.summary进行统计</p>
+<ul>
+<li><p>计算图的记录</p>
+<p>在准备开始训练的时候，记录计算图的流程，如：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    session.run(init)</span><br><span class="line">    </span><br><span class="line">    merged = tf.summary.merge_all()</span><br><span class="line">    writer = tf.summary.FileWriter(<span class="string">'./logs/summary'</span>, session.graph)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>要添加scalar与histgram可以在定义图的时候就定义好</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tf.summary.histogram()</span><br><span class="line">tf.summary.scalar()</span><br></pre></td></tr></table></figure>
+<p>真正加到log日志文件中是在session会话中</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 初始化Variable</span></span><br><span class="line">init = tf.global_variables_initializer()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打开session</span></span><br><span class="line"><span class="keyword">with</span> tf.Session() <span class="keyword">as</span> session:</span><br><span class="line">    <span class="comment"># 运行初始化</span></span><br><span class="line">    session.run(init)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 调用merge_all()，将前面添加的所有histogram和scalar合并到一起，方便观察</span></span><br><span class="line">    merged = tf.summary.merge_all()</span><br><span class="line">    <span class="comment"># 同样写入到logs中</span></span><br><span class="line">    writer = tf.summary.FileWriter(<span class="string">'./logs/summary'</span>, session.graph)</span><br><span class="line">    </span><br><span class="line">    training_feed_dict = &#123;inputs: X, targets: y_.eval()&#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(epochs):</span><br><span class="line">        <span class="comment"># 训练的时候，第一个传入merged对象，返回summary</span></span><br><span class="line">        summary, _, l = session.run(</span><br><span class="line">                [merged, optimizer, loss],</span><br><span class="line">                feed_dict=training_feed_dict)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> i % <span class="number">50</span>:</span><br><span class="line">            print(<span class="string">'Epoch &#123;&#125;/&#123;&#125; '</span>.format(i + <span class="number">1</span>, epochs), </span><br><span class="line">                  <span class="string">'Training loss: &#123;:.4f&#125;'</span>.format(l))</span><br><span class="line">            <span class="comment"># 每50步，将summary对象添加到writer写入磁盘，最后来观察变化</span></span><br><span class="line">            writer.add_summary(summary, i)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>自定义summary</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">custom_sm = tf.Summary(value=[tf.Summary.Value(tag=&quot;accuracy&quot;, simple_value=acc)])       writer.add_summary(custom_sm, step)</span><br></pre></td></tr></table></figure>
+<p>什么时候会用到这个？</p>
+<p>一般是在session会话中算出一个标量，需要直接将这个标量加到Tensorboard中，而不是像传统那样在计算图中添加。</p>
+</li>
+</ul>
+</li>
+<li><p>对于Histgram直方图的理解</p>
+<p><a href="https://blog.csdn.net/jk981811667/article/details/78864215" target="_blank" rel="noopener">https://blog.csdn.net/jk981811667/article/details/78864215</a></p>
+<p><a href="https://blog.csdn.net/windows2/article/details/78229604" target="_blank" rel="noopener">https://blog.csdn.net/windows2/article/details/78229604</a></p>
+<p><a href="https://blog.csdn.net/weixin_35653315/article/details/72471312" target="_blank" rel="noopener">https://blog.csdn.net/weixin_35653315/article/details/72471312</a></p>
+<p>histogram展示的统计变量随着step的分布的变化情况，当研究梯度消失，不同层间的权重分布，观察有些异样现象，都是通过这个。TensorFlow图中某些张量的分布随时间如何变化</p>
+<p><img src="/2018/11/13/Tensorboard可视化/hist.png" alt="hist"></p>
+<p>​</p>
+<p>这个结果在我github中的TestTensorboard代码中的test可以看到，模拟的线性回归，weight是一个标量。可以看到在step为0的时候，对应有一个很尖的数据，这是的频率显示为1，这也反应了开始训练时，weight初始化为一个数，并且该数的频率为1。随着时间的进行，当训练到100步左右的时候，可以看到在此时，前100步中，weight值为0.3出现的频率为0.3左右（相当于出现了30次左右），weight为0.307或者0.297出现的频率同样是0.3左右。所以可以得出，当训练完成后，weight值约为0.3左右。（因为前100步中大约有40次为0.3，大约30次为0.307，大约30次为0.297）.</p>
+</li>
+<li><p>分布图Distribution的理解</p>
+<p><img src="/2018/11/13/Tensorboard可视化/dist.png" alt="dist"></p>
+<p>横轴表示训练步数，纵轴表示权重值。而从上到下的折现分别表示权重分布的不同分位数：`[maximum, 93%, 84%, 69%, 50%, 31%, 16%, 7%, minimum]</p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/08/Tensorflow编程遇到的问题/" rel="next" title="Tensorflow编程遇到的问题">
+                <i class="fa fa-chevron-left"></i> Tensorflow编程遇到的问题
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/11/14/毕设记录/" rel="prev" title="毕设记录">
+                毕设记录 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorboard可视化"><span class="nav-number">1.</span> <span class="nav-text">Tensorboard可视化</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

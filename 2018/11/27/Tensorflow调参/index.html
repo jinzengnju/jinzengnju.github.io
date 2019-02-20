@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Tensorflow," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Tensorflow调参">
+<meta name="keywords" content="Tensorflow">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tensorflow调参">
+<meta property="og:url" content="http://yoursite.com/2018/11/27/Tensorflow调参/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="Tensorflow调参">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2018/11/27/Tensorflow调参/BN步骤.png">
+<meta property="og:updated_time" content="2019-01-02T03:12:52.784Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tensorflow调参">
+<meta name="twitter:description" content="Tensorflow调参">
+<meta name="twitter:image" content="http://yoursite.com/2018/11/27/Tensorflow调参/BN步骤.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/11/27/Tensorflow调参/"/>
+
+
+
+
+
+  <title>Tensorflow调参 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/27/Tensorflow调参/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Tensorflow调参</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-27T10:57:27+08:00">
+                2018-11-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
+                    <span itemprop="name">Tensorflow</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  Tensorflow调参
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Tensorflow调参"><a href="#Tensorflow调参" class="headerlink" title="Tensorflow调参"></a><center>Tensorflow调参</center></h1><ul>
+<li><p>变量的初始化，可以选择不同的初始化方法</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v = tf.get_variable(&quot;v&quot;,shape=[1],initializer=tf.constant_initializer(1.0))</span><br></pre></td></tr></table></figure>
+<p>其他变量初始化方法：</p>
+<p><strong>tf.truncated_normal_initializer()</strong>生成截断正态分布的随机数，一般只需要设置stddev这一个参数就可以了</p>
+<p><strong>tf.orthogonal_initializer()</strong>生成正交矩阵的随机数。当需要生成的参数是2维时，这个正交矩阵是由均匀分布的随机数矩阵经过SVD分解而来。</p>
+<p><strong>tf.glorot_uniform_initializer()</strong>也称之为Xavier uniform initializer。由一个均匀分布（uniform distribution)来初始化数据。初始化为与输入输出节点数相关的均匀分布随机数</p>
+<p><strong>glorot_normal_initializer（）</strong>。也称之为 Xavier normal initializer. 由一个 truncated normal distribution来初始化数据.初始化为与输入输出节点数相关的截断正太分布随机数</p>
+<p>一般情况下，我们直接上truncated_normal_initializer或者glorot_normal_initializer</p>
+<p>然后在session中，我们需要调用tf.global_variables_initializer才能真正实现参数的初始化</p>
+</li>
+<li><p>为什么我们一般不会初始化为标准正态分布？</p>
+<p><a href="https://cloud.tencent.com/developer/article/1092290" target="_blank" rel="noopener">https://cloud.tencent.com/developer/article/1092290</a></p>
+<p>我们人为干预神经网络的输入：输入层神经元一半（500个）值为1，另一半（另500个）值为0。现在聚焦到接下来隐藏层中的一个神经元。1000个输入层神经元全部连接到了隐藏层的第一个神经元。此时考察神经元的加权和z = ∑jwjxj + b：</p>
+<ul>
+<li>将z的表达式展开，初始共有1001项（不要漏掉偏置b）；</li>
+<li>人为令输入xj中的500个为0，所以z的表达式最终有501项；</li>
+<li>人为令输入xj的其余500个为1，所以z由500项wj和1项b组成，它们符合标准正态分布N(0,1)；</li>
+<li>推导得到z符合均值为0，标准差为√501（501的平方根）的正态分布</li>
+</ul>
+<p>由于标准差√501非常大，导致z的分布从-30到30出现的比例都很高，也就是说，∣z∣ &gt;&gt; 1出现的概率非常大。还记得Sigmoid曲线吗？当∣z∣ &gt;&gt; 1时，σ’(z)就会变得非常小，神经元学习饱和</p>
+<p><strong>如果网络的权重和偏置采用N(0,1)初始化，那么网络中各层的神经元数量n越多，造成后续层神经元加权和z的标准差越大，∣z∣ &gt;&gt; 1出现的概率也越大，最终造成神经元饱和——学习缓慢</strong>。</p>
+<p>glorit相关的初始化为什么这么叼？</p>
+<p>既然神经元加权和z的标准差与网络上一层神经元的数量nin有相关性，那么为了抵消掉神经元数量的影响，初始化分布的标准差就不应该是一个常数。</p>
+</li>
+<li><p>批处理Normalization：将数据从一个一般的分布，变为0均值、单位方差的分布。</p>
+<p>每一个batch输入数据都具有不同的分布，显然会给网络训练带来困难。不同的batch数据分布可能都不同，Batch就是为了保证每个batch的数据分布基本相似。</p>
+<p><img src="/2018/11/27/Tensorflow调参/BN步骤.png" alt="BN步骤"></p>
+<p>BN（batch_normalization）：连接层和激活函数之间加入一个BatchNorm层，确保每个进入激活函数的分布都成高斯分布。</p>
+<p>假设一个batch数据共有m个，输出是：<strong>先求出此次批量数据的均值，再求出此次batch的方差，对该batch的数据做归一化，最后也是最重要的引入缩放和平移变量，计算Norm后的值</strong></p>
+<p><a href="https://blog.csdn.net/shaopeng568/article/details/79969329" target="_blank" rel="noopener">https://blog.csdn.net/shaopeng568/article/details/79969329</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">x_mean=x.mean(axis=0)  # 计算x的均值</span><br><span class="line">x_var=x.var(axis=0)    # 计算方差</span><br><span class="line">x_normalized=(x-x_mean)/np.sqrt(x_var+eps)       # 归一化</span><br><span class="line">results = gamma * x_normalized + beta            # 缩放平移</span><br></pre></td></tr></table></figure>
+<p>对于第三行，x是一个二维的矩阵，x_mean是x每一列的平均值，x-x_mean即列上的每个数与x_mean作差。</p>
+<p><strong>BatchNorm训练与测试时的区别：训练时，batchNorm会计算每个batch的均值和方差，测试的时候均值和方差是在训练阶段通过滑动平均计算出来的。</strong>因为在测试的时候每次只输入一个数据，一个数据怎么计算均值和方差？就需要再训练阶段通过滑动平均计算。</p>
+<p>Tensorflow中如何使用BN：tf.nn.batch_norm_layer，这个函数会调用tf.nn.batch_normalization（）</p>
+<p>​</p>
+<p>对于BN层放在哪个位置也是有讲究的。<strong>如对sigmoid和tanh而言，放非线性激活之前，也许顺便还能缓解sigmoid/tanh的梯度衰减问题，而对ReLU而言，这个平滑作用经ReLU“扭曲”之后也许有所衰弱</strong></p>
+<p><a href="https://blog.csdn.net/u014365862/article/details/77188011（tf.nn.batch_normalization使用）" target="_blank" rel="noopener">https://blog.csdn.net/u014365862/article/details/77188011（tf.nn.batch_normalization使用）</a></p>
+<p>关于tf.GraphKeys.Update_OPS与tf.control_dependences</p>
+<p><a href="https://blog.csdn.net/huitailangyz/article/details/85015611" target="_blank" rel="noopener">https://blog.csdn.net/huitailangyz/article/details/85015611</a></p>
+<p><a href="https://www.jianshu.com/p/b2d2f3c7bfc7" target="_blank" rel="noopener">https://www.jianshu.com/p/b2d2f3c7bfc7</a></p>
+</li>
+<li><p>fine tune：当你选择了一个很复杂的模型，并不需要将所有的layers都重新训练，只需要训练其中部分的layers，那我们完全可以使用预训练好的模型（利用预训练好的模型进行权重初始化），可省去很多工作。</p>
+<p>|            | 非常相似的数据集    | 非常不同的数据集       |<br>| ———- | ———– | ————– |<br>| <strong>非常少的数据</strong> | 在顶层调一层线性分类器 | 尝试在不同的层训练线性分类器 |<br>| <strong>非常多的数据</strong> | 可微调一些层      | 微调更多的层         |</p>
+</li>
+<li><p>学习率的调整</p>
+<p>初始的时候设置一个较大的学习率，0.1以上，经过几个epoch之后，loss值不降低，说明在谷点震荡了。所以需要将学习率降低，那么怎么降低，方法有很多：比如指数衰减</p>
+<p>如果loss从一开始就一直不降低，可能是数据初始化有问题。当然，这前提是修改lr也没用。</p>
+<p>对于RNN而言，学习率一般小一些比较好，否则有可能出现结果不收敛，甚至Nan的问题。</p>
+</li>
+<li><p>其他注意事项</p>
+<ul>
+<li><p>网络不深的时候，没必要用resnet，因为深度太深会导致梯度消失，而网络不深的时候这个问题不存在</p>
+</li>
+<li><p>卷积的时候最好不要设置stride为大于1的数。如果需要stride&gt;1，可以放在maxpooling中去做。</p>
+</li>
+<li><p>注意打乱数据</p>
+</li>
+<li><p>droupout一定要啊，不仅仅可以防止过拟合, 其实这相当于做人力成本最低的Ensemble, 当然, 训练起来会比没有Dropout的要慢一点, 同时网络参数你最好相应加一点。</p>
+<p>dropout表示的是让某个神经元的激活值以一定的概率p，让其停止工作，一般为0.5。如果模型不太复杂，0.2 的 Dropout 值或许就够了。</p>
+<p>keep_prob是表示要保留多少神经元，而dropout表示要丢弃多少神经元。keep_prob=1-dropout。测试的时候，keep_prob设置为1，也就是dropout设置为0。</p>
+</li>
+</ul>
+</li>
+<li><p>如何构建深度网络</p>
+<ul>
+<li><p>先用少量数据来验证模型的准确性以及代码的准确性。如果小数据量情况下，这么复杂的网络都没奔着过拟合去，那么可能代码或者网络结构有问题。</p>
+</li>
+<li><p>loss设计是否合理</p>
+<p>loss需要注意错误范围，尤其是回归任务下。假如你预测一个label是10000的值, 模型输出0, 你算算这loss多大, 这还是单变量的情况下. 一般结果都是nan. 所以不仅仅输入要做normalization, 输出也要这么弄.。多任务深度学习下，每个任务的loss限制在一个数量级上，或者最终限制在一个量级上。</p>
+</li>
+<li><p>观察loss胜于观察准确率</p>
+</li>
+<li><p>确认分类网络学习充分</p>
+<p>如何确认？比如一个二分类，刚开始网络预测都是在0.5上下，很模糊。随着学习过程，网络的预测会慢慢的移动到0和1附近。</p>
+</li>
+<li><p>需要进一步降低学习率在什么时候。loss降到一定程度不再降了(甚至开始震荡)，这时需要降低学习率。</p>
+</li>
+<li><p>判断是否过拟合需要对比训练集和验证集的loss。</p>
+</li>
+<li><p>LSTM的forget gate的bias，用1.0或者更大的值初始化，可以取得更好的结果。</p>
+</li>
+<li><p>梯度归一化：算出的梯度除以minibatch_size</p>
+</li>
+<li><p>优化器的选择：adam和adadelta等，在小数据上，实验效果都不如sgd，sgd的收敛速度会慢一些。如果使用sgd的话，可以选择较大的学习率开始，隔一段时间在验证集上检查一下。如果cost没有下降，就对学习率减半。（为什么这麽做，因为在谷底的时候学习率过大可能会引起震荡，导致loss不再下降）</p>
+</li>
+<li><p>可以先试试将原始数据喂给DNN，DNN对数据很饥渴，越多越好。</p>
+</li>
+<li><p>权重的维度以及词向量的维度最好保留在2的次方。比如：64，128，512，1024</p>
+</li>
+</ul>
+</li>
+<li><p>如果实在找不到一组参数，可以让模型收敛。需要检查是否其他地方出了问题，例如模型实现、数据读取：</p>
+<ul>
+<li>Nan问题：除0问题。有两种可能：一种是被除数的值无穷大，另一种就是除数的值为0。之前产生的Nan和0有可能被传递下去，造成后面都是Nan。先检查网络中可能有除法的地方，如softmax层。在检查一下数据，保证数据中没有Nan。另一个是梯度过大，造成更新后的值为Nan。特别是RNN，处理序列较长的时候，很容易出现梯度爆炸。解决办法：梯度clip或者减少学习率。初始学习率设置过大也会导致Nan问题。另外，可能参数初始值太大。对于输入输出值，最好做一下归一化</li>
+</ul>
+</li>
+<li><p>Nan问题解决以后，网络一直在正常训练，但loss降不下来，预测的时候结果也不正常。如果训练集的loss不下降，可能是代码有问题，也有可能是数据本身有问题，也有可能是超参数本身有问题。</p>
+<p>怎么判断上述问题呢？</p>
+<p>可以人工构造10条数据（或者在<strong>小批量很准确</strong>的数据上训练），用神经网络过拟合10条数据，如果loss还不下降，可能是网络的代码有问题。如果loss下降，在这10条数据上做预测。看是否是超参和数据的问题。</p>
+<p>​</p>
+<p>​</p>
+<p>​</p>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Tensorflow/" rel="tag"># Tensorflow</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/26/ML学习曲线/" rel="next" title="ML学习曲线">
+                <i class="fa fa-chevron-left"></i> ML学习曲线
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/12/11/Normalization/" rel="prev" title="Normalization">
+                Normalization <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">36</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">15</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Tensorflow调参"><span class="nav-number">1.</span> <span class="nav-text">Tensorflow调参</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
