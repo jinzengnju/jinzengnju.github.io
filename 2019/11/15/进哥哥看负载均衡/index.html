@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="计算机网络," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="负载均衡">
+<meta name="keywords" content="计算机网络">
+<meta property="og:type" content="article">
+<meta property="og:title" content="进哥哥看负载均衡">
+<meta property="og:url" content="http://yoursite.com/2019/11/15/进哥哥看负载均衡/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="负载均衡">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/11/15/进哥哥看负载均衡/负载均衡/1.png">
+<meta property="og:updated_time" content="2019-11-15T06:09:28.806Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="进哥哥看负载均衡">
+<meta name="twitter:description" content="负载均衡">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/15/进哥哥看负载均衡/负载均衡/1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/11/15/进哥哥看负载均衡/"/>
+
+
+
+
+
+  <title>进哥哥看负载均衡 | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/进哥哥看负载均衡/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">进哥哥看负载均衡</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T12:58:12+08:00">
+                2019-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+              <div class="post-description">
+                  负载均衡
+              </div>
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="进哥哥看负载均衡以及在K8S上的负载均衡思考"><a href="#进哥哥看负载均衡以及在K8S上的负载均衡思考" class="headerlink" title="进哥哥看负载均衡以及在K8S上的负载均衡思考"></a><center>进哥哥看负载均衡以及在K8S上的负载均衡思考</center></h1><p>最近遇到了负载均衡相关的东西，总结一下，有错轻喷！首先对DNS解析IP地址以及nginx proxy做一个简单介绍，然后从自己的观点来讲将服务部署在K8S集群上时，可以如何解决负载均衡？</p>
+<h2 id="DNS、域名"><a href="#DNS、域名" class="headerlink" title="DNS、域名"></a>DNS、域名</h2><p>熟悉的可以跳过这部分</p>
+<ul>
+<li><p>域名有什么用</p>
+<p>试想，假如我们要访问因特网上某台主机的资源文件，我们需要知道它的IP地址（如10.123.11.23），然后根据IP地址去访问这台主机。IP地址对于正常人来说是很难记的，所以假如能将这个很难记的IP地址映射称一个域名（比如<a href="http://www.baidu.com）,这将是非常人性化的。DNS就是干这么一件事情的！" target="_blank" rel="noopener">www.baidu.com）,这将是非常人性化的。DNS就是干这么一件事情的！</a></p>
+<p>我们访问<a href="http://www.baidu.com，DNS域名系统会将该域名映射成IP地址，然后修改数据报文对应的目的IP地址（不详细解释怎么修改，请参考网络层具体的传输方式），所以我们不用记住繁杂的IP地址就能上网冲浪。" target="_blank" rel="noopener">www.baidu.com，DNS域名系统会将该域名映射成IP地址，然后修改数据报文对应的目的IP地址（不详细解释怎么修改，请参考网络层具体的传输方式），所以我们不用记住繁杂的IP地址就能上网冲浪。</a></p>
+</li>
+<li><p>域名和IP的对应关系</p>
+<ul>
+<li>一个IP地址可以对应多个域名，一个域名可以对应多个IP地址</li>
+<li>一个IP地址对应多个域名<ul>
+<li>这种情况发生在一个主机托管多个网站，这些网站的IP地址可能就是相同的。那么，当你向该主机请求网站访问的时候，主机如何知道你想访问哪个网站？首先，通过域名解析，将多个域名解析到同一个IP地址，然后在该主机上通过不同的配置让主机将来自不同域名的请求发送给对应的网站程序，比如维护了一张hash表（瞎猜的）。</li>
+</ul>
+</li>
+<li>一个域名对应多个IP地址<ul>
+<li>这种情况出现在访问量巨大的网站，为了解决<strong>负载均衡</strong>实现的。这也是今天我们要讲的重点：负载均衡！例如，在访问<a href="http://www.baidu.com这种巨型流量网站的时候，你以为只有一台服务器吗？不可能的，DNS会将该域名映射成多个IP地址，具体分配到哪个IP地址由一些自定义的算法完成？后面会讲到。" target="_blank" rel="noopener">www.baidu.com这种巨型流量网站的时候，你以为只有一台服务器吗？不可能的，DNS会将该域名映射成多个IP地址，具体分配到哪个IP地址由一些自定义的算法完成？后面会讲到。</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Nginx正向代理、反向代理、负载均衡"><a href="#Nginx正向代理、反向代理、负载均衡" class="headerlink" title="Nginx正向代理、反向代理、负载均衡"></a>Nginx正向代理、反向代理、负载均衡</h2><p>为什么要讲到Nginx？因为大多数的负载均衡都用到了类似proxy代理的方式来处理，所以这里我们大概讲一下正向代理、反向代理、以及Nginx负载均衡</p>
+<ul>
+<li><p>正向代理</p>
+<p>需要搞清楚三个角色：被代理角色、目标校色</p>
+<p>不多扯概念了，直接上例子！<strong>客人到nike专卖店买了一双鞋</strong>，这里被代理的角色就是nike厂家，而这个nike专卖店就是代理，目标角色就是客户。</p>
+<p>举一个实际的正向代理，那就是梯子了！！！比如我们无法访问google，需要找到一个可以访问国外网站的代理服务器，而我们本机是可以ping通这台代理服务器的。我们将请求发送给代理服务器，代理服务器去访问国外网站，再将结果返回给我们本机。</p>
+<p>这就是正向代理，正向代理最大的特点是客户端非常明确要访问的服务器地址；服务器只清楚请求来自哪个代理服务器，而不清楚来自哪个具体的客户端；正向代理模式屏蔽或者隐藏了真实客户端信息。</p>
+</li>
+<li><p>反向代理</p>
+<p>对于淘宝双11，淘宝的流量是巨型的，那么淘宝是如何做到服务器正常运行呢？那就是分布式服务部署，服务部署在多台服务器。具体的流程是怎样的？</p>
+<p>1.庞大的流量将请求数据发送给反向代理服务器，</p>
+<p>2.反向代理服务器接收到请求后，按照一定的分发规则，将请求分发给不同的服务器处理。</p>
+<p>反向代理特点；请求的来源也就是客户端是明确的，但是请求具体由哪台服务器处理的并不明确，nginx扮演的就是一个反向代理角色</p>
+<p><img src="/2019/11/15/进哥哥看负载均衡/负载均衡/1.png" alt="1"></p>
+<p>如图，上述例子是正向代理与反向代理同时存在的例子！可以自己琢磨一下</p>
+</li>
+<li><p>负载均衡</p>
+<p>上面反向代理的数据分发，某种意义上来说可以理解为负载均衡。如何实现？<strong>我是这么看的，反向代理服务器内部维护一个消息队列，服务器只需要从消息队列中获取数据。达成了反向代理接受请求以及服务器处理请求的异步执行！</strong></p>
+<p>那么消息队列中的数据应该分发给哪个服务器呢？有常见的以下几种算法：</p>
+<p>1.weight轮询 </p>
+<p>2.ip_hash</p>
+<p>3.智能调整调度算法：根据服务器处理请求的时间快慢动态分配</p>
+</li>
+</ul>
+<h2 id="K8S集群上的服务如何做负载均衡"><a href="#K8S集群上的服务如何做负载均衡" class="headerlink" title="K8S集群上的服务如何做负载均衡"></a>K8S集群上的服务如何做负载均衡</h2><ul>
+<li><p>类似nginx proxy的代理方式</p>
+<p>将服务部署在K8S集群上时，我们可以指定服务的副本个数，也就是我们的pod实例个数。访问服务的所有流量都可以分发给这些Pod执行。我们可以自建一个proxy代理，该代理的公网IP与某域名<a href="http://www.name.com对应，内网Ip与Pod实例的Ip属于一个子网。当用户访问www.name.com的时候，DNS会将域名解析为proxy的公网IP，将公网IP加入到IP报文的目的IP地址发到proxy代理，proxy再将数据请求分发到内网上的Pod实例运行。" target="_blank" rel="noopener">www.name.com对应，内网Ip与Pod实例的Ip属于一个子网。当用户访问www.name.com的时候，DNS会将域名解析为proxy的公网IP，将公网IP加入到IP报文的目的IP地址发到proxy代理，proxy再将数据请求分发到内网上的Pod实例运行。</a></p>
+</li>
+<li><p>使用kube-dns</p>
+<p>这种方式下，K8S集群自己提供了一个kube-proxy代理，我们不需要自建proxy代理。使用Kube提供的ip地址，利用kube-dns解析出pods的ip list，然后分发数据请求。其实过程有点类似自建proxy代理。</p>
+</li>
+</ul>
+<p>今天就写到这里，kube-dns方式还需要再仔细看看，本人也还没咋弄懂！它们说，名字取得要够骚才行，所以得罪了！！！！！</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/计算机网络/" rel="tag"># 计算机网络</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/07/10/推荐系统02/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">42</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#进哥哥看负载均衡以及在K8S上的负载均衡思考"><span class="nav-number">1.</span> <span class="nav-text">进哥哥看负载均衡以及在K8S上的负载均衡思考</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#DNS、域名"><span class="nav-number">1.1.</span> <span class="nav-text">DNS、域名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Nginx正向代理、反向代理、负载均衡"><span class="nav-number">1.2.</span> <span class="nav-text">Nginx正向代理、反向代理、负载均衡</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#K8S集群上的服务如何做负载均衡"><span class="nav-number">1.3.</span> <span class="nav-text">K8S集群上的服务如何做负载均衡</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

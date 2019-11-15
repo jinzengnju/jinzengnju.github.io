@@ -262,6 +262,528 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/11/15/进哥哥看负载均衡/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/11/15/进哥哥看负载均衡/" itemprop="url">进哥哥看负载均衡</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-11-15T12:58:12+08:00">
+                2019-11-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/计算机网络/" itemprop="url" rel="index">
+                    <span itemprop="name">计算机网络</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          负载均衡
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/11/15/进哥哥看负载均衡/">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/07/10/推荐系统02/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/07/10/推荐系统02/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-07-10T20:00:08+08:00">
+                2019-07-10
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="推荐系统"><a href="#推荐系统" class="headerlink" title="推荐系统"></a><center>推荐系统</center></h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><ul>
+<li>DeepWalk的图是如何建立的？</li>
+</ul>
+<h1 id="协同过滤"><a href="#协同过滤" class="headerlink" title="协同过滤"></a>协同过滤</h1><ul>
+<li><p>User-based CF：找到用户的相似性，根据A喜欢的东西推荐给B</p>
+</li>
+<li><p>Item-based CF：找到物品的相似新，如果用户买了物品1，推荐物品2.</p>
+</li>
+<li><p>基于领域的协同过滤（单纯利用统计信息计算相似程度）</p>
+<p>创建user-item的矩阵，计算出用户与用户相似度，物品与物品之间的相似度。</p>
+</li>
+<li><p>基于模型的协同过滤算法</p>
+<p>基于领域的缺点：稀疏矩阵</p>
+<p><strong>缺点：可能协同矩阵很大，很难求解分解的三个矩阵</strong></p>
+<p>​</p>
+</li>
+</ul>
+<h2 id="阿里推荐算法"><a href="#阿里推荐算法" class="headerlink" title="阿里推荐算法"></a>阿里推荐算法</h2><ul>
+<li><p>问题：长尾效应、新商品的冷启动</p>
+</li>
+<li><p>GraphEmbedding召回</p>
+<p>问题：用户的长尾覆盖度、新商品的冷启动</p>
+<p>GraphEmbedding解决方法：利用用户的序列化点击行为构建全网行为graph，结合深度随机游走对用户“虚拟采样”拟合多阶潜在兴趣信息。<strong>扩大了用户的长尾兴趣宝贝召回</strong></p>
+<p>将商品映射到低维向量，计算i2i的相似表</p>
+<ul>
+<li><p>DeepWalk算法</p>
+<p>首先建立了一张图？问题：<strong>这张图怎么建立的</strong>。</p>
+<p>对图中的每个节点，建立训练数据（节点x，领域节点集合y），构建类似SkipGram的训练集。</p>
+<p>首先从网络中采样训练数据，每一个训练数据是由局部相邻的节点组成的序列，DeepWalk将这组序列看成语言模型中的一个短句或短语，将短句中的每个词转换成隐式表达，同时最大化给定短句某个中心词时，出现上下文单词的概率。这里的词对应着商品，每个词有一个向量，每个商品也有一个向量。</p>
+</li>
+</ul>
+</li>
+<li><p>DeepCross</p>
+</li>
+<li><p>ResNet实时网络排序</p>
+</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/16/美团机器学习实战/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/16/美团机器学习实战/" itemprop="url">未命名</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-16T01:16:13+08:00">
+                2019-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="美团机器学习实战"><a href="#美团机器学习实战" class="headerlink" title="美团机器学习实战"></a><center>美团机器学习实战</center></h1><h2 id="问题建模"><a href="#问题建模" class="headerlink" title="问题建模"></a>问题建模</h2><ul>
+<li><p>评估指标</p>
+<p>精确率与准确率是有去别的，精确率是一个二分类评估指标，准确率评估可用于多分类</p>
+<ul>
+<li><p>精确率：二分类混淆矩阵算出的精确率</p>
+</li>
+<li><p>准确率</p>
+<p>$准确率=\frac{TP+TN}{TP+FP+FN+TN}=\frac{1}{n} \sum\limits_{i=1}^nI(f(x_i)=y_i)$</p>
+</li>
+<li><p>ROC与AUC</p>
+<p>在众多机器学习模型中，很多模型输出是预测概率，使用精确率与召回率进行评估时，还需要对预测概率设置分类阈值。这使得模型多了一个超参数，并且该参数会影响模型的泛化能力。ROC曲线可解决上述问题。纵坐标为真正率，横坐标为假正率。AUC即ROC曲线下的面积，取值越大说明模型越可能将正样本排在负样本前面，这样由某阈值切分后，两边的数据将会变得更加的“纯”。</p>
+<p>AUC的统计特性：随机挑选一个正样本和负样本，分类器将正样本排在前面的概率。</p>
+<p><strong>AUC的意义：考虑的是样本的排序质量，与排序误差有密切的联系</strong></p>
+</li>
+<li><p>对数损失</p>
+<p>对数损失最小化本质上是利用样本中的已知分布，求解导致这种分布的最佳参数，使这种分布出现概率最大。它衡量的是预测概率分布与真实概率分布的差异性，取值越小越好。<strong>与AUC不同，对数损失对预测概率极其敏感；而AUC对排序敏感，对预测分数不是太敏感。</strong></p>
+</li>
+<li><p>排序评估指标</p>
+<p>MAP：平均准确率均值。先计算一次查询的平均准确率，再计算Q次查询的总体准确率</p>
+<p>《美团机器学习实战》P9</p>
+<p>NDCG排序评估指标：<strong>相对于MAP的相关性只能用0/1二值描述，NDCG的相关性可以分更多的等级。NDCG的分数表明的是一次查询的排序返回结果的质量。</strong>《美团机器学习实战》P10</p>
+</li>
+</ul>
+</li>
+<li><p>样本选择</p>
+<p>一般需要切分出验证集合，用来验证和测试模型</p>
+</li>
+</ul>
+<h2 id="特征工程"><a href="#特征工程" class="headerlink" title="特征工程"></a>特征工程</h2><ul>
+<li><p>数值特征</p>
+<p>对于目标变量为输入特征的光滑函数的模型，如线性回归、逻辑回归，其对输入特征大小敏感，需要对特征进行归一化。而对于那些基于树的模型，如随机森林，梯度提升树，其对输入特征的大小不敏感，无需将特征进行归一化。</p>
+<ul>
+<li>分桶：<strong>方法一：均匀分桶；方法二：分位数分桶</strong>（对于固定宽度分桶，如果数值变量的取值存在很大间隔，那么有些桶中将会没有数据）</li>
+<li>数值缩放，归一化到(0，1)</li>
+<li>缺失值处理：利用平均值填写。<strong>有一些模型可以自动处理缺失值，如XGBOOST、LightGBM等。</strong></li>
+<li>特征交叉：利用FM与FFM。特征交叉可以在线性模型中引入非线性性质，提升模型的表达能力。</li>
+</ul>
+</li>
+<li><p>类别特征</p>
+<ul>
+<li><p>独热编码喂给模型</p>
+</li>
+<li><p>散列编码：对于有些取值特别多的类别特征，<strong>可以在独热编码之前先对类别进行散列编码，这样可以避免特征矩阵过于稀疏。</strong></p>
+</li>
+<li><p>有监督编码方法（基于目标变量对特征进行编码）</p>
+<p><strong>例如，对于分类问题，采用交叉验证的方式，将样本划分为5份，针对其中每一份数据，计算类别特征取值在另外四份数据中每个类别的比例。</strong>举例：对广告主ID进行编码，利用广告主ID过去固定一段时间的点击率，对广告主的ID进行目标编码。</p>
+</li>
+</ul>
+</li>
+<li><p>时间特征</p>
+<p>时间序列不仅包含一维的时间变量，还有一维其他变量，如股票价格、天气温度等。对于时间的编码，<strong>可以利用前k个时刻的相关值作为特征使用。</strong>比如对于回归问题，将前k个取值的均值用于编码时间；对于分类问题，将前k个时刻中每个类别的分布作为特征。</p>
+</li>
+<li><p>文本特征</p>
+<p>文本推荐，文本检索：Jaccard相似度，编辑举例，词向量分布式表示</p>
+</li>
+<li><p>特征选择</p>
+<ul>
+<li><p>过滤方法（不需要使用任何机器学习方法）</p>
+<ul>
+<li><p>单变量过滤方法</p>
+<p>基于特征变量与目标变量之间的相关性或互信息。<strong>按照特征变量与目标变量之间的相关性进行特征排序，过滤掉最不相关的特征变量</strong>。缺点：可能选出的特征存在冗余。</p>
+</li>
+<li><p>多变量过滤方法</p>
+<p>基于相关性与一致性的特征选择</p>
+</li>
+<li><p>皮尔逊相关系数，衡量X与Y的相关性</p>
+<p>$r=\frac{ \sum \limits _{i=1}^n {(X_i- \overline{X}) (Y_i- \overline{Y})}  }{ \sqrt{ \sum \limits_{i=1}^n (X_i- \overline{X})^2 }  \sqrt{ \sum \limits_{i=1}^n (Y_i- \overline{Y})^2 }}$</p>
+</li>
+<li><p>假设检验</p>
+</li>
+<li><p>互信息</p>
+</li>
+<li><p>相关特征选择</p>
+</li>
+</ul>
+</li>
+<li><p>封装方法</p>
+<p>是特征子集搜索和评估指标相集合的方法，前者提供候选的特征子集，后者则基于新特征子集训练一个模型并进行评估。封装方法需要对每一组特征子集训练一个模型，所以计算量很大。</p>
+<ul>
+<li>启发式搜索：序列向前选择，特征子集从空集开始，每次只加入一个特征，这是一种贪心算法。序列向后选择，特征子集从全集开始，每次删除一个特征。</li>
+</ul>
+</li>
+<li><p>嵌入方法</p>
+<p>嵌入方法将特征选择嵌入到模型的构建过程中，具有封装方法和机器学习方法相结合的有点。嵌入方法最经典的例子是LASSO回归，L1正则。还有决策树方法，也可以进行特征选择。</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="计算广告学"><a href="#计算广告学" class="headerlink" title="计算广告学"></a><center>计算广告学</center></h2><ul>
+<li>RTB：<strong>实时竞价</strong>。综合利用算法、大数据技术在网站或移动应用上对在线的流量实时评估价值，然后出价的竞价技术</li>
+<li>Ad Exchange：广告交易平台。同时投放了大量的DSP和SSP，给双方提供一个交易场所。将SSP（供应方平台）的广告展示需求以拍卖的形式卖给DSP方。有点像股票中的证券大厅角色。</li>
+<li><strong>DSP（需求方平台）</strong>：为各广告主或者代理商提供实时竞价投放平台，可以在该平台上管理广告活动及其投放策略，并且通过技术和算法优化投放效果，从中获得收益</li>
+<li><strong>SSP（供应方平台）</strong>：为各媒体提供一致、集成的广告位库存管理环境</li>
+<li><strong>CTR（点击率）</strong>：广告点击与广告展现的比例，这是广告主、各大DSP厂商都非常重视的一个数字，从技术角度看，这一数字可以影响到广告的排序、出价等环节，从业务来看，这是运营人员的考核指标之一</li>
+<li><strong>CVR（转化率）</strong>：转化（主要由广告主定义，可以是一次下单或是一次下载app等）次数与到达次数的比例</li>
+<li><a href="https://www.zhihu.com/question/23458646/answer/25535257" target="_blank" rel="noopener">https://www.zhihu.com/question/23458646/answer/25535257</a></li>
+<li><a href="https://www.zhihu.com/search?type=content&amp;q=SSP%E4%B8%8EDSP" target="_blank" rel="noopener">https://www.zhihu.com/search?type=content&amp;q=SSP%E4%B8%8EDSP</a></li>
+<li><img src="/2019/06/16/美团机器学习实战/DSP过程.jpg" alt="DSP过程"></li>
+<li><img src="/2019/06/16/美团机器学习实战/D:/MyApplication\Nodejs\Blog\source\_posts\美团机器学习实战\DSP2.jpg" alt="DSP2"></li>
+<li>实时竞价广告交易平台（Ad Exchange）：广告交易所；需求方平台（DSP）：广告提供方，代表广告主，需求做广告的人；供给方平台（SSP）：流量提供方，代表媒体，生产、售卖流量的人；数据管理平台（DMP）：给访问广告的人打标记标签的人。比如一个汽车类的广告主，需要投放广告，那他去找一家dspdsp去ad exchnge中，购买ssp方提供的流量，展示汽车的广告，购买交易过程中，先咨询下dmp，这个访客是否是关注汽车的人，是才购买，不是则可以不购买。</li>
+</ul>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/27/面试题算法/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1271,449 +1793,11 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/01/03/javascript/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JinZeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JinZeng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2019/01/03/javascript/" itemprop="url">javascript</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-01-03T11:36:46+08:00">
-                2019-01-03
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/web前端/" itemprop="url" rel="index">
-                    <span itemprop="name">web前端</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          web前端
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2019/01/03/javascript/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/27/Tensorflow迁移学习/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JinZeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JinZeng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/27/Tensorflow迁移学习/" itemprop="url">Tensorflow迁移学习</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-27T10:34:12+08:00">
-                2018-12-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Tensorflow/" itemprop="url" rel="index">
-                    <span itemprop="name">Tensorflow</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          Tensorflow迁移学习
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/27/Tensorflow迁移学习/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/Normalization/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JinZeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JinZeng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/12/11/Normalization/" itemprop="url">Normalization</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T16:16:27+08:00">
-                2018-12-11
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          Normalization
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/12/11/Normalization/">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -1759,7 +1843,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-count">42</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
