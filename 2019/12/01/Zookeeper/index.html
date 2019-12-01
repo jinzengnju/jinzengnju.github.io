@@ -1,0 +1,934 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Zookeeper解析CAP理论 理论内容 一个分布式系统不可能同时满足一致性(C)、可用性(A)，分区容错性(P) 最多只能同时满足其中的两个，P往往是必须的，因此选择往往在CP或者AP   一致性 指的是数据的多个副本之间保持数据的一致性。假设某数据的副本分布在不同的节点，如果对其中的一个节点中的数据副本更新后，其他节点的数据也应该得到更新，并且用户能得到最新的值   可用性 用户的每一个操作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JinZeng&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2019/12/01/Zookeeper/index.html">
+<meta property="og:site_name" content="JinZeng&#39;s Blog">
+<meta property="og:description" content="Zookeeper解析CAP理论 理论内容 一个分布式系统不可能同时满足一致性(C)、可用性(A)，分区容错性(P) 最多只能同时满足其中的两个，P往往是必须的，因此选择往往在CP或者AP   一致性 指的是数据的多个副本之间保持数据的一致性。假设某数据的副本分布在不同的节点，如果对其中的一个节点中的数据副本更新后，其他节点的数据也应该得到更新，并且用户能得到最新的值   可用性 用户的每一个操作">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://yoursite.com/2019/12/01/Zookeeper/zk.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/01/Zookeeper/zk2.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/01/Zookeeper/zk3.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/01/Zookeeper/zk4.png">
+<meta property="og:updated_time" content="2019-12-01T14:07:32.488Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JinZeng&#39;s Blog">
+<meta name="twitter:description" content="Zookeeper解析CAP理论 理论内容 一个分布式系统不可能同时满足一致性(C)、可用性(A)，分区容错性(P) 最多只能同时满足其中的两个，P往往是必须的，因此选择往往在CP或者AP   一致性 指的是数据的多个副本之间保持数据的一致性。假设某数据的副本分布在不同的节点，如果对其中的一个节点中的数据副本更新后，其他节点的数据也应该得到更新，并且用户能得到最新的值   可用性 用户的每一个操作">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/01/Zookeeper/zk.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/12/01/Zookeeper/"/>
+
+
+
+
+
+  <title> | JinZeng's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">JinZeng's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">nlp</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/01/Zookeeper/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="JinZeng">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="JinZeng's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline"></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-01T21:30:17+08:00">
+                2019-12-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Zookeeper解析"><a href="#Zookeeper解析" class="headerlink" title="Zookeeper解析"></a><center>Zookeeper解析</center></h1><h2 id="CAP理论"><a href="#CAP理论" class="headerlink" title="CAP理论"></a>CAP理论</h2><ul>
+<li>理论内容<ul>
+<li>一个分布式系统不可能同时满足一致性(C)、可用性(A)，分区容错性(P)</li>
+<li>最多只能同时满足其中的两个，P往往是必须的，因此选择往往在CP或者AP</li>
+</ul>
+</li>
+<li>一致性<ul>
+<li>指的是数据的多个副本之间保持数据的一致性。<strong>假设某数据的副本分布在不同的节点，如果对其中的一个节点中的数据副本更新后，其他节点的数据也应该得到更新，并且用户能得到最新的值</strong></li>
+</ul>
+</li>
+<li>可用性<ul>
+<li>用户的每一个操作请求能够在有限的时间返回结果</li>
+</ul>
+</li>
+<li>分区容错性<ul>
+<li>遇到任何网络分区故障的时候，可以故障回复</li>
+</ul>
+</li>
+<li>Zookeeper中的CAP<ul>
+<li>zk采用CP理论</li>
+<li>一致性<ul>
+<li>如果一个客户端将Znode z的值更新为a，其他客户端从任意zk服务器访问z的值都为a。</li>
+</ul>
+</li>
+<li>可用性<ul>
+<li>zk不能保证每次服务请求的可用性！也就是在极端环境下，ZooKeeper可能会丢弃一些请求，消费者程序需要重新请求才能获得结果</li>
+<li>进行leader选举的时候集群不可用！选举leader的时间很长，30 ~ 120s, 且选举期间整个zk集群都是不可用的</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="Zookeeper概览"><a href="#Zookeeper概览" class="headerlink" title="Zookeeper概览"></a>Zookeeper概览</h2><ul>
+<li><p>设计目标</p>
+<ul>
+<li>将那些复杂易出错的分布式一致性服务封装起来，构成一个高效可靠的原语集，并与一系列简单易用的接口提供给用户使用。</li>
+<li>原语：<strong>操作系统用语范畴，有若干条指令构成，用于完成一定功能的一个过程。具有不可分割性，原语的执行必须是连续的，在执行过程中不允许被中断。</strong></li>
+</ul>
+</li>
+<li><p>应用场景</p>
+<ul>
+<li>数据发布/订阅</li>
+<li>负载均衡</li>
+<li>命名服务</li>
+<li>分布式协调/通知</li>
+<li>分布式锁</li>
+<li>分布式队列</li>
+<li><strong>担任服务生产者和服务消费者的注册中心，提供发布订阅服务</strong></li>
+</ul>
+</li>
+<li><p>使用奇数台服务器构成zookeeper集群的原因</p>
+<p>所谓的zookeeper容错是指，当宕掉几个zookeeper服务器之后，剩下的个数必须大于宕掉的个数的话整个zookeeper才依然可用。假如我们的集群中有n台zookeeper服务器，在最差情况下，剩下的服务数必须大于n/2。并且，2n和2n-1的容忍度是一样的，都是n-1</p>
+</li>
+<li><p>zookeeper的特殊性</p>
+<ul>
+<li><strong>将数据保存在内存中，保证了高吞吐量和低延迟。但内存限制了能够存储的容量不大，此限制也是保持Znode中的存储的数据量较小的进一步原因</strong>。</li>
+<li><strong>在“读”多于“写”的应用程序中性能极高，因为写操作会导致需要同步所有zk server的状态</strong></li>
+<li>原子性：<strong>所有事务请求的处理结果在整个集群中的所有机器上应用情况都是一致的，也就是说，要么集群中的所有机器都成功应用了某一个事务，要么都没应用。</strong></li>
+<li>单一系统影像： 无论客户端连到哪一个 ZooKeeper 服务器上，其看到的服务端数据模型都是一致的。这也是分布式一致性的重要保证。</li>
+</ul>
+</li>
+<li><p>会话</p>
+<p>在zk中，一个客户端连接指的是客户端和服务器之间的一个TCP长连接。<strong>客户端启动时，会与服务器建立一个TCP连接，客户端还会话的生命周期也就开始了。通过这个TCP连接，客户端能够通过心跳检测与服务器保持有效的会话，也能够向zk服务器发送请求并接受响应，同时还能通过该连接接收来自服务器的Watch事件通知。</strong></p>
+<p>在为客户端创建会话之前，服务端首先会为每个客户端分配一个session ID。<strong>无论是哪台服务器为客户端分配的session ID，都必须保证全局唯一。</strong></p>
+</li>
+<li><p>Znode</p>
+<p>在谈及分布式的时候，“节点”通常指的是集群中的每一台机器。然而，zookeeper中的节点分为两类，<strong>第一类是构成集群的机器，称为机器节点。第二类是数据模型中的数据单元，称之为数据节点。</strong></p>
+</li>
+<li><p>事件监听器</p>
+<p><strong>zk允许用户在指定Znode节点上注册一些Watcher，并且在一些特定事件触发的时候，zk服务端会将事件通知到感兴趣的客户端上，该机制是zk实现分布式协调服务的重要特性。</strong></p>
+</li>
+</ul>
+<h2 id="ZK集群的使用"><a href="#ZK集群的使用" class="headerlink" title="ZK集群的使用"></a>ZK集群的使用</h2><p>​        客户端在使用zk集群时，需要知道集群机器列表，通过与集群中的某一台机器建立TCP连接来使用服务，客户端使用这个TCP连接来发送请求、获取结果、获取监听事件以及发送心跳包。<strong>如果这个连接异常断开了，客户端可以连接到另外的机器上。</strong></p>
+<p>​        <strong>组成zk服务的服务器都会在内存中维护当前服务器状态，并且每台服务器之间保持相互通信。集群间通过Zab协议来保持数据的一致性。</strong></p>
+<ul>
+<li><p>Zk集群</p>
+<p><img src="/2019/12/01/Zookeeper/zk.png" alt=""></p>
+<p><strong>Leader：能为客户端提供读服务和写服务。除了 Leader 外，Follower 和 Observer 都只能提供读服务。Follower 和 Observer 唯一的区别在于 Observer 机器不参与 Leader 的选举过程，也不参与写操作的“过半写成功”策略，因此 Observer 机器可以在不影响写性能的情况下提升集群的读性能</strong></p>
+<p><img src="/2019/12/01/Zookeeper/zk2.png" alt=""></p>
+</li>
+<li><p>Zab协议进行Leader选举</p>
+<ul>
+<li>选举阶段：节点在一开始都处于选举阶段，只要有一个节点得到超半数节点的票数，它就可以当选准 leader。</li>
+<li>发现阶段：followers 跟准 leader 进行通信，同步 followers 最近接收的事务提议。</li>
+<li>同步阶段：利用 leader 前一阶段获得的最新提议历史，同步集群中所有的副本。同步完成之后 准 leader 才会成为真正的 leader。</li>
+<li>广播阶段：Zookeeper 集群才能正式对外提供事务服务，并且 leader 可以进行消息广播。同时如果有新的节点加入，还需要对新节点进行同步。</li>
+</ul>
+</li>
+</ul>
+<h2 id="ZK应用场景：服务注册与发现"><a href="#ZK应用场景：服务注册与发现" class="headerlink" title="ZK应用场景：服务注册与发现"></a>ZK应用场景：服务注册与发现</h2><ul>
+<li><p>最初的服务注册与发现方式</p>
+<p><img src="/2019/12/01/Zookeeper/zk3.png" alt=""></p>
+<ul>
+<li><p>特点</p>
+<p>服务消费者本地会维护服务提供者域名与Nginx的IP绑定信息</p>
+<p>Nginx用来对服务提供者提供的服务进行存活检查和负载均衡</p>
+</li>
+<li><p>缺点</p>
+<ul>
+<li>服务的配置信息分散在各个主机的hosts文件中，难以保持一致性，<strong>我们希望对服务信息统一管理</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>DNS</p>
+<ul>
+<li><p>优点：只需要在DNS服务器上，配置一个DNS名称与IP的对应关系即可。定位一个服务只需要连接到DNS服务器上，随机返回一个IP地址即可。由于存在DNS缓存，所以DNS服务器本身不会成为一个瓶颈。</p>
+</li>
+<li><p>缺点：</p>
+<p>服务的提供者出现故障，由于DNS缓存的存在，服务的调用方会仍然将请求转发给出现故障的服务提供方</p>
+</li>
+</ul>
+</li>
+<li><p>Zookeeper</p>
+<ul>
+<li>服务信息统一管理，放在Znode某节点中</li>
+<li>不会存在像DNS那样，通过Watcher机制实现Push模型，服务注册信息的变更能够及时通知服务消费方</li>
+</ul>
+</li>
+</ul>
+<h2 id="ZK应用场景：数据发布与订阅"><a href="#ZK应用场景：数据发布与订阅" class="headerlink" title="ZK应用场景：数据发布与订阅"></a>ZK应用场景：数据发布与订阅</h2><p> 应用在启动的时候会主动来获取一次配置，同时，在节点上注册一个Watcher，这样一来，以后每次配置有更新的时候，都会实时通知到订阅的客户端，从来达到获取最新配置信息的目的。分布式搜索服务中，索引的元信息和服务器集群机器的节点状态存放在ZK的一些指定节点，供各个客户端订阅使用。</p>
+<h2 id="ZK应用场景：分布式锁"><a href="#ZK应用场景：分布式锁" class="headerlink" title="ZK应用场景：分布式锁"></a>ZK应用场景：分布式锁</h2><p>两种锁：独占和控制时序</p>
+<ul>
+<li>独占<ul>
+<li><strong>做法是把zk上的一个znode看作是一把锁，通过create znode的方式来实现。所有客户端都去创建 /distribute_lock 节点，最终成功创建的那个客户端也即拥有了这把锁。</strong>（ZK集群对客户端发起的事务请求一一处理）</li>
+</ul>
+</li>
+<li>控制时序<ul>
+<li><strong>所有视图来获取这个锁的客户端，最终都是会被安排执行，只是有个全局时序了。做法和上面基本类似，只是这里 /distribute_lock 已经预先存在，客户端在它下面创建临时有序节点（这个可以通过节点的属性控制：CreateMode.EPHEMERAL_SEQUENTIAL来指定）。Zk的父节点（/distribute_lock）维持一份sequence,保证子节点创建的时序性，从而也形成了每个客户端的全局时序。</strong></li>
+</ul>
+</li>
+</ul>
+<h2 id="遗留的问题与回答"><a href="#遗留的问题与回答" class="headerlink" title="遗留的问题与回答"></a>遗留的问题与回答</h2><ul>
+<li><p>为什么需要过半以上的节点存活？</p>
+<p>没有超过半数的节点存活，也就无法选出leader。没有leader也就无法使用zk集群。</p>
+</li>
+<li><p>Leader选择机制</p>
+<ul>
+<li>zxid：zk事务的唯一标识符</li>
+<li>zk服务启动时期的选举<ul>
+<li>每个server发出一个投票，初始情况下，每个服务器都将投票给自己，每个投票记录为(myid,ZXID)</li>
+<li>集群每个服务器接收来自其他各个服务器的投票</li>
+<li>对于每个服务器，针对接收到的每个投票，与自己的投票进行PK。PK失败时，重新更新自己的投票</li>
+<li>统计投票结果，判断<strong>投票信息中，是否有过半的投票投给某一台机器</strong>，此时选出leader。比如：对于Server1、Server2而言，都统计出集群中已经有两台机器接受了(2, 0)的投票信息，此时便认为已经选出了Leader</li>
+<li>改变服务器状态：一旦确定了Leader，服务器会更新自己的状态。该是Leader就是Leader，该是Follower就是Follower</li>
+</ul>
+</li>
+<li>服务运行时期的Leader选举<ul>
+<li>变更状态。Leader挂后，余下的非Observer服务器将自己的状态变为LOOKING，开始Leader选举</li>
+<li>每个server发出投票。在运行期间，每个服务器上的ZXID可能不同，此时假定Server1的ZXID为123，Server3的ZXID为122；在第一轮投票中，Server1和Server3都会投自己，产生投票(1, 123)，(3, 122)，然后各自将投票发送给集群中所有机器。</li>
+<li>集群每个服务器接收来自其他各个服务器的投票</li>
+<li>处理投票</li>
+<li>统计投票</li>
+<li>更改服务器状态</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>Zookeeper Watcher机制</p>
+<ul>
+<li><p>客户端监听某Znode，当Znode变化或其子节点变化，则会通知给客户端。</p>
+</li>
+<li><p>将Watche事件发送到客户端</p>
+<ul>
+<li>Watch事件是异步发送到Client。假设某个Znode没有设置watcher，那么客户端对这个Znode设置Watcher发送到集群之前，该客户端是感知不到该Znode任何改变的情况的。换个角度来解释：由于Watch有一次性触发的特点，所以在服务器端没有Watcher的情况下，Znode的任何变更就不会通知到客户端。不过，即使某个Znode设置了Watcher，且在Znode有变化的情况下通知到了客户端，但是在客户端接收到这个变化事件，但是还没有再次设置Watcher之前，如果其他客户端对该Znode做了修改，这种情况下，Znode第二次的变化客户端是无法收到通知的。</li>
+</ul>
+</li>
+<li><p>watch机制运行原理</p>
+<ul>
+<li>在服务端，服务端处理对应的Znode操作时没跟句客户端传递的watcher变量，将变量缓存下来，并且服务端监听对应事件变化</li>
+<li><strong>当Leader通过某次Znode的变化请求后，通知对应的Follower。然后Follower根据缓存的watcher变量，将信息通知给客户端</strong></li>
+<li>客户端接收到信息之后，找到对应变化path的watcher列表，作出对应操作</li>
+</ul>
+<p><img src="/2019/12/01/Zookeeper/zk4.png" alt=""></p>
+</li>
+</ul>
+</li>
+<li><p>ZAB协议</p>
+<ul>
+<li><p>ZAB中所有事务请求由一个<strong>全局唯一</strong>的服务器来协调处理，这样的服务器叫做Leader。Leader将一个客户端事务请求转为事务Proposal提议，并将该提议分发到集群中的所有Follower服务器。然后Leade等待所有Follower的反馈，一旦<strong>超过半数的Follower</strong>服务器进行正确的反馈后，Leadder将再次向所有的Follower服务器提交信息，要求Follower将前一个Proposal提议提交执行。<strong>所以处理这样一个事务请求会比较耗时，不能保证可用性</strong></p>
+</li>
+<li><p>崩溃恢复</p>
+<p>当leader崩溃，Zab协议就会进入回复模式选举产生新的leader。<strong>此期间，zk服务不可用。</strong>当选举产生了新的 Leader 服务器，同时集群中已经有过半的机器与该Leader服务器完成了状态同步之后，ZAB协议就会退出恢复模式。其中，<strong>所谓的状态同步是指数据同步，用来保证集群中存在过半的机器能够和Leader服务器的数据状态保持一致</strong>。</p>
+</li>
+<li><p>消息广播</p>
+<p><strong>当集群中已经有过半的Follower服务器完成了和Leader服务器的状态同步，那么整个服务框架就可以进人消息广播模式了。</strong>需要注意的是在消息广播流程中，zk只允许leader来进行事务请求的处理。<strong>leader接收到客户端事务请求时，会生成对应的事务提案并发起一轮广播协议。而如果集群中的其他机器接收到客户端的事务请求，那么这些非Leader服务器会首先将这个事务请求转发给Leader服务器</strong></p>
+<ul>
+<li>针对每个客户端的事务请求，leader会为其生成对应的事务Proposal提议，并将其发送给集群中其余所有的机器，然后再分别收集各自的选票，最后进行事务提交。过程如下<ul>
+<li>leader收到消息请求，将消息赋予全局唯一的id，zxid</li>
+<li>leader通过先进先出队列（会给每个follower创建一个队列，保证发送的顺序性），将zxid的proposal分发给所有follower</li>
+<li>follower接收到proposal，将proposal写到本地事务日志，成功后给leader返回ACK</li>
+<li>当leader接收到过半的ACK，leader向所有follower发送commit命令，follower同意后会在本地执行该消息</li>
+</ul>
+</li>
+<li>当新的server要加入或者退出时需要做的操作<ul>
+<li>所有server机器在某个目录下面<strong>创建临时顺序目录</strong>，其他server监听该目录子节点变化。如果server挂掉，与zookeeper的连接断开，其所创建的临时目录节点被删除，其他所有机器都能得到通知。</li>
+<li>新加入的server将加入zk的消息广播模式</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>Paxo算法<ul>
+<li>后面再更！</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/11/15/进哥哥看负载均衡/" rel="next" title="进哥哥看负载均衡">
+                <i class="fa fa-chevron-left"></i> 进哥哥看负载均衡
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">JinZeng</p>
+              <p class="site-description motion-element" itemprop="description">nlper</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/jin-ge-ge-21-50-31/activities" target="_blank" title="zhihu">
+                      
+                        <i class="fa fa-fw fa-globe"></i>zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Zookeeper解析"><span class="nav-number">1.</span> <span class="nav-text">Zookeeper解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#CAP理论"><span class="nav-number">1.1.</span> <span class="nav-text">CAP理论</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Zookeeper概览"><span class="nav-number">1.2.</span> <span class="nav-text">Zookeeper概览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK集群的使用"><span class="nav-number">1.3.</span> <span class="nav-text">ZK集群的使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK应用场景：服务注册与发现"><span class="nav-number">1.4.</span> <span class="nav-text">ZK应用场景：服务注册与发现</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK应用场景：数据发布与订阅"><span class="nav-number">1.5.</span> <span class="nav-text">ZK应用场景：数据发布与订阅</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ZK应用场景：分布式锁"><span class="nav-number">1.6.</span> <span class="nav-text">ZK应用场景：分布式锁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#遗留的问题与回答"><span class="nav-number">1.7.</span> <span class="nav-text">遗留的问题与回答</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">JinZeng</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
