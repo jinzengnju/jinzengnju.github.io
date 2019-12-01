@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="深度学习," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,16 @@
 
 
 
-<meta name="description" content="Normalization">
-<meta name="keywords" content="深度学习">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Normalization">
-<meta property="og:url" content="http://yoursite.com/2018/12/11/Normalization/index.html">
+<meta name="description" content="nlper">
+<meta property="og:type" content="website">
+<meta property="og:title" content="JinZeng&#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/categories/BigData/index.html">
 <meta property="og:site_name" content="JinZeng&#39;s Blog">
-<meta property="og:description" content="Normalization">
+<meta property="og:description" content="nlper">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-12-11T08:16:27.139Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Normalization">
-<meta name="twitter:description" content="Normalization">
+<meta name="twitter:title" content="JinZeng&#39;s Blog">
+<meta name="twitter:description" content="nlper">
 
 
 
@@ -120,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/11/Normalization/"/>
+  <link rel="canonical" href="http://yoursite.com/categories/BigData/"/>
 
 
 
 
 
-  <title>Normalization | JinZeng's Blog</title>
+  <title>分类: BigData | JinZeng's Blog</title>
   
 
 
@@ -145,7 +143,7 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left ">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -249,187 +247,55 @@
           <div id="content" class="content">
             
 
-  <div id="posts" class="posts-expand">
-    
+  
+  
+  
+  <div class="post-block category">
 
-  
+    <div id="posts" class="posts-collapse">
+      <div class="collection-title">
+        <h1>BigData<small>分类</small>
+        </h1>
+      </div>
 
-  
-  
-  
+      
+        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/11/Normalization/">
+    <header class="post-header">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="JinZeng">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.gif">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="JinZeng's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
+      <h2 class="post-title">
         
+            <a class="post-title-link" href="/2019/12/01/Zookeeper/" itemprop="url">
+              
+                <span itemprop="name">Zookeeper解析</span>
+              
+            </a>
         
-          <h1 class="post-title" itemprop="name headline">Normalization</h1>
-        
+      </h2>
 
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-11T16:16:27+08:00">
-                2018-12-11
-              </time>
-            
+      <div class="post-meta">
+        <time class="post-time" itemprop="dateCreated"
+              datetime="2019-12-01T21:30:17+08:00"
+              content="2019-12-01" >
+          12-01
+        </time>
+      </div>
 
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/深度学习/" itemprop="url" rel="index">
-                    <span itemprop="name">深度学习</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-              <div class="post-description">
-                  Normalization
-              </div>
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <ul>
-<li><p><a href="https://zhuanlan.zhihu.com/p/33173246" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/33173246</a></p>
-<p>对于魏秀参博士的理解：各层通过层内作用，其输出分布与各层对应的输入信号分布差异很大，而且差异会随着网络的加深而增大（边缘概率不同），可是它们指示的label是相同的，也就是条件概率相同。这就是ICS。</p>
-<p>ICS导致的问题：</p>
-<p>每个<strong>神经元的输入数据</strong>不再是独立同分布。上层参数需要不断适应新的输入数据分布，降低学习速度。下层输入的变化可能趋向于变大或者变小，导致上层落入饱和区，使得学习过早停止。每层的更新都会影响到其它层，因此每层的参数更新策略需要尽可能的谨慎。</p>
-<p>如何理解神经元的输入数据？</p>
-<p>因为神经元接受的是一组输入向量，有batch_size个，那么输入为X=（x1，x2，…..xd）。d表示上一层有d个神经元，而x1本身是batch_size维度的向量。</p>
-</li>
-<li><p>在将数据喂给深度网络之前，“白化”：去除特征之间的相关性，即特征独立；使得所有特征具有相同的均值和方差，即同分布。白化最典型的方法就是独立同分布。</p>
-</li>
-</ul>
-
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-        <div class="post-tags">
-          
-            <a href="/tags/深度学习/" rel="tag"># 深度学习</a>
-          
-        </div>
-      
-
-      
-      
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/11/27/Tensorflow调参/" rel="next" title="Tensorflow调参">
-                <i class="fa fa-chevron-left"></i> Tensorflow调参
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/27/Tensorflow迁移学习/" rel="prev" title="Tensorflow迁移学习">
-                Tensorflow迁移学习 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
-      
-    </footer>
-  </div>
-  
-  
-  
+    </header>
   </article>
 
 
-
-    <div class="post-spread">
       
     </div>
+
   </div>
+  
+  
+  
+
+  
+
 
 
           </div>
@@ -437,10 +303,6 @@
 
 
           
-
-  
-
-
 
         </div>
         
@@ -672,10 +534,6 @@
 
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
